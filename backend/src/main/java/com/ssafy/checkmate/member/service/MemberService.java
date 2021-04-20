@@ -25,5 +25,4 @@ public class MemberService {
             throw new ValidationException("이미 존재하는 이메일입니다.");
         }
     }
-
 }

@@ -5,12 +5,10 @@ import com.ssafy.checkmate.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "Member", description = "사용자 API")
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")

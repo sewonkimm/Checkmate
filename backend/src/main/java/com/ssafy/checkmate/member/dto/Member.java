@@ -34,5 +34,4 @@ public class Member {
     private int memberPoint;
 
     private String memberProfileUrl;
-
 }
