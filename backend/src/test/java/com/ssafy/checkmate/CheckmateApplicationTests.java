@@ -1,10 +1,10 @@
-package com.ssafy.a106;
+package com.ssafy.checkmate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class CheckmateApplicationTests {
 
 	@Test
 	void contextLoads() {
