@@ -17,7 +17,7 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @ApiOperation(value = "질문등록", notes = "질문을 등록합니다.")
-    @PostMapping("/register")
+    @PostMapping
     public void register(@RequestBody Question question) {
 
         questionService.registerQuestion(question);
