@@ -24,13 +24,14 @@ public class MemberController {
     @ApiOperation(value = "가입하기", notes = "중복 이메일, 이름을 검사합니다.")
     @PostMapping("/signUp")
     public void signUp(@RequestBody Member member) {
+
         memberService.signUp(member);
     }
 
-    @Transactional
     @ApiOperation(value = "로그인하기", notes = "이메일, 비밀번호로 사용자를 조회 후 로그인합니다.")
     @PostMapping("/signIn")
     public ResponseEntity<Map<String, Object>> signIn(@RequestBody LoginRequestMember loginRequestMember) {
+
         return memberService.signIn(loginRequestMember.getMemberEmail(), loginRequestMember.getMemberPassword());
     }
 }

@@ -49,6 +49,7 @@ public class MemberService {
         String token = jwtService.create(member);
         resultMap.put("accesstoken", token);
         resultMap.put("message", "Success");
+
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
 }
