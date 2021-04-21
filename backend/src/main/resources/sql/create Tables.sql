@@ -16,7 +16,7 @@ CREATE TABLE `member` (
   `member_native_lang` varchar(255) NOT NULL,
   `member_profile_url` varchar(255) DEFAULT NULL,
   `member_point` int DEFAULT NULL,
-  `member_type_id` varchar(45) NOT NULL,
+  `member_type_id` varchar(45) NOT NULL DEFAULT '1',
   PRIMARY KEY (`member_id`)
 );
 
@@ -58,9 +58,9 @@ CREATE TABLE `question` (
   `question_title` varchar(255) NOT NULL,
   `question_explain` mediumtext NOT NULL,
   `question_contents` mediumtext NOT NULL,
-  `question_date` date DEFAULT NULL,
+  `question_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `question_end_date` date NOT NULL,
-  `question_status` int NOT NULL,
+  `question_status` int DEFAULT '0',
   `question_point` int DEFAULT '0',
   `question_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
