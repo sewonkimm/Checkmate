@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -26,6 +27,7 @@ public class MemberController {
         memberService.signUp(member);
     }
 
+    @Transactional
     @ApiOperation(value = "로그인하기", notes = "이메일, 비밀번호로 사용자를 조회 후 로그인합니다.")
     @PostMapping("/signIn")
     public ResponseEntity<Map<String, Object>> signIn(@RequestBody LoginRequestMember loginRequestMember) {

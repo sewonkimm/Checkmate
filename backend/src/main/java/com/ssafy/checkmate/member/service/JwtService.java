@@ -20,6 +20,7 @@ public class JwtService {
 
     // 로그인 성공시 사용자 정보를 기반으로 JWTToken을 생성하여 반환.
     public String create(Member member) {
+
         JwtBuilder jwtBuilder = Jwts.builder();
         // JWT Token = Header + Payload + Signature
 
@@ -48,6 +49,7 @@ public class JwtService {
 
     // JWT Token을 분석해서 필요한 정보를 반환.
     public Map<String, Object> get(String jwt) {
+
         Jws<Claims> claims = null;
         try {
             claims = Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
