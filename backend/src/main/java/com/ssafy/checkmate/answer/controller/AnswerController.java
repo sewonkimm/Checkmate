@@ -19,6 +19,7 @@ public class AnswerController {
     @ApiOperation(value = "답변하기", notes = "질문에 대한 첨삭을 진행합니다.")
     @PostMapping
     public void addAnswer(@RequestBody Answer answer) {
+
         answerService.addAnswer(answer);
     }
 }
