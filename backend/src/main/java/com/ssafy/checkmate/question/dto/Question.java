@@ -3,11 +3,11 @@ package com.ssafy.checkmate.question.dto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "question")
@@ -15,6 +15,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(insertable = false, updatable = false)
     private long questionId;
 
     @NonNull
@@ -30,10 +31,10 @@ public class Question {
     private String questionContents;
 
     @Column(insertable = false, updatable = false)
-    private Date questionDate;
+    private LocalDateTime questionDate;
 
     @NonNull
-    private Date questionEndDate;
+    private LocalDate questionEndDate;
 
     @NonNull
     private int questionStatus;
