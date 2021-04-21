@@ -31,5 +31,4 @@ public class Answer {
     private int answerSelect;
 
     private String answerReplyUrl;
-
 }

@@ -11,7 +11,7 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
 
-    public void addAnswer(Answer answer){
+    public void addAnswer(Answer answer) {
 
         answerRepository.save(answer);
     }
