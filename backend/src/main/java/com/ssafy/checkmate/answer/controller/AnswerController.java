@@ -17,7 +17,7 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @ApiOperation(value = "답변하기", notes = "질문에 대한 첨삭을 진행합니다.")
-    @PostMapping("/addAnswer")
+    @PostMapping
     public void addAnswer(@RequestBody Answer answer) {
         answerService.addAnswer(answer);
     }

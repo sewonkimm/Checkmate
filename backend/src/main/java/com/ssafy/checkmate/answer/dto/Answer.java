@@ -3,6 +3,7 @@ package com.ssafy.checkmate.answer.dto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -25,8 +26,8 @@ public class Answer {
     @NonNull
     private String answerContext;
 
-    @NonNull
-    private String answerDate;
+    @Column(insertable=false, updatable=false)
+    private Date answerDate;
 
     private int answerSelect;
 
