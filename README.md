@@ -1,6 +1,6 @@
 # SSAFY 4기 자율프로젝트 서울 1반 A106팀
 
-# 기획배경
+# ❤기획배경
 <br>
 
 ## 1. 꾸준히 증가하는 외국인 유학생!
@@ -13,25 +13,25 @@
 <img src="https://user-images.githubusercontent.com/48380687/115806144-2cf40e00-a421-11eb-888a-74b7d5303afb.png" width=360 height=240 /> <img src="https://user-images.githubusercontent.com/48380687/115805673-61b39580-a420-11eb-8050-c667c9faf7db.png" width=360 height=240 />
 <br><br>
 
-# 타겟 유저
+# 👦타겟 유저
 ### - 한국어 회화는 잘하지만 과제를 위한 작문에 어려움을 겪는 외국인 유학생
 ### - 페르소나 : 한국 유학 3년차, 대만출신 유홍빈 님
 <img src="https://user-images.githubusercontent.com/48380687/115805409-e18d3000-a41f-11eb-88e2-d74bdb9e207b.png" width=720 />
 <br><br>
 
-# 문제점
+# 👎문제점
 ### - 번역기와 맞춤법 검사기로만으로는 충분하지 않다!
 ### - 문맥을 파악하지 못한 잘못된 번역
 ### - 문법적으로 문제는 없지만 어딘가 이상한 문장들
 <img src="https://user-images.githubusercontent.com/48380687/115807178-0e8f1200-a423-11eb-9264-8f2f91261aa7.png" width=720 />
 <br><br>
 
-# 해결방안
+# 👍해결방안
 ### - 자주 쓰이는 용어를 분석해 인공지능이 자동 추천
 ### - 자연스러운 표현을 위한 한국어 원어민 첨삭 서비스
 <br><br>
 
-# 서비스 정의
+# 💜서비스 정의
 ### - 1. 과제 / 논문에 최적화 된 AI 첨삭
 ### - 2. 한국어 원어민 첨삭
 <img src="https://user-images.githubusercontent.com/48380687/115807704-18fddb80-a424-11eb-9663-8e132def9f41.png" width="360" height="360" />
@@ -40,7 +40,7 @@
 
 
 
-# 산출물
+# 📕산출물
 
 ## ERD
 
@@ -50,7 +50,7 @@
 
 <img src="https://user-images.githubusercontent.com/56106402/115806773-57929680-a422-11eb-8ebe-3a93bf8e6ae4.png" width=360 /> <img src="https://user-images.githubusercontent.com/56106402/115806771-57929680-a422-11eb-88b5-85c36f223ee6.png" width=360 /><br/>
 
-# Installation
+# 💻Installation
 
 ```bash
 // 설치
@@ -61,10 +61,6 @@ yarn install
 // 시작
 yarn start
 ```
-
-
-
-
 
 # 📍 체크 메이트 
 
