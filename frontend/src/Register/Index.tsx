@@ -6,13 +6,23 @@ Register/Index.tsx
 import React from 'react';
 import styled from 'styled-components';
 
+import MotherLanguage from './MotherLanguage'
+import InputForm from './InputForm'
+
 const Register: React.FC = () => {
-  return <Signup> 회원가입 페이지</Signup>;
+  return (
+    <>
+      <RegisterContainer>
+        <MotherLanguage />
+        <InputForm />
+      </RegisterContainer>
+    </>
+  );
 };
 
-const Signup = styled.div`
-  color: ${(props) => props.theme.color.main};
-  background-color: black;
-`;
+const RegisterContainer = styled.div`
+  background-color: blue;
+`
+
 
 export default Register;
