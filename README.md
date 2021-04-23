@@ -1,4 +1,8 @@
-# SSAFY 4기 자율프로젝트 서울 1반 A106팀
+# ✔Checkmate
+<img src="https://user-images.githubusercontent.com/48380687/115811466-b6f4a480-a42a-11eb-9dff-dfa4057d3fa5.png" width=720 />
+
+# 💙우아한 남매들💙
+<img src="https://user-images.githubusercontent.com/48380687/115811345-7ac14400-a42a-11eb-8315-58dbb0cb50b9.png" width=720 />
 
 # ❤기획배경
 <br>
