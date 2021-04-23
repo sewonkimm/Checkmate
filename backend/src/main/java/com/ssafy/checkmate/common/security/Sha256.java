@@ -11,9 +11,11 @@ import java.security.NoSuchAlgorithmException;
 public class Sha256 {
 
     public String encryption(String password) {
+
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(password.getBytes());
+
             return String.format("%040x", new BigInteger(1, md.digest()));
         } catch (NoSuchAlgorithmException e) {
             throw new EncoderNoSuchAlgorithmException("SHA256EncoderNoSuchAlgorithmException", e);
