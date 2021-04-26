@@ -2,7 +2,7 @@ FROM openjdk:11 AS builder
 VOLUME /tmp
 COPY . .
 RUN chmod +x ./gradlew
-RUN ./gradlew build
+RUN ./gradlew clean build
 FROM adoptopenjdk:11-jdk
 COPY --from=builder build/libs/*.jar app.jar
 EXPOSE 8197
