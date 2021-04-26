@@ -1,6 +1,6 @@
 pipeline {
     agent none 
-    options { skipDefaultCheckout(false)}
+    options { skipDefaultCheckout(true)}
     stages {
         stage('git pull') {
             agent any 
