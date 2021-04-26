@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,15 +24,22 @@ public class MemberService {
 
     public void signUp(Member member) {
 
-        validateSignUp(member);
+        validateSignUp(member.getMemberEmail());
         member.setMemberPassword(sha256.encryption(member.getMemberPassword()));
         memberRepository.save(member);
     }
 
-    public void validateSignUp(Member member) {
+    public void validateSignUp(String memberEmail) {
 
-        if (memberRepository.findMemberByMemberEmail(member.getMemberEmail()) != null) {
+        if (memberRepository.findMemberByMemberEmail(memberEmail) != null) {
             throw new ValidationException("이미 존재하는 이메일입니다.");
+        }
+    }
+
+    public void validateNickName(String memberNickName) {
+
+        if (memberRepository.findMemberByMemberNickName(memberNickName) != null) {
+            throw new ValidationException("이미 존재하는 닉네임입니다.");
         }
     }
 
@@ -60,7 +66,7 @@ public class MemberService {
         SelectMember memberSelect = new SelectMember();
 
         memberSelect.setMemberEmail(member.getMemberEmail());
-        memberSelect.setMemberNickname(member.getMemberNickname());
+        memberSelect.setMemberNickName(member.getMemberNickName());
         memberSelect.setMemberNativeLang(member.getMemberNativeLang());
         memberSelect.setMemberProfileUrl(member.getMemberProfileUrl());
         memberSelect.setMemberPoint(member.getMemberPoint());
@@ -69,4 +75,5 @@ public class MemberService {
 
         return memberSelect;
     }
+
 }

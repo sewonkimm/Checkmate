@@ -41,4 +41,18 @@ public class MemberController {
 
         return memberService.selectMember(memberId);
     }
+
+    @ApiOperation(value = "이메일 중복검사", notes = "회원email로 중복여부를 검사합니다.")
+    @GetMapping("/email/{memberEmail}")
+    public void emailExits(@PathVariable String memberEmail) {
+
+        memberService.validateSignUp(memberEmail);
+    }
+
+    @ApiOperation(value = "닉네임 중복검사", notes = "회원NickName으로 중복여부를 검사합니다.")
+    @GetMapping("/nickName/{memberNickName}")
+    public void nickNameExits(@PathVariable String memberNickName) {
+
+        memberService.validateNickName(memberNickName);
+    }
 }
