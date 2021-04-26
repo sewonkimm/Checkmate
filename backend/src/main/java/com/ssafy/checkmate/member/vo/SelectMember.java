@@ -14,7 +14,7 @@ public class SelectMember {
     private String memberEmail;
 
     @NonNull
-    private String memberNickname;
+    private String memberNickName;
 
     @NonNull
     private String memberNativeLang;

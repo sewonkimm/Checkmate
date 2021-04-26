@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `checkmate`.`review`;
 CREATE TABLE `member` (
   `member_id` int NOT NULL AUTO_INCREMENT,
   `member_email` varchar(255) NOT NULL,
-  `member_nickname` varchar(255) NOT NULL,
+  `member_nick_name` varchar(255) NOT NULL,
   `member_password` varchar(255) NOT NULL,
   `member_native_lang` varchar(255) NOT NULL,
   `member_profile_url` varchar(255) DEFAULT NULL,
