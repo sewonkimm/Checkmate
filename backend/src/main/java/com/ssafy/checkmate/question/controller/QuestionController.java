@@ -2,6 +2,7 @@ package com.ssafy.checkmate.question.controller;
 
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.service.QuestionService;
+import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,12 @@ public class QuestionController {
     public void register(@RequestBody Question question) {
 
         questionService.registerQuestion(question);
+    }
+
+    @ApiOperation(value = "질문수정", notes = "질문을 수정합니다.")
+    @PutMapping
+    public void update(@RequestBody UpdateRequestQuestion updateRequestQuestion) {
+
+        questionService.updateQuestion(updateRequestQuestion);
     }
 }
