@@ -5,10 +5,10 @@ Register/Index.tsx
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import InputEmail from './InputEmail';
-import MotherLanguage from './MotherLanguage';
-import Nickname from './Nickname';
-import RegisterComplete from './RegisterComplete';
+import MotherLanguage from './components/MotherLanguage';
+import InputEmail from './components/InputEmail';
+import Nickname from './components/Nickname';
+import RegisterComplete from './components/RegisterComplete';
 
 const Register: React.FC = () => {
   const [step, setStep] = useState<number>(0); // 몇 번째 컴포넌트가 보여질지 정해주는 state
