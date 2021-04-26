@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags = "Questions", description = "질문 API")
 @CrossOrigin
 @RestController
@@ -22,6 +24,13 @@ public class QuestionController {
     public void register(@RequestBody Question question) {
 
         questionService.registerQuestion(question);
+    }
+
+    @ApiOperation(value = "질문목록", notes = "질문 목록을 불러옵니다.")
+    @GetMapping
+    public List<Question> getList() {
+
+        return questionService.getQuestionList();
     }
 
     @ApiOperation(value = "질문수정", notes = "질문을 수정합니다.")

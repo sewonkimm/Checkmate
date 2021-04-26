@@ -6,6 +6,8 @@ import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
@@ -15,6 +17,11 @@ public class QuestionService {
     public void registerQuestion(Question question) {
 
         questionRepository.save(question);
+    }
+
+    public List<Question> getQuestionList() {
+
+        return questionRepository.findAll();
     }
 
     public void updateQuestion(UpdateRequestQuestion updateRequestQuestion) {
