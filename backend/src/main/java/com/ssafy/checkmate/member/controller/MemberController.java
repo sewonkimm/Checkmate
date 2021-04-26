@@ -3,11 +3,11 @@ package com.ssafy.checkmate.member.controller;
 import com.ssafy.checkmate.member.dto.Member;
 import com.ssafy.checkmate.member.service.MemberService;
 import com.ssafy.checkmate.member.vo.LoginRequestMember;
+import com.ssafy.checkmate.member.vo.SelectMember;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -33,5 +33,12 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> signIn(@RequestBody LoginRequestMember loginRequestMember) {
 
         return memberService.signIn(loginRequestMember.getMemberEmail(), loginRequestMember.getMemberPassword());
+    }
+
+    @ApiOperation(value = "회원정보 조회하기", notes = "회원ID로 회원정보를 조회합니다.")
+    @GetMapping("/{memberId}")
+    public SelectMember selectMember(@PathVariable Long memberId) {
+
+        return memberService.selectMember(memberId);
     }
 }

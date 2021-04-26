@@ -5,13 +5,14 @@ import com.ssafy.checkmate.common.exception.ValidationException;
 import com.ssafy.checkmate.common.security.Sha256;
 import com.ssafy.checkmate.member.dto.Member;
 import com.ssafy.checkmate.member.repository.MemberRepository;
+import com.ssafy.checkmate.member.vo.SelectMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -51,5 +52,21 @@ public class MemberService {
         resultMap.put("message", "Success");
 
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
+    }
+
+    public SelectMember selectMember(Long id) {
+
+        Member member = memberRepository.findMemberByMemberId(id);
+        SelectMember memberSelect = new SelectMember();
+
+        memberSelect.setMemberEmail(member.getMemberEmail());
+        memberSelect.setMemberNickname(member.getMemberNickname());
+        memberSelect.setMemberNativeLang(member.getMemberNativeLang());
+        memberSelect.setMemberProfileUrl(member.getMemberProfileUrl());
+        memberSelect.setMemberPoint(member.getMemberPoint());
+        memberSelect.setMemberIntroduce(member.getMemberIntroduce());
+        memberSelect.setMemberTypeId(member.getMemberTypeId());
+
+        return memberSelect;
     }
 }

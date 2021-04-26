@@ -10,6 +10,9 @@ import InputEmail from './InputEmail'
 import Nickname from './Nickname';
 import RegisterComplete from './RegisterComplete'
 
+import MotherLanguage from './MotherLanguage'
+import InputForm from './InputForm'
+
 const Register: React.FC = () => {
   const [step, setStep] = useState<number>(0)
   const [selectedLanguage, setSelectedLanguage] = useState<string>('')
