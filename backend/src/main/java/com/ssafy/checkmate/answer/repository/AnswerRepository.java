@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface AnswerRepository extends CrudRepository<Answer, Long> {
 
+    public Answer findAnswerByAnswerId(Long answerId);
     public List<Answer> findAllByQuestionId(Long questionId);
     public List<Answer> findAllByQuestionIdOrderByAnswerDateDesc(Long questionId, Pageable pageable);
 }

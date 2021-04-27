@@ -75,6 +75,7 @@ CREATE TABLE `answer` (
   `question_id` int NOT NULL,
   `answer_context` mediumtext NOT NULL,
   `answer_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `answer_modified_date` datetime DEFAULT NULL,
   `answer_select` int DEFAULT '0',
   `answer_reply_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`answer_id`),

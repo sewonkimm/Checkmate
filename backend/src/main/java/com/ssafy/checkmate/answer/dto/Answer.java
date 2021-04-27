@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="answer")
@@ -27,6 +27,9 @@ public class Answer {
 
     @Column(insertable=false, updatable=false)
     private LocalDateTime answerDate;
+
+    @Column(insertable = false)
+    private LocalDateTime answerModifiedDate;
 
     private int answerSelect;
 
