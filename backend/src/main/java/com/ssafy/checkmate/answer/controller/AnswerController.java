@@ -5,9 +5,15 @@ import com.ssafy.checkmate.answer.service.AnswerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "answers", description = "답변")
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Api(tags = "answers", description = "답변 API")
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +27,17 @@ public class AnswerController {
     public void addAnswer(@RequestBody Answer answer) {
 
         answerService.addAnswer(answer);
+    }
+
+    @ApiOperation(value = "답변조회", notes = "답변 목록을 받아옵니다.")
+    @GetMapping("/list/{questionId}/{offset}/{limit}")
+    public Map<String, Object> readAnswer(@PathVariable Long questionId, @PathVariable int offset, @PathVariable int limit) {
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        resultMap.put("list", answerService.getAnswer(questionId, offset, limit));
+        resultMap.put("totalSize", answerService.getAnswerSize(questionId));
+
+        return resultMap;
     }
 }

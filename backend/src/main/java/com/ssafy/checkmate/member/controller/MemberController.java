@@ -3,11 +3,11 @@ package com.ssafy.checkmate.member.controller;
 import com.ssafy.checkmate.member.dto.Member;
 import com.ssafy.checkmate.member.service.MemberService;
 import com.ssafy.checkmate.member.vo.LoginRequestMember;
+import com.ssafy.checkmate.member.vo.SelectMember;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -33,5 +33,26 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> signIn(@RequestBody LoginRequestMember loginRequestMember) {
 
         return memberService.signIn(loginRequestMember.getMemberEmail(), loginRequestMember.getMemberPassword());
+    }
+
+    @ApiOperation(value = "회원정보 조회하기", notes = "회원ID로 회원정보를 조회합니다.")
+    @GetMapping("/{memberId}")
+    public SelectMember selectMember(@PathVariable Long memberId) {
+
+        return memberService.selectMember(memberId);
+    }
+
+    @ApiOperation(value = "이메일 중복검사", notes = "회원email로 중복여부를 검사합니다.")
+    @GetMapping("/email/{memberEmail}")
+    public int emailExits(@PathVariable String memberEmail) {
+
+        return memberService.validateSignUp(memberEmail);
+    }
+
+    @ApiOperation(value = "닉네임 중복검사", notes = "회원NickName으로 중복여부를 검사합니다.")
+    @GetMapping("/nickName/{memberNickName}")
+    public int nickNameExits(@PathVariable String memberNickName) {
+
+        return memberService.validateNickName(memberNickName);
     }
 }
