@@ -46,9 +46,16 @@ public class QuestionController {
         Map<String, Object> resultMap = new HashMap<>();
 
         resultMap.put("list", questionService.getQuestionList(listType, offset, limit));
-        resultMap.put("totalSize", questionService.getQuestionListSize(listType));
+        resultMap.put("totalSize", questionService.countQuestionList(listType));
 
         return resultMap;
+    }
+
+    @ApiOperation(value = "질문 상세조회", notes = "질문 상세페이지 정보를 불러옵니다.")
+    @GetMapping("/{questionId}")
+    public Question getQuestion(@PathVariable Long questionId) {
+
+        return questionService.getQuestion(questionId);
     }
 
     @ApiOperation(value = "질문수정", notes = "질문을 수정합니다.")

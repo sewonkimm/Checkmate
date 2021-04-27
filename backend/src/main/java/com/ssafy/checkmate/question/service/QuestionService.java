@@ -57,7 +57,7 @@ public class QuestionService {
         return null;
     }
 
-    public int getQuestionListSize(int listType) {
+    public int countQuestionList(int listType) {
 
         LocalDate currentDate = LocalDate.now();
 
@@ -71,6 +71,11 @@ public class QuestionService {
         }
 
         return 0;
+    }
+
+    public Question getQuestion(Long questionId) {
+
+        return questionRepository.findQuestionByQuestionId(questionId);
     }
 
     public void updateQuestion(UpdateRequestQuestion updateRequestQuestion) {
