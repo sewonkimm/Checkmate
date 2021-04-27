@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 
+// Video props 관련 type 설정
 interface VideoProps {
   url: string;
 }

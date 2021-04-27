@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+// Button props 관련 type 설정
+// Type은 primary 아니면 secondary type 2개만 받기 때문에 enum으로 설정
 enum ButtonType {
   Primary = 'primary',
   Secondary = 'secondary',
@@ -28,6 +30,7 @@ const Button = ({ type, text }: ButtonsProps): ReactElement => {
   );
 };
 
+// Button style
 const Btn = styled.div`
   width: 236px;
   height: 72px;
