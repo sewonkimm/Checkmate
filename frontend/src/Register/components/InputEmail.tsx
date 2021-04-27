@@ -16,7 +16,7 @@ const InputEmail: React.FC<Props> = (props: Props) => {
   const isEmail = (email:string) => {
     // eslint-disable-next-line no-useless-escape
     const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    return regExp.test(email) // 형식에 맞으면 true 리턴
+    return regExp.test(email); // 형식에 맞으면 true 리턴
   };
   // 유효성 검사 함수
   let timer: ReturnType<typeof setTimeout>;
@@ -77,7 +77,7 @@ const InputEmail: React.FC<Props> = (props: Props) => {
             type="text"
             placeholder="ssafy123@ssafy.com"
           />
-          <CheckDupleBtn >중복 체크</CheckDupleBtn>
+          <CheckDupleBtn>중복 체크</CheckDupleBtn>
           <span>{isDuple ? "사용가능한 이메일 입니다" : "중복하는 이메일입니다"}</span>
         </form>
       </div>

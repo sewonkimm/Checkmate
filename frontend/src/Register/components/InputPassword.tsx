@@ -33,10 +33,6 @@ const InputPassword: React.FC<Props> = (props: Props) => {
   const checkSamePassword = (passwordCheck:string) => {
     // 같은지 확인 후에 props를 하는거라 굳이 다음버튼을 막을 필요없음. 형식이 안맞으면 props가 안가고 
     // 결국 가입이 안됨.
-    // eslint-disable-next-line no-console
-    console.log(` passwordVal - ${passwordValue}`)
-    // eslint-disable-next-line no-console
-    console.log(` passwordChk - ${passwordCheck}`)
     if (passwordValue === passwordCheck) {
 
       setIsSamePassword(true);
@@ -60,8 +56,6 @@ const InputPassword: React.FC<Props> = (props: Props) => {
   const onChangeCheckInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const asValue = e.target.value
-    // eslint-disable-next-line no-console
-    console.log(asValue)
     checkSamePassword(asValue)
     setPasswordCheck(asValue)
   };
