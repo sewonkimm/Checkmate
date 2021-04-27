@@ -16,10 +16,10 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long questionId;
+    private Long questionId;
 
     @NonNull
-    private long memberId;
+    private Long memberId;
 
     @NonNull
     private String questionTitle;
