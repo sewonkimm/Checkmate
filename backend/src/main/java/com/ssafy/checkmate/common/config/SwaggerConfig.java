@@ -15,8 +15,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-
-        return new Docket(DocumentationType.SWAGGER_2).host("k4a106.p.ssafy.io/api").select()
+        return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
                 .paths(PathSelectors.any()).build();
     }
