@@ -5,14 +5,23 @@ Home/Index.tsx
 
 import React from 'react';
 import styled from 'styled-components';
+import SubHeader from './components/SubHeader';
+import Header from './components/Header';
 
 const Home: React.FC = () => {
-  return <HomeContainer>Home 글꼴적용</HomeContainer>;
+  return (
+    <HomeContainer>
+      <SubHeader />
+      <Header />
+      본문
+    </HomeContainer>
+  );
 };
-export default Home;
 
 const HomeContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.accent};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.fontSizes.h1};
 `;
+
+export default Home;
