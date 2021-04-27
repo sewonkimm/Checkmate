@@ -11,7 +11,7 @@ public interface MemberRepository extends CrudRepository<Member, String> {
 
     public Member findMemberByMemberEmail(String memberEmail);
 
-    public Member findMemberByMemberNickName(String memberNickName);
+    public Member findMemberByMemberNickname(String memberNickname);
 
     public Member findMemberByMemberId(Long memberId);
 

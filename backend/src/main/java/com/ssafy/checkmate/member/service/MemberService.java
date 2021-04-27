@@ -21,6 +21,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final JwtService jwtService;
     private final Sha256 sha256;
+    private static int check = 0;
 
     public void signUp(Member member) {
 
@@ -29,18 +30,26 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void validateSignUp(String memberEmail) {
+    public int validateSignUp(String memberEmail) {
 
         if (memberRepository.findMemberByMemberEmail(memberEmail) != null) {
-            throw new ValidationException("이미 존재하는 이메일입니다.");
+            check = 1;
+        } else {
+            check = 0;
         }
+
+        return check;
     }
 
-    public void validateNickName(String memberNickName) {
+    public int validateNickName(String memberNickname) {
 
-        if (memberRepository.findMemberByMemberNickName(memberNickName) != null) {
-            throw new ValidationException("이미 존재하는 닉네임입니다.");
+        if (memberRepository.findMemberByMemberNickname(memberNickName) != null) {
+            check = 1;
+        } else {
+            check = 0;
         }
+
+        return check;
     }
 
     public ResponseEntity<Map<String, Object>> signIn(String memberEmail, String memberPassword) {
@@ -66,7 +75,7 @@ public class MemberService {
         SelectMember memberSelect = new SelectMember();
 
         memberSelect.setMemberEmail(member.getMemberEmail());
-        memberSelect.setMemberNickName(member.getMemberNickName());
+        memberSelect.setMemberNickname(member.getMemberNickname());
         memberSelect.setMemberNativeLang(member.getMemberNativeLang());
         memberSelect.setMemberProfileUrl(member.getMemberProfileUrl());
         memberSelect.setMemberPoint(member.getMemberPoint());
