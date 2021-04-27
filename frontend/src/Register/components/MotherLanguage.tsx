@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 interface Props {
   // props를 받기 위해 타입을 지정
-  setLang: (language: string) => void;
-}
+  putLang: (language: string) => void;
+};
+
 // props를 인자로 지정
 const MotherLanguage: React.FC<Props> = (props: Props) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -15,7 +16,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
   const selectItem = (e: React.MouseEvent<HTMLElement>) => {
     // 타입스크립트는 as HTMLElement로 지정해야 innerHTML이 찾아진다.
     const target = e.target as HTMLElement;
-    props.setLang(target.innerHTML);
+    props.putLang(target.innerHTML);
   };
   return (
     <>
