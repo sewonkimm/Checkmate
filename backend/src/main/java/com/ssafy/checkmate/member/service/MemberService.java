@@ -43,7 +43,7 @@ public class MemberService {
 
     public int validateNickName(String memberNickname) {
 
-        if (memberRepository.findMemberByMemberNickname(memberNickName) != null) {
+        if (memberRepository.findMemberByMemberNickname(memberNickname) != null) {
             check = 1;
         } else {
             check = 0;
