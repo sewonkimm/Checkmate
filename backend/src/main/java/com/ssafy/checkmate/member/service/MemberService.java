@@ -41,7 +41,7 @@ public class MemberService {
         return check;
     }
 
-    public int validateNickName(String memberNickName) {
+    public int validateNickName(String memberNickname) {
 
         if (memberRepository.findMemberByMemberNickname(memberNickName) != null) {
             check = 1;
