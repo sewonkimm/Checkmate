@@ -4,8 +4,15 @@ Home/Index.tsx
 */
 
 import React from 'react';
+import styled from 'styled-components';
 
 const Home: React.FC = () => {
-  return <div>Home</div>;
+  return <HomeContainer>Home 글꼴적용</HomeContainer>;
 };
 export default Home;
+
+const HomeContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.accent};
+  font-size: ${({ theme }) => theme.fontSizes.h1};
+`;

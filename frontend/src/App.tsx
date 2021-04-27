@@ -6,7 +6,7 @@ App.tsx
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './styles/theme';
+import theme from './styles/theme';
 
 import Home from './Home/Index';
 import Register from './Register/Index';
