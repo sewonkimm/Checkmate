@@ -26,13 +26,13 @@ public class AnswerService {
         return of(page, size);
     }
 
-    public int getAnswerSize(Long id){
+    public int getAnswerSize(Long id) {
 
         List<Answer> list = answerRepository.findAllByQuestionId(id);
 
         return list.size();
     }
-    public List<Answer> getAnswer(Long id, int offset, int limit){
+    public List<Answer> getAnswer(Long id, int offset, int limit) {
 
         Pageable pageable = PageRequest.of(offset, limit);
 

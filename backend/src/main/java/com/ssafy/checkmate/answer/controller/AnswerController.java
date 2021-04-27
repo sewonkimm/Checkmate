@@ -31,7 +31,7 @@ public class AnswerController {
 
     @ApiOperation(value = "답변조회", notes = "답변 목록을 받아옵니다.")
     @GetMapping("/list/{questionId}/{offset}/{limit}")
-    public Map<String, Object> readAnswer(@PathVariable Long questionId, @PathVariable int offset, @PathVariable int limit){
+    public Map<String, Object> readAnswer(@PathVariable Long questionId, @PathVariable int offset, @PathVariable int limit) {
 
         Map<String, Object> resultMap = new HashMap<>();
 
