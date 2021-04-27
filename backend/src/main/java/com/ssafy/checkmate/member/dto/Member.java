@@ -14,7 +14,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long memberId;
+    private Long memberId;
 
     @NonNull
     private String memberEmail;
