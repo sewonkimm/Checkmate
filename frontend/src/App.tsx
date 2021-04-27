@@ -3,7 +3,7 @@ App.tsx
 : react-router가 등록되어있습니다. 각 라우터로 분기시켜주는 파일입니다.
 */
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
@@ -11,7 +11,7 @@ import theme from './styles/theme';
 import Home from './Home/Index';
 import Register from './Register/Index';
 
-const App: React.FC = () => {
+const App = (): ReactElement => {
   return (
     <ThemeProvider theme={theme}>
       {/* ThemeProvider는 theme.ts에서 지정한 테마입니다. */}

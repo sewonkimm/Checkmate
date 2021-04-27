@@ -3,15 +3,16 @@ Home/Index.tsx
 : 랜딩페이지
 */
 
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import SubHeader from './components/SubHeader';
-import Header from './components/Header';
+import SubHeader from '../components/SubHeader';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Button from './components/Button';
 import Video from './components/Video';
 import { mainImage1 } from '../assets';
 
-const Home: React.FC = () => {
+const Home = (): ReactElement => {
   const [title, setTitle] = useState('레포트 체크해줄 사람 어디 없나?');
   const [subTitle, setSubTitle] = useState('체크메이트가 당신의 레포트를 체크해드립니다!');
 
@@ -29,11 +30,14 @@ const Home: React.FC = () => {
       </ButtonContainer>
 
       <Video url="https://www.youtube.com/embed/G9Bmp6NuHSI?controls=0" />
+
+      <Footer />
     </HomeContainer>
   );
 };
 
 const HomeContainer = styled.div`
+  overflow: hidden;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};

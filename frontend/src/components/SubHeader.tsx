@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SubHeader: React.FC = () => {
+const SubHeader = (): ReactElement => {
   return (
     <SubHeaderContainer>
       {/* 언어 선택 버튼 추가 */}
@@ -12,6 +12,7 @@ const SubHeader: React.FC = () => {
   );
 };
 
+// SubHeader style
 const SubHeaderContainer = styled.div`
   width: 100%;
   height: 58px;

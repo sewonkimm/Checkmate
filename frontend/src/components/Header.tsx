@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { logo } from '../../assets';
+import { logo } from '../assets';
 
-const Header: React.FC = () => {
+const Header = (): ReactElement => {
   return (
     <HeaderContainer>
       <img src={logo} alt="logo" width="70" />
@@ -16,6 +16,7 @@ const Header: React.FC = () => {
   );
 };
 
+// Header style
 const HeaderContainer = styled.div`
   width: 100%;
   height: 116px;
