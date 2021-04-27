@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "answers", description = "답변")
+@Api(tags = "answers", description = "답변 API")
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -30,9 +30,14 @@ public class AnswerController {
     }
 
     @ApiOperation(value = "답변조회", notes = "답변 목록을 받아옵니다.")
-    @GetMapping("/list/{questionId}")
-    public List<Answer> readAnswer(@PathVariable("questionId") Long questionId){
+    @GetMapping("/list/{questionId}/{offset}/{limit}")
+    public Map<String, Object> readAnswer(@PathVariable Long questionId, @PathVariable int offset, @PathVariable int limit){
 
-        return answerService.getAnswer(questionId);
+        Map<String, Object> resultMap = new HashMap<>();
+
+        resultMap.put("list", answerService.getAnswer(questionId, offset, limit));
+        resultMap.put("totalSize", answerService.getAnswerSize(questionId));
+
+        return resultMap;
     }
 }
