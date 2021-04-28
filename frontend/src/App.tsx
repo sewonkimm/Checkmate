@@ -10,6 +10,7 @@ import theme from './styles/theme';
 
 import Home from './Home/Index';
 import Register from './Register/Index';
+import Login from './Login/Index';
 
 const App = (): ReactElement => {
   return (
@@ -19,6 +20,7 @@ const App = (): ReactElement => {
         {/* Switch 는 첫번째로 매칭되는 path 를 가진 컴포넌트를 렌더링 시킵니다. */}
         <Route exact path="/" component={Home} />
         <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
       </Switch>
     </ThemeProvider>
   );

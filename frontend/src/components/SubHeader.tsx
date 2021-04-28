@@ -6,8 +6,8 @@ const SubHeader = (): ReactElement => {
   return (
     <SubHeaderContainer>
       {/* 언어 선택 버튼 추가 */}
-      <StyledLink to="/Login">로그인</StyledLink>
-      <StyledLink to="/Register">회원가입</StyledLink>
+      <StyledLink to="/login">로그인</StyledLink>
+      <StyledLink to="/register">회원가입</StyledLink>
     </SubHeaderContainer>
   );
 };
