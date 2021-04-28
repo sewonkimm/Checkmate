@@ -6,13 +6,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import App from './App';
 import { GlobalStyle } from './styles/global-styles';
+import rootReducer from './modules';
+
+const store = createStore(rootReducer, composeWithDevTools());
+// composeWithDevTools 를 사용하여 리덕스 개발자 도구 활성화
 
 ReactDOM.render(
-  <BrowserRouter>
-    <GlobalStyle />
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <GlobalStyle />
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root'),
 );

@@ -4,13 +4,18 @@ Login/index.tsx
 */
 
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../modules';
+import { login } from '../modules/member';
 import { signupIconNormal } from '../assets';
 import LoginAPI from '../api/login';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const member = useSelector((state: RootState) => state.member);
+  const dispatch = useDispatch();
 
   // input event 핸들러
   const onChangeEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +36,7 @@ const Login: React.FC = () => {
     };
 
     const response = await LoginAPI(data);
+    dispatch(login(response.accesstoken));
     console.log(response.accesstoken);
   };
 
