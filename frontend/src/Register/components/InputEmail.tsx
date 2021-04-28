@@ -69,7 +69,7 @@ const InputEmail: React.FC<Props> = (props: Props) => {
           isValidEmail ? "사용 가능한 이메일입니다" : "유효하지 않은 이메일입니다"
         )}
       </Warning>
-      <div>
+      <EmailInputWrapper>
         <form onSubmit={onSubmitForm}>
           <EmailInput
             value={emailValue}
@@ -77,19 +77,23 @@ const InputEmail: React.FC<Props> = (props: Props) => {
             type="text"
             placeholder="ssafy123@ssafy.com"
           />
-          <CheckDupleBtn>중복 체크</CheckDupleBtn>
-          <span>{dupleMsg}</span>
         </form>
-      </div>
+          <CheckDupleBtn>중복 체크</CheckDupleBtn>
+      </EmailInputWrapper>
+      {dupleMsg && <h3>{dupleMsg}</h3>}
     </>
   );
 };
 const QuestionBox = styled.h1`
   font-size: 36px;
 `;
-const Warning = styled.h3``
-const EmailInput = styled.input`
+const Warning = styled.h3``;
+const EmailInputWrapper = styled.div`
   width: 473px;
+  display: flex;
+`;
+const EmailInput = styled.input`
+  flex-basis: 60%;
   height: 72px;
   border-radius: 8px;
   padding: 22px 25px 23px 25px;
@@ -100,6 +104,9 @@ const EmailInput = styled.input`
     font-size: 18px;
   }
 `;
-const CheckDupleBtn = styled.button``;
+const CheckDupleBtn = styled.button`
+  display: block;
+  flex-basis: 40%;
+`;
 
 export default InputEmail;

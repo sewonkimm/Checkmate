@@ -127,6 +127,9 @@ const NextBtn = styled.button`
   border-radius: 10px;
   font-weight: 900;
   color: #0F16F8;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 
