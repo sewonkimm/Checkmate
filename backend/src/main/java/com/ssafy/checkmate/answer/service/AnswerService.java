@@ -52,4 +52,9 @@ public class AnswerService {
 
         answerRepository.save(answer);
     }
+
+    public void deleteAnswer(Long id) {
+
+        answerRepository.deleteByAnswerId(id);
+    }
 }

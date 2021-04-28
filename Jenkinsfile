@@ -30,6 +30,7 @@ pipeline {
 
                 sh 'docker run -d --name backend \
                 -p 8197:8197 \
+                -v /home/ubuntu/files/:/files \
                 --network checkmate backend:latest'
                 sh 'docker run -d --name frontend \
                 -p 80:80 \

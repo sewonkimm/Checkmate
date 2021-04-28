@@ -1,5 +1,6 @@
 FROM openjdk:11 AS builder
-VOLUME /tmp
+RUN mkdir files
+VOLUME ["/tmp, /files"]
 COPY . .
 RUN chmod +x ./gradlew
 RUN ./gradlew clean build

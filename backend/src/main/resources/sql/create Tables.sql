@@ -23,7 +23,6 @@ CREATE TABLE `member` (
 
 CREATE TABLE `auth` (
   `member_id` int NOT NULL,
-  `auth_status` int NOT NULL,
   `auth_university` varchar(255) NOT NULL,
   `auth_department` varchar(255) NOT NULL,
   `auth_name` varchar(255) NOT NULL,

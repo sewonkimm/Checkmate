@@ -7,7 +7,9 @@ import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +30,15 @@ public class QuestionController {
 
         if (question.getQuestionPoint() > 0)
             memberService.chargePoint(question.getMemberId(), question.getQuestionPoint());
+
         questionService.registerQuestion(question);
+    }
+
+    @ApiOperation(value = "파일업로드 하기")
+    @PostMapping("/fileUpload")
+    public ResponseEntity<Map<String, Object>> fileUpload(@RequestBody MultipartFile questionFile) {
+
+        return questionService.fileUpload(questionFile);
     }
 
     @ApiOperation(value = "사용자 질문목록", notes = "사용자가 작성한 질문 목록을 불러옵니다.")
