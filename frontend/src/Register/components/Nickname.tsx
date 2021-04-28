@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const SERVER_URL = `http://k4a106.p.ssafy.io/api`
+const SERVER_URL = `https://k4a106.p.ssafy.io/api`
 interface Props {
   putNickname: (name: string) => void;
 }
@@ -16,7 +16,7 @@ const Nickname: React.FC<Props> = (props: Props) => {
   // 닉네임 중복여부 확인
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.get(`${SERVER_URL}/members/nickName/${nicknameValue}`)
+    axios.get(`${SERVER_URL}members/nickName/${nicknameValue}`)
     .then((res) => {
       const duplicated:number = res.data;
       if (duplicated === 0) {

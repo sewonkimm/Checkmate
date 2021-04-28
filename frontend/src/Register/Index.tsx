@@ -5,6 +5,7 @@ Register/Index.tsx
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import {signupIconNormal} from '../assets'
 import MotherLanguage from './components/MotherLanguage';
 import InputEmail from './components/InputEmail';
 import Nickname from './components/Nickname';
@@ -64,20 +65,69 @@ const Register: React.FC = () => {
 
   return (
     <RegisterWrap>
-      <div>
-        {step + 1} / {registerGroup.length} {email} {password} {nickname}
-      </div>
-      {selectedLanguage}
-      {registerGroup[step]}
-      <div>
-        {step > 0 && <PrevBtn onClick={handlePrevBtn}>이전으로</PrevBtn>}
+      <Logo>
+        <Title>Sign-Up</Title>
+        <Icon src={signupIconNormal} alt="signup-logo" />
+      </Logo>
+      <SignupBody>
+        <Steps>
+          {step + 1} / {registerGroup.length} {selectedLanguage} {email} {password} {nickname}
+        </Steps>
+        {registerGroup[step]}
+      </SignupBody>
+      <ButtonWrap>
+        {step > 0 && <NextBtn onClick={handlePrevBtn}>이전으로</NextBtn>}
         <NextBtn onClick={handleNextBtn}>다음으로</NextBtn>
-      </div>
+      </ButtonWrap>
     </RegisterWrap>
   );
 };
 
-const RegisterWrap = styled.div``;
-const NextBtn = styled.button``;
-const PrevBtn = styled.button``;
+const RegisterWrap = styled.section`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  // padding: 200px 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
+`;
+const Logo = styled.section``;
+const Title = styled.h1`
+  margin: 0 0 20px 0;
+  font-family: 'Kirang Haerang', cursive;
+  font-size: 72px;
+  font-weight: normal;
+`;
+const Icon = styled.img`
+  width: 14.875rem;
+  height: auto;
+`;
+const SignupBody = styled.section`
+  margin-top: 60px;
+  margin-bottom: 70px;
+  width: 473px;
+`;
+
+const Steps = styled.p`
+  font-size: 24px;
+`;
+const ButtonWrap = styled.div`
+  width: 473px;
+  display: flex;
+  justify-content: space-around;
+`;
+
+const NextBtn = styled.button`
+  font-size: 20px;
+  width: 230px;
+  height: 65px;
+  border-radius: 10px;
+  font-weight: 900;
+  color: #0F16F8;
+`;
+
+
 export default Register;

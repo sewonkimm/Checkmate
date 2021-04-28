@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const SERVER_URL = `http://k4a106.p.ssafy.io/api`
+const SERVER_URL = `https://k4a106.p.ssafy.io/api`
 interface Props {
   putEmail: (emailValue: string) => void;
 }
 
 const InputEmail: React.FC<Props> = (props: Props) => {
   const [emailValue, setEmailValue] = useState<string>('');
-  const [isValidEmail, setIsValidEmail] = useState<boolean>(false)
-  const [isDuple, setIsDuple] = useState<boolean>(false)
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
+  const [dupleMsg, setDupleMsg] = useState<string>('');
 
   // Email 유효성 판단 함수
   const isEmail = (email:string) => {
@@ -43,15 +43,15 @@ const InputEmail: React.FC<Props> = (props: Props) => {
   const onSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isValidEmail) {
-      axios.get(`${SERVER_URL}/members/email/${emailValue}`)
+      axios.get(`${SERVER_URL}members/email/${emailValue}`)
       .then((res) => {
         const duplicated:number = res.data
         if (duplicated === 0) {
-          setIsDuple(true)
+          setDupleMsg('사용가능한 이메일입니다')
           // 중복이 안되면 props로 부모에게 보낸다.
           props.putEmail(emailValue);
         } else {
-          setIsDuple(false)
+          setDupleMsg('중복된 이메일입니다.')
         }
       })
       .catch((err) => {
@@ -78,15 +78,28 @@ const InputEmail: React.FC<Props> = (props: Props) => {
             placeholder="ssafy123@ssafy.com"
           />
           <CheckDupleBtn>중복 체크</CheckDupleBtn>
-          <span>{isDuple ? "사용가능한 이메일 입니다" : "중복하는 이메일입니다"}</span>
+          <span>{dupleMsg}</span>
         </form>
       </div>
     </>
   );
 };
-const QuestionBox = styled.h1``;
+const QuestionBox = styled.h1`
+  font-size: 36px;
+`;
 const Warning = styled.h3``
-const EmailInput = styled.input``;
+const EmailInput = styled.input`
+  width: 473px;
+  height: 72px;
+  border-radius: 8px;
+  padding: 22px 25px 23px 25px;
+  &::placeholder {
+    color: #038EFC;
+    opacity: 0.55;
+    font-weight: 400;
+    font-size: 18px;
+  }
+`;
 const CheckDupleBtn = styled.button``;
 
 export default InputEmail;
