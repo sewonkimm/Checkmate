@@ -1,44 +1,35 @@
-package com.ssafy.checkmate.question.dto;
+package com.ssafy.checkmate.question.vo;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "question")
-public class Question {
+@ToString
+public class QuestionFile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
 
-    @NonNull
     private Long memberId;
 
-    @NonNull
     private String questionTitle;
 
-    @NonNull
     private String questionExplain;
 
-    @NonNull
     private String questionContents;
 
-    @Column(insertable = false, updatable = false)
     private LocalDateTime questionDate;
 
     private LocalDate questionEndDate;
 
-    @NonNull
     private int questionStatus;
 
     private int questionPoint;
 
-    private String questionUrl;
+    private MultipartFile questionUrl;
 }
