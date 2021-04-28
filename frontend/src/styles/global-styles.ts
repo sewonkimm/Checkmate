@@ -5,6 +5,7 @@ global-styles.ts
 
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
+
 // 위에서 받은 `normalize`로 기본 css가 초기화됩니다.
 
 export const GlobalStyle = createGlobalStyle`
@@ -20,5 +21,15 @@ export const GlobalStyle = createGlobalStyle`
     }
     * {
         box-sizing: border-box;
+    }
+
+    button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        background: transparent;
+        outline: none;
     }
 `;
