@@ -34,7 +34,7 @@ public class QuestionController {
         questionService.registerQuestion(question);
     }
 
-    @ApiOperation(value = "파일업로드 하기")
+    @ApiOperation(value = "질문하기 파일업로드")
     @PostMapping("/fileUpload")
     public ResponseEntity<Map<String, Object>> fileUpload(@RequestBody MultipartFile questionFile) {
 

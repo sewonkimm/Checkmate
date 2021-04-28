@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,13 @@ public class AnswerController {
     public void addAnswer(@RequestBody Answer answer) {
 
         answerService.addAnswer(answer);
+    }
+
+    @ApiOperation(value = "답변하기 파일업로드")
+    @PostMapping("/fileUpload")
+    public ResponseEntity<Map<String, Object>> fileUpload(@RequestBody MultipartFile answerFile) {
+
+        return answerService.fileUpload(answerFile);
     }
 
     @ApiOperation(value = "답변조회", notes = "답변 목록을 받아옵니다.")
