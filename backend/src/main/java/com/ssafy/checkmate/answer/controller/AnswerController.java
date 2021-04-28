@@ -2,6 +2,7 @@ package com.ssafy.checkmate.answer.controller;
 
 import com.ssafy.checkmate.answer.dto.Answer;
 import com.ssafy.checkmate.answer.service.AnswerService;
+import com.ssafy.checkmate.answer.vo.UpdateRequestAnswer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,12 @@ public class AnswerController {
         resultMap.put("totalSize", answerService.getAnswerSize(questionId));
 
         return resultMap;
+    }
+
+    @ApiOperation(value = "답변수정", notes = "답변 내용을 수정합니다.")
+    @PutMapping
+    public void updateAnswer(@RequestBody UpdateRequestAnswer updateRequestAnswer) {
+
+        answerService.putAnswer(updateRequestAnswer);
     }
 }

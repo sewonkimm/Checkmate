@@ -2,11 +2,13 @@ package com.ssafy.checkmate.answer.service;
 
 import com.ssafy.checkmate.answer.dto.Answer;
 import com.ssafy.checkmate.answer.repository.AnswerRepository;
+import com.ssafy.checkmate.answer.vo.UpdateRequestAnswer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -32,10 +34,22 @@ public class AnswerService {
 
         return list.size();
     }
+
     public List<Answer> getAnswer(Long id, int offset, int limit) {
 
         Pageable pageable = PageRequest.of(offset, limit);
 
         return answerRepository.findAllByQuestionIdOrderByAnswerDateDesc(id, pageable);
+    }
+
+    public void putAnswer(UpdateRequestAnswer updateRequestAnswer) {
+
+        Answer answer = answerRepository.findAnswerByAnswerId(updateRequestAnswer.getAnswerId());
+
+        answer.setAnswerContext(updateRequestAnswer.getAnswerContext());
+        answer.setAnswerReplyUrl(updateRequestAnswer.getAnswerReplyUrl());
+        answer.setAnswerModifiedDate(LocalDateTime.now());
+
+        answerRepository.save(answer);
     }
 }

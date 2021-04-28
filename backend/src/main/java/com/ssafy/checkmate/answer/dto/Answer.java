@@ -7,13 +7,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="answer")
+@Table(name = "answer")
 public class Answer {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
 
     @NonNull
@@ -25,8 +26,11 @@ public class Answer {
     @NonNull
     private String answerContext;
 
-    @Column(insertable=false, updatable=false)
+    @Column(insertable = false, updatable = false)
     private LocalDateTime answerDate;
+
+    @Column(insertable = false)
+    private LocalDateTime answerModifiedDate;
 
     private int answerSelect;
 
