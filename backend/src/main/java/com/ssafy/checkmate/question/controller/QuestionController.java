@@ -3,7 +3,6 @@ package com.ssafy.checkmate.question.controller;
 import com.ssafy.checkmate.member.service.MemberService;
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.service.QuestionService;
-import com.ssafy.checkmate.question.vo.QuestionFile;
 import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

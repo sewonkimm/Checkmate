@@ -33,6 +33,7 @@ public class Question {
     @Column(insertable = false, updatable = false)
     private LocalDateTime questionDate;
 
+    @NonNull
     private LocalDate questionEndDate;
 
     @NonNull
