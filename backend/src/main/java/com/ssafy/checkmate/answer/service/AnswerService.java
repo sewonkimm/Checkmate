@@ -34,6 +34,7 @@ public class AnswerService {
 
         return list.size();
     }
+
     public List<Answer> getAnswer(Long id, int offset, int limit) {
 
         Pageable pageable = PageRequest.of(offset, limit);
@@ -41,13 +42,14 @@ public class AnswerService {
         return answerRepository.findAllByQuestionIdOrderByAnswerDateDesc(id, pageable);
     }
 
-    public void putAnswer(UpdateRequestAnswer updateRequestAnswer){
+    public void putAnswer(UpdateRequestAnswer updateRequestAnswer) {
 
         Answer answer = answerRepository.findAnswerByAnswerId(updateRequestAnswer.getAnswerId());
 
         answer.setAnswerContext(updateRequestAnswer.getAnswerContext());
         answer.setAnswerReplyUrl(updateRequestAnswer.getAnswerReplyUrl());
         answer.setAnswerModifiedDate(LocalDateTime.now());
+
         answerRepository.save(answer);
     }
 }
