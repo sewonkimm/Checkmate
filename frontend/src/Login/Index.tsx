@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       memberPassword: password,
     };
 
-    const response = await LoginAPI('/members/signIn', data);
+    const response = await LoginAPI(data);
     console.log(response.accesstoken);
   };
 

@@ -20,7 +20,8 @@ type responseType = {
   message: string;
 };
 
-const LoginAPI = async (url: string, data: loginData): Promise<responseType> => {
+const LoginAPI = async (data: loginData): Promise<responseType> => {
+  const url = '/members/signIn';
   const response = await axiosInstance
     .post(url, data)
     .then((response) => {
