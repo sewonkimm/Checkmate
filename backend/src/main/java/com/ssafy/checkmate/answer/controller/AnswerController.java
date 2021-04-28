@@ -48,4 +48,11 @@ public class AnswerController {
 
         answerService.putAnswer(updateRequestAnswer);
     }
+
+    @ApiOperation(value = "답변삭제", notes = "답변을 삭제합니다.")
+    @DeleteMapping("/delete/{answerId}")
+    public void deleteAnswer(@PathVariable Long answerId) {
+
+        answerService.deleteAnswer(answerId);
+    }
 }
