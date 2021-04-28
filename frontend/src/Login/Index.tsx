@@ -5,6 +5,7 @@ Login/index.tsx
 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
@@ -14,6 +15,7 @@ import LoginAPI from '../api/login';
 import { LoginReturnType } from '../entity';
 
 const Login: React.FC = () => {
+  const router = useHistory();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
@@ -37,9 +39,15 @@ const Login: React.FC = () => {
     };
 
     const response = await LoginAPI(data);
-    const member: LoginReturnType = jwt_decode(response.accesstoken);
-    console.log(member.greeting);
-    dispatch(login(member.member));
+
+    if (response.message === 'error') {
+      // 에러 처리(추가)
+    } else {
+      const member: LoginReturnType = jwt_decode(response.accesstoken);
+      console.log(member.greeting);
+      dispatch(login(member.member));
+      router.push('/');
+    }
   };
 
   return (
