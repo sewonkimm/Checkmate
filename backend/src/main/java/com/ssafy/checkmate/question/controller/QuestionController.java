@@ -1,5 +1,6 @@
 package com.ssafy.checkmate.question.controller;
 
+import com.ssafy.checkmate.member.service.MemberService;
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.service.QuestionService;
 import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
@@ -18,12 +19,15 @@ import java.util.Map;
 @RequestMapping("/questions")
 public class QuestionController {
 
+    private final MemberService memberService;
     private final QuestionService questionService;
 
     @ApiOperation(value = "질문등록", notes = "질문을 등록합니다.")
     @PostMapping
     public void register(@RequestBody Question question) {
 
+        if (question.getQuestionPoint() > 0)
+            memberService.chargePoint(question.getMemberId(), question.getQuestionPoint());
         questionService.registerQuestion(question);
     }
 

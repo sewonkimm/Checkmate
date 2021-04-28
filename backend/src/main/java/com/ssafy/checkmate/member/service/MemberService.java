@@ -85,4 +85,10 @@ public class MemberService {
         return memberSelect;
     }
 
+    public void chargePoint(Long memberId, int questionPoint) {
+
+        Member member = memberRepository.findMemberByMemberId(memberId);
+        member.setMemberPoint(member.getMemberPoint() - questionPoint);
+        memberRepository.save(member);
+    }
 }
