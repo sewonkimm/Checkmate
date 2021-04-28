@@ -6,6 +6,7 @@ Login/index.tsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { signupIconNormal } from '../assets';
+import LoginAPI from '../api/login';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -23,8 +24,14 @@ const Login: React.FC = () => {
   };
 
   // Login api 호출
-  const handleLoginBtn = () => {
-    // 로그인
+  const handleLoginBtn = async () => {
+    const data = {
+      memberEmail: email,
+      memberPassword: password,
+    };
+
+    const response = await LoginAPI('/members/signIn', data);
+    console.log(response.accesstoken);
   };
 
   return (
@@ -57,6 +64,7 @@ const LoginContainer = styled.div`
 const Title = styled.h1`
   margin: 0 0 20px 0;
   font-family: 'Kirang Haerang', cursive;
+  font-weight: normal;
   font-size: 72px;
 `;
 const Icon = styled.img`
