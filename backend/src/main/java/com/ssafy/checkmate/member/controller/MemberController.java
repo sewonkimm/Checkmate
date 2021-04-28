@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -40,6 +41,13 @@ public class MemberController {
     public SelectMember selectMember(@PathVariable Long memberId) {
 
         return memberService.selectMember(memberId);
+    }
+
+    @ApiOperation(value = "프로필 사진 업로드 하기")
+    @PostMapping("/fileUpload")
+    public ResponseEntity<Map<String, Object>> fileUpload(@RequestBody MultipartFile proFile) {
+
+        return memberService.fileUpload(proFile);
     }
 
     @ApiOperation(value = "이메일 중복검사", notes = "회원email로 중복여부를 검사합니다.")

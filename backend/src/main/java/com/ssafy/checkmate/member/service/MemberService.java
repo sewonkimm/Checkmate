@@ -10,7 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +32,33 @@ public class MemberService {
         validateSignUp(member.getMemberEmail());
         member.setMemberPassword(sha256.encryption(member.getMemberPassword()));
         memberRepository.save(member);
+    }
+
+    public ResponseEntity<Map<String, Object>> fileUpload(MultipartFile proFile) {
+
+        String filePath = "/files";
+        String fileName = proFile.getOriginalFilename();
+
+        int nameLen = fileName.length();
+        int index = fileName.lastIndexOf('.');
+
+        String subFileName = fileName.substring(0, index) + "_" + LocalDateTime.now();
+        subFileName = subFileName.replace(":", "-");
+        String subFileExtension = fileName.substring(index, nameLen);
+
+        File saveFile = new File(filePath, "proFile_" + subFileName + subFileExtension);
+
+        try {
+            proFile.transferTo(saveFile);
+            fileName = "http://k4a106.p.ssafy.io:8888/files/" + "proFile_" + subFileName + subFileExtension;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("fileUrl", fileName);
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
 
     public int validateSignUp(String memberEmail) {
