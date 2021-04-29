@@ -10,7 +10,6 @@ import { signupIconNormal } from '../assets';
 import MotherLanguage from './components/MotherLanguage';
 import InputEmail from './components/InputEmail';
 import InputNickname from './components/InputNickname';
-import RegisterComplete from './components/RegisterComplete';
 import InputPassword from './components/InputPassword';
 import register from '../api/register';
 
@@ -20,6 +19,8 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
+  const [canRegister, setCanRegister] = useState<boolean>(false);
+
   const history = useHistory();
 
   const handleNextBtn = async () => {
@@ -29,6 +30,7 @@ const Register: React.FC = () => {
 
       // 조건을 다 만족하면 회원가입 api 호출
       if (step >= 3 && email && password && nickname) {
+        console.log('message');
         // 회원가입 시 전달할 데이터
         const credentials = {
           memberEmail: email,
@@ -44,21 +46,21 @@ const Register: React.FC = () => {
 
         // axios 회원가입 요청
         const response = await register.registerAPI(credentials);
+
+        // response
         if (response === -1) {
           alert('회원가입에 실패했습니다.'); // 추후 토스트 메세지로 변경
-          setStep(0);
         } else {
-          setStep(step + 1);
+          setCanRegister(true);
         }
       } else if (step >= 3 && !(email && password && nickname)) {
-        setStep(0);
+        // 추후 토스트 메세지 추가
       }
     }
+  };
 
-    // 로그인 화면으로 분기
-    if (step === 4) {
-      history.push('/login');
-    }
+  const handleLoginBtn = () => {
+    history.push('/login');
   };
 
   // 이전 컴포넌트 표시
@@ -84,10 +86,9 @@ const Register: React.FC = () => {
   // 단계별로 보여질 컴포넌트 배열
   const registerGroup: Array<JSX.Element> = [
     <MotherLanguage putLang={putLang} />,
-    <InputEmail putEmail={putEmail} />,
+    <InputEmail putEmail={putEmail} email={email} />,
     <InputPassword putPassword={putPassword} />,
     <InputNickname putNickname={putNickname} />,
-    <RegisterComplete />,
   ];
 
   return (
@@ -97,17 +98,26 @@ const Register: React.FC = () => {
         <Icon src={signupIconNormal} alt="signup-logo" />
       </section>
 
-      <SignupBody>
-        <Steps>
-          {step + 1} / {registerGroup.length} {selectedLanguage} {email} {password} {nickname}
-        </Steps>
-        {registerGroup[step]}
-      </SignupBody>
+      {canRegister ? (
+        <>
+          <Message>가입을 축하합니다!</Message>
+          <NextBtn onClick={handleLoginBtn}>로그인하러 가기</NextBtn>
+        </>
+      ) : (
+        <>
+          <SignupBody>
+            <Steps>
+              {step + 1} / {registerGroup.length}
+            </Steps>
+            {registerGroup[step]}
+          </SignupBody>
 
-      <ButtonWrap>
-        {step > 0 && <NextBtn onClick={handlePrevBtn}>이전으로</NextBtn>}
-        <NextBtn onClick={handleNextBtn}>다음으로</NextBtn>
-      </ButtonWrap>
+          <ButtonWrap>
+            {step > 0 && <NextBtn onClick={handlePrevBtn}>이전으로</NextBtn>}
+            <NextBtn onClick={handleNextBtn}>다음으로</NextBtn>
+          </ButtonWrap>
+        </>
+      )}
     </RegisterWrap>
   );
 };
@@ -115,7 +125,8 @@ const Register: React.FC = () => {
 // Register page style
 const RegisterWrap = styled.section`
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  padding: 100px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -141,12 +152,14 @@ const SignupBody = styled.section`
   width: 473px;
 `;
 const Steps = styled.p`
+  margin-bottom: 5px;
   font-size: ${({ theme }) => theme.fontSizes.title};
 `;
 const ButtonWrap = styled.div`
   width: 473px;
+  margin-top: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 `;
 const NextBtn = styled.button`
   font-size: 20px;
@@ -159,6 +172,10 @@ const NextBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Message = styled.h3`
+  font-size: ${({ theme }) => theme.fontSizes.h3};
 `;
 
 export default Register;
