@@ -57,8 +57,10 @@ const InputEmail: React.FC<Props> = ({ putEmail }: Props) => {
         type="text"
         placeholder="ssafy123@ssafy.com"
       />
-      <Warning isValid={isValidEmail}>{emailValue && !isValidEmail && '유효하지 않은 이메일입니다'}</Warning>
-      <Warning isValid={isDuple}>{isDuple && '이미 사용중인 이메일입니다'}</Warning>
+      <Warning isValid={isValidEmail} isDuple={isDuple}>
+        {emailValue && !isValidEmail && '유효하지 않은 이메일입니다'}
+        {isDuple && '이미 사용중인 이메일입니다'}
+      </Warning>
     </>
   );
 };
@@ -68,9 +70,9 @@ const Question = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.h3};
 `;
 
-const Warning = styled.h3<{ isValid: boolean }>`
+const Warning = styled.h3<{ isValid: boolean; isDuple: boolean }>`
   margin-top: 5px;
-  color: ${(props) => (props.isValid ? '#FFFFFF' : '#F600E1')};
+  color: ${(props) => (props.isValid && !props.isDuple ? '#FFFFFF' : '#F600E1')};
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
 `;
