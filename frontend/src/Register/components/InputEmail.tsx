@@ -26,18 +26,18 @@ const InputEmail: React.FC<Props> = (props: Props) => {
       onSubmitForm(value);
     }
   }, 400);
-  
+
   // input event 핸들러
-  const onChangeInput = async (e:  React.ChangeEvent<HTMLInputElement>) => {
-    const {value} = e.target
+  const onChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
     setEmailValue(value);
-    await setIsValidEmail(isEmail(value))
+    await setIsValidEmail(isEmail(value));
     await checkValidEmail(value);
   };
 
   const onSubmitForm = async (email: string) => {
     if (isValidEmail) {
-      const response = await register.validateEmailAPI(`/members/email/${email}`);
+      const response = await register.validateEmailAPI(`members/email/${email}`);
       if (response === 0) {
         setDupleMsg('사용가능한 이메일입니다 :)');
         setIsDuple(true);
@@ -47,29 +47,22 @@ const InputEmail: React.FC<Props> = (props: Props) => {
         setIsDuple(false);
       }
     }
-
   };
 
   return (
     <>
       <QuestionBox>이메일을 입력하세요</QuestionBox>
-      <Warning>
-        {emailValue && (
-          isValidEmail ? "사용 가능한 이메일입니다" : "유효하지 않은 이메일입니다"
-        )}
-      </Warning>
+      <Warning>{emailValue && (isValidEmail ? '사용 가능한 이메일입니다' : '유효하지 않은 이메일입니다')}</Warning>
       <EmailInputWrapper>
-        <EmailInput checkDuple={isDuple}
+        <EmailInput
+          checkDuple={isDuple}
           value={emailValue}
           onChange={onChangeInput}
           type="text"
           placeholder="ssafy123@ssafy.com"
         />
       </EmailInputWrapper>
-      {dupleMsg && 
-      <DupleMsgWrapper isDuple={isDuple}>
-        {dupleMsg}
-      </DupleMsgWrapper>}
+      {dupleMsg && <DupleMsgWrapper isDuple={isDuple}>{dupleMsg}</DupleMsgWrapper>}
     </>
   );
 };
@@ -86,7 +79,7 @@ const EmailInputWrapper = styled.div`
   width: 473px;
 `;
 
-const EmailInput = styled.input<{ checkDuple : boolean }>`
+const EmailInput = styled.input<{ checkDuple: boolean }>`
   width: 100%;
   height: 72px;
   border: 3px solid ${(props) => (props.checkDuple ? '#038EFC' : '#F016DE')};
@@ -95,7 +88,7 @@ const EmailInput = styled.input<{ checkDuple : boolean }>`
   color: ${(props) => (props.checkDuple ? '#038EFC' : '#F016DE')};
   font-size: 18px;
   &::placeholder {
-    color: #038EFC;
+    color: #038efc;
     opacity: 0.55;
     font-weight: 400;
     font-size: 18px;
@@ -105,8 +98,8 @@ const EmailInput = styled.input<{ checkDuple : boolean }>`
   }
 `;
 
-const DupleMsgWrapper = styled.h3<{isDuple: boolean}>`
-  color: ${(props) => (props.isDuple? '#FFFFFF' : '#F600E1')};
+const DupleMsgWrapper = styled.h3<{ isDuple: boolean }>`
+  color: ${(props) => (props.isDuple ? '#FFFFFF' : '#F600E1')};
 `;
 
 export default InputEmail;
