@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import register from '../../api/register';
 
 interface Props {
-  email: string;
   putEmail: (emailValue: string) => void;
 }
 
-const InputEmail: React.FC<Props> = ({ email, putEmail }: Props) => {
-  const [emailValue, setEmailValue] = useState<string>(email); // 컴포넌트가 변경되어도 입력한 값을 동일하게 유지
+const InputEmail: React.FC<Props> = ({ putEmail }: Props) => {
+  const [emailValue, setEmailValue] = useState<string>(''); // 컴포넌트가 변경되어도 입력한 값을 동일하게 유지
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isDuple, setIsDuple] = useState<boolean>(false);
 

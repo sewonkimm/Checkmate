@@ -83,8 +83,8 @@ const Register: React.FC = () => {
   // 단계별로 보여질 컴포넌트 배열
   const registerGroup: Array<JSX.Element> = [
     <MotherLanguage putLang={putLang} />,
-    <InputEmail putEmail={putEmail} email={email} />,
-    <InputPassword putPassword={putPassword} password={password} />,
+    <InputEmail putEmail={putEmail} />,
+    <InputPassword putPassword={putPassword} />,
     <InputNickname putNickname={putNickname} />,
   ];
 

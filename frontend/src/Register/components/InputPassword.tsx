@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  password: string;
   putPassword: (password: string) => void;
 }
 
-const InputPassword: React.FC<Props> = ({ password, putPassword }: Props) => {
-  const [passwordValue, setPasswordValue] = useState<string>(password);
+const InputPassword: React.FC<Props> = ({ putPassword }: Props) => {
+  const [passwordValue, setPasswordValue] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
   const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
   const [isSamePassword, setIsSamePassword] = useState<boolean>(false);
