@@ -20,17 +20,17 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [canRegister, setCanRegister] = useState<boolean>(false);
+  const [ableNextBtn, setAbleNextBtn] = useState<boolean>(false);
 
   const history = useHistory();
 
   const handleNextBtn = async () => {
     if (step >= 0 && step < registerGroup.length - 1) {
-      // 다음 컴포넌트 표시
-      setStep(step + 1);
+      setStep(step + 1); // 다음 컴포넌트 표시
+      setAbleNextBtn(false); // NextBtn 비활성화
 
       // 조건을 다 만족하면 회원가입 api 호출
       if (step >= 3 && email && password && nickname) {
-        console.log('message');
         // 회원가입 시 전달할 데이터
         const credentials = {
           memberEmail: email,
@@ -63,31 +63,28 @@ const Register: React.FC = () => {
     history.push('/login');
   };
 
-  // 이전 컴포넌트 표시
-  const handlePrevBtn = () => {
-    if (step > 0 && step < registerGroup.length) {
-      setStep(step - 1);
-    }
-  };
-
   const putLang = (language: string) => {
     setSelectedLanguage(language);
+    setAbleNextBtn(true); // NextBtn 활성화
   };
   const putEmail = (emailValue: string) => {
     setEmail(emailValue);
+    setAbleNextBtn(true); // NextBtn 활성화
   };
   const putPassword = (passwordValue: string) => {
     setPassword(passwordValue);
+    setAbleNextBtn(true); // NextBtn 활성화
   };
   const putNickname = (name: string) => {
     setNickname(name);
+    setAbleNextBtn(true); // NextBtn 활성화
   };
 
   // 단계별로 보여질 컴포넌트 배열
   const registerGroup: Array<JSX.Element> = [
     <MotherLanguage putLang={putLang} />,
     <InputEmail putEmail={putEmail} email={email} />,
-    <InputPassword putPassword={putPassword} />,
+    <InputPassword putPassword={putPassword} password={password} />,
     <InputNickname putNickname={putNickname} />,
   ];
 
@@ -113,8 +110,9 @@ const Register: React.FC = () => {
           </SignupBody>
 
           <ButtonWrap>
-            {step > 0 && <NextBtn onClick={handlePrevBtn}>이전으로</NextBtn>}
-            <NextBtn onClick={handleNextBtn}>다음으로</NextBtn>
+            <NextBtn onClick={handleNextBtn} disabled={!ableNextBtn}>
+              다음으로
+            </NextBtn>
           </ButtonWrap>
         </>
       )}
@@ -148,22 +146,21 @@ const Icon = styled.img`
 
 const SignupBody = styled.section`
   margin-top: 60px;
-  margin-bottom: 20px;
   width: 473px;
 `;
 const Steps = styled.p`
   margin-bottom: 5px;
   font-size: ${({ theme }) => theme.fontSizes.title};
 `;
+
 const ButtonWrap = styled.div`
   width: 473px;
-  margin-top: 40px;
   display: flex;
   justify-content: space-around;
 `;
 const NextBtn = styled.button`
   font-size: 20px;
-  width: 230px;
+  width: 100%;
   height: 65px;
   border-radius: 10px;
   font-weight: bold;
@@ -171,6 +168,10 @@ const NextBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   &:hover {
     cursor: pointer;
+  }
+  &:disabled {
+    color: ${({ theme }) => theme.colors.whiteD9};
+    background-color: ${({ theme }) => theme.colors.whiteF7};
   }
 `;
 

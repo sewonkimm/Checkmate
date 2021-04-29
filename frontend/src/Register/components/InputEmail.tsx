@@ -36,7 +36,7 @@ const InputEmail: React.FC<Props> = ({ email, putEmail }: Props) => {
   };
 
   const onSubmitForm = async (email: string) => {
-    if (isValidEmail) {
+    if (isValidEmail && emailValue) {
       const response = await register.validateEmailAPI(`members/email/${email}`);
       if (response === 0) {
         setIsDuple(false);
