@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, String> {
+
+    public Review findReviewByAnswerId(Long answerId);
 }

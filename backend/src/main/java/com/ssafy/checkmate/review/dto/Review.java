@@ -1,14 +1,12 @@
 package com.ssafy.checkmate.review.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "review")

@@ -15,4 +15,16 @@ public class ReviewService {
 
         reviewRepository.save(review);
     }
+
+    public void updateReview(Review review) {
+
+        Review reviewUpdate = reviewRepository.findReviewByAnswerId(review.getAnswerId());
+
+        reviewUpdate.setAnswerId(review.getAnswerId());
+        reviewUpdate.setReviewCategory(review.getReviewCategory());
+        reviewUpdate.setReviewContents(review.getReviewContents());
+        reviewUpdate.setReviewScore(review.getReviewScore());
+
+        reviewRepository.save(reviewUpdate);
+    }
 }
