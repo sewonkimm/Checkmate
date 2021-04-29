@@ -63,4 +63,11 @@ public class AnswerController {
 
         answerService.deleteAnswer(answerId);
     }
+
+    @ApiOperation(value = "채택하기", notes = "답변을 채택합니다.")
+    @PutMapping("/choose/{answerId}")
+    public void chooseAnswer(@PathVariable Long answerId) {
+
+        answerService.chooseAnswer(answerId);
+    }
 }

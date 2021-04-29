@@ -3,6 +3,7 @@ package com.ssafy.checkmate.answer.service;
 import com.ssafy.checkmate.answer.dto.Answer;
 import com.ssafy.checkmate.answer.repository.AnswerRepository;
 import com.ssafy.checkmate.answer.vo.UpdateRequestAnswer;
+import com.ssafy.checkmate.question.dto.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,14 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
 
     public void addAnswer(Answer answer) {
+
+        answerRepository.save(answer);
+    }
+
+    public void chooseAnswer(Long answerId) {
+
+        Answer answer = answerRepository.findAnswerByAnswerId(answerId);
+        answer.setAnswerSelect(1);
 
         answerRepository.save(answer);
     }
