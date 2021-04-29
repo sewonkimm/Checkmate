@@ -1,5 +1,6 @@
 package com.ssafy.checkmate.question.service;
 
+import com.ssafy.checkmate.member.service.MemberService;
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.repository.QuestionRepository;
 import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final MemberService memberService;
 
     @Deprecated
     public static PageRequest of(int page, int size) {
@@ -32,6 +34,9 @@ public class QuestionService {
     }
 
     public void registerQuestion(Question question) {
+
+        if (question.getQuestionPoint() > 0)
+            memberService.chargePoint(question.getMemberId(), question.getQuestionPoint());
 
         questionRepository.save(question);
     }

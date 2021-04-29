@@ -6,13 +6,11 @@ import com.ssafy.checkmate.answer.vo.UpdateRequestAnswer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Api(tags = "Answers", description = "답변 API")
@@ -64,10 +62,4 @@ public class AnswerController {
         answerService.deleteAnswer(answerId);
     }
 
-    @ApiOperation(value = "채택하기", notes = "답변을 채택합니다.")
-    @PutMapping("/choose/{answerId}")
-    public void chooseAnswer(@PathVariable Long answerId) {
-
-        answerService.chooseAnswer(answerId);
-    }
 }

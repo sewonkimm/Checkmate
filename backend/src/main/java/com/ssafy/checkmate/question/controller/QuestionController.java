@@ -28,9 +28,6 @@ public class QuestionController {
     @PostMapping
     public void register(@RequestBody Question question) {
 
-        if (question.getQuestionPoint() > 0)
-            memberService.chargePoint(question.getMemberId(), question.getQuestionPoint());
-
         questionService.registerQuestion(question);
     }
 
