@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "answers", description = "답변 API")
+@Api(tags = "Answers", description = "답변 API")
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
