@@ -22,4 +22,11 @@ public class ReviewController {
 
         reviewService.insertReview(review);
     }
+
+    @ApiOperation(value = "리뷰 수정하기", notes = "채택된 답변에 리뷰 수정하기")
+    @PutMapping
+    public void updateReview(@RequestBody Review review) {
+
+        reviewService.updateReview(review);
+    }
 }
