@@ -30,7 +30,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
   ];
   return (
     <>
-      <QuestionBox>모국어를 선택해주세요</QuestionBox>
+      <Question>모국어를 선택해주세요</Question>
 
       <LanguageSelect defaultValue={0} onChange={selectItem}>
         {options.map((option, idx) => {
@@ -52,7 +52,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
   );
 };
 
-const QuestionBox = styled.h1`
+const Question = styled.h1`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSizes.h3};
 `;
