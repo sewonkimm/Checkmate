@@ -3,6 +3,7 @@ package com.ssafy.checkmate.answer.controller;
 import com.ssafy.checkmate.answer.dto.Answer;
 import com.ssafy.checkmate.answer.service.AnswerService;
 import com.ssafy.checkmate.answer.vo.UpdateRequestAnswer;
+import com.ssafy.checkmate.review.dto.Review;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -64,10 +65,4 @@ public class AnswerController {
         answerService.deleteAnswer(answerId);
     }
 
-    @ApiOperation(value = "채택하기", notes = "답변을 채택합니다.")
-    @PutMapping("/choose/{answerId}")
-    public void chooseAnswer(@PathVariable Long answerId) {
-
-        answerService.chooseAnswer(answerId);
-    }
 }
