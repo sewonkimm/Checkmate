@@ -73,7 +73,7 @@ const Register: React.FC = () => {
   const handlePrevBtn = () => {
     if (step > 0 && step < registerGroup.length) {
       setStep(step - 1); // 이전 컴포넌트로
-    }
+    };
   };
 
   const putLang = (language: string) => {

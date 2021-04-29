@@ -11,7 +11,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
 
   const selectItem = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    props.putLang(e.target.value)
+    props.putLang(e.target.value);
   };
   const options: Array<{label: string; value: string;}> = [
     {

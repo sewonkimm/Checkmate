@@ -35,8 +35,8 @@ const InputPassword: React.FC<Props> = (props: Props) => {
       setIsSamePassword(true);
       props.putPassword(passwordValue);
     } else {
-      setIsSamePassword(false)
-    }
+      setIsSamePassword(false);
+    };
   };
 
   const onChangeInput = (value: string, type: string) => {

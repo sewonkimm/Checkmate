@@ -31,7 +31,7 @@ const Nickname: React.FC<Props> = (props: Props) => {
     setIsValidNickname(checkNickname(value));
     if (checkNickname(value)) {
       checkValidNickname(value);
-    }
+    };
   };
 
   // 닉네임 중복여부 확인
