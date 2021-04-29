@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { signupIconNormal } from '../assets';
 import MotherLanguage from './components/MotherLanguage';
 import InputEmail from './components/InputEmail';
-import Nickname from './components/Nickname';
+import InputNickname from './components/InputNickname';
 import RegisterComplete from './components/RegisterComplete';
 import InputPassword from './components/InputPassword';
 import register from '../api/register';
@@ -86,7 +86,7 @@ const Register: React.FC = () => {
     <MotherLanguage putLang={putLang} />,
     <InputEmail putEmail={putEmail} />,
     <InputPassword putPassword={putPassword} />,
-    <Nickname putNickname={putNickname} />,
+    <InputNickname putNickname={putNickname} />,
     <RegisterComplete />,
   ];
 
