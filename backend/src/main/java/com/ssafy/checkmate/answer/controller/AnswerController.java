@@ -3,17 +3,14 @@ package com.ssafy.checkmate.answer.controller;
 import com.ssafy.checkmate.answer.dto.Answer;
 import com.ssafy.checkmate.answer.service.AnswerService;
 import com.ssafy.checkmate.answer.vo.UpdateRequestAnswer;
-import com.ssafy.checkmate.review.dto.Review;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Api(tags = "Answers", description = "답변 API")
