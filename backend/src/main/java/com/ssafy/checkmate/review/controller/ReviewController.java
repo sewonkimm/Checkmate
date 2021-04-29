@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "Rivews", description = "리뷰 API")
+@Api(tags = "Reviews", description = "리뷰 API")
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
