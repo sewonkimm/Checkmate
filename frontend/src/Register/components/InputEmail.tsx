@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { debounce } from 'lodash';
 import styled from 'styled-components';
 import validateEmailAPI from '../../api/register';
 
@@ -18,39 +19,47 @@ const InputEmail: React.FC<Props> = (props: Props) => {
     return regExp.test(email); // 형식에 맞으면 true 리턴
   };
   // 유효성 검사 함수
-  let timer: ReturnType<typeof setTimeout>;
-  const checkValidEmail = (email: string) => {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      if (isEmail(email)) {
-        setIsValidEmail(true);
-      } else {
-        setIsValidEmail(false);
+  
+  const checkValidEmail = debounce(async (value: string) => {
+
+    if (isValidEmail) {
+        // setIsValidEmail(true);
+        onSubmitForm(value);
       }
-    }, 300);
-  };
+      //  else {
+      //   setIsValidEmail(false);
+      // }
+  }, 300);
+  
+  // let timer: ReturnType<typeof setTimeout>;
 
   // input event 핸들러
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    checkValidEmail(e.target.value);
-    setEmailValue(e.target.value);
+  const onChangeInput = async (e:  React.ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target
+    setEmailValue(value);
+    await setIsValidEmail(isEmail(value))
+    await checkValidEmail(value);
   };
 
-  const onSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    
+
+
+  const onSubmitForm = async (email: string) => {
     if (isValidEmail) {
-      const response = await validateEmailAPI(`/members/email/${emailValue}`);
+      // eslint-disable-next-line no-console
+      console.log('api 호출');
+      const response = await validateEmailAPI(`/members/email/${email}`);
       if (response === 0) {
         setDupleMsg('이메일 노중복');
-        props.putEmail(emailValue); // 중복이 안되면 부모 컴포넌트에 email 전달
+        // console.log(`이메일 노중복!!${email}`)
+        props.putEmail(email); // 중복이 안되면 부모 컴포넌트에 email 전달
       } else {
         setDupleMsg('이메일 중복');
       }
     }
+
   };
+
 
   return (
     <>
@@ -61,15 +70,12 @@ const InputEmail: React.FC<Props> = (props: Props) => {
         )}
       </Warning>
       <EmailInputWrapper>
-        <form onSubmit={onSubmitForm}>
-          <EmailInput
-            value={emailValue}
-            onChange={onChangeInput}
-            type="text"
-            placeholder="ssafy123@ssafy.com"
-          />
-        </form>
-          <CheckDupleBtn>중복 체크</CheckDupleBtn>
+        <EmailInput
+          value={emailValue}
+          onChange={onChangeInput}
+          type="text"
+          placeholder="ssafy123@ssafy.com"
+        />
       </EmailInputWrapper>
       {dupleMsg && <h3>{dupleMsg}</h3>}
     </>
@@ -81,23 +87,20 @@ const QuestionBox = styled.h1`
 const Warning = styled.h3``;
 const EmailInputWrapper = styled.div`
   width: 473px;
-  display: flex;
 `;
 const EmailInput = styled.input`
-  flex-basis: 60%;
+  width: 100%;
   height: 72px;
   border-radius: 8px;
   padding: 22px 25px 23px 25px;
+  color: #038EFC;
+  font-size: 18px;
   &::placeholder {
     color: #038EFC;
     opacity: 0.55;
     font-weight: 400;
     font-size: 18px;
   }
-`;
-const CheckDupleBtn = styled.button`
-  display: block;
-  flex-basis: 40%;
 `;
 
 export default InputEmail;
