@@ -25,7 +25,11 @@ const LoginAPI = async (data: loginData): Promise<responseType> => {
   const response = await axiosInstance
     .post(url, data)
     .then((response) => {
-      return response.data;
+      const { data } = response;
+      if (data.message === 'error') {
+        throw new Error();
+      }
+      return data;
     })
     .catch(() => {
       return {
