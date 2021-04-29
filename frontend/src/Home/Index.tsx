@@ -20,7 +20,7 @@ const Home = (): ReactElement => {
     <HomeContainer>
       <SubHeader />
       <Header />
-      <img src={mainImage1} alt="mainIamge" />
+      <MainImage src={mainImage1} alt="mainIamge" />
       <Title>{title}</Title>
       <SubTitle>{subTitle}</SubTitle>
 
@@ -44,6 +44,9 @@ const HomeContainer = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.h1};
 `;
 
+const MainImage = styled.img`
+  width: 100%;
+`;
 const Title = styled.h1`
   margin: 80px 0 0 0;
   font-size: ${({ theme }) => theme.fontSizes.h1};
