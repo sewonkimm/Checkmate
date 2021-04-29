@@ -11,6 +11,9 @@ const fontSizes = {
 const colors = {
   black: '#000000',
   white: '#FFFFFF',
+  whiteF4: '#F4F4F4',
+  whiteF7: '#F7F7F7',
+  whiteD9: '#D9D9D9',
   primary: '#0F16F8',
   secondary: '#038EFC',
   accent: '#F600E1',

@@ -11,6 +11,9 @@ type fontSize = {
 type colors = {
   black: string;
   white: string;
+  whiteF4: string;
+  whiteF7: string;
+  whiteD9: string;
   primary: string;
   secondary: string;
   accent: string;
