@@ -4,6 +4,7 @@ Register/Index.tsx
 */
 
 import React, { useState } from 'react';
+import {useHistory} from 'react-router';
 import styled from 'styled-components';
 import {signupIconNormal} from '../assets'
 import MotherLanguage from './components/MotherLanguage';
@@ -11,8 +12,19 @@ import InputEmail from './components/InputEmail';
 import Nickname from './components/Nickname';
 import RegisterComplete from './components/RegisterComplete';
 import InputPassword from './components/InputPassword';
+import register from '../api/register';
 
-
+// interface data {
+//   "memberEmail": string,
+//   "memberId": number,
+//   "memberIntroduce": string,
+//   "memberNativeLang": string,
+//   "memberNickname": string,
+//   "memberPassword": string,
+//   "memberPoint": number,
+//   "memberProfileUrl": string
+//   "memberTypeId": number
+// }
 
 const Register: React.FC = () => {
   const [step, setStep] = useState<number>(0); // 몇 번째 컴포넌트가 보여질지 정해주는 state
@@ -20,18 +32,41 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
+  const history = useHistory();
 
-  const handleNextBtn = () => {
+  const handleNextBtn = async () => {
     if (step >= 0 && step < registerGroup.length - 1) {
       setStep(step + 1); // 다음 컴포넌트로
-    }
-    if (step === 4 && email && password && nickname) {
-      // axios 회원가입 요청
-    } else {
-      // 경고 문구 후 step[0]으로 보내버리기 혹은 해당 항목으로 보내버릴까
-    }
-    if (step === 5) {
+      if (step >= 3 && email && password && nickname) {
+
+        // 회원가입 시 전달할 데이터
+        const credentials = {
+          memberEmail: email,
+          memberId: 0,
+          memberIntroduce: "",
+          memberNativeLang: selectedLanguage,
+          memberNickname: nickname,
+          memberPassword: password,
+          memberPoint: 0,
+          memberProfileUrl: "",
+          memberTypeId: 0
+        };
+
+        // axios 회원가입 요청
+        const response = await register.registerAPI(credentials);
+        if (response === -1) {
+          alert('회원가입 실패!');
+          setStep(0);
+        } else {
+          setStep(step + 1);
+        } 
+      } else if(step >=3 && !(email && password && nickname)) {
+       setStep(0);
+      }
+    } 
+    if (step === 4) {
       // 로그인쪽으로 보낸다. 혹은 메인으로
+      history.push('/login');
     }
   };
 
@@ -107,7 +142,7 @@ const Icon = styled.img`
 `;
 const SignupBody = styled.section`
   margin-top: 60px;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
   width: 473px;
 `;
 

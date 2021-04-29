@@ -86,7 +86,8 @@ const Question = styled.h1`
   font-weight: 560;
 `;
 const Warning = styled.h3<{isValid: boolean}>`
-  color:${(props) => (props.isValid? '#FFFFFF' : '#F600E1')}
+  color:${(props) => (props.isValid? '#FFFFFF' : '#F600E1')};
+  font-size: 18px;
 `;
 const PasswordInput = styled.input<{checkValid: boolean}>`
   width: 473px;
@@ -125,7 +126,8 @@ const PasswordInputCheck = styled.input<{checkSame: boolean}>`
   }
 `
 const WarningDuple = styled.h3<{isSame: boolean}>`
-  color:${(props) => (props.isSame? '#FFFFFF' : '#F600E1')}
+  color:${(props) => (props.isSame? '#FFFFFF' : '#F600E1')};
+  font-size: 18px;
 `;
 
 export default InputPassword;

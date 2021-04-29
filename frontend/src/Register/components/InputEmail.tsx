@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
-import validateEmailAPI from '../../api/register';
+import register from '../../api/register';
 
 interface Props {
   putEmail: (emailValue: string) => void;
@@ -19,17 +19,14 @@ const InputEmail: React.FC<Props> = (props: Props) => {
     const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     return regExp.test(email); // 형식에 맞으면 true 리턴
   };
+
   // 유효성 검사 함수
-  
   const checkValidEmail = debounce(async (value: string) => {
     if (isValidEmail) {
       onSubmitForm(value);
     }
-
   }, 400);
   
-
-
   // input event 핸들러
   const onChangeInput = async (e:  React.ChangeEvent<HTMLInputElement>) => {
     const {value} = e.target
@@ -38,14 +35,9 @@ const InputEmail: React.FC<Props> = (props: Props) => {
     await checkValidEmail(value);
   };
 
-    
-
-
   const onSubmitForm = async (email: string) => {
     if (isValidEmail) {
-      // eslint-disable-next-line no-console
-      console.log('api 호출');
-      const response = await validateEmailAPI(`/members/email/${email}`);
+      const response = await register.validateEmailAPI(`/members/email/${email}`);
       if (response === 0) {
         setDupleMsg('사용가능한 이메일입니다 :)');
         setIsDuple(true);
@@ -57,7 +49,6 @@ const InputEmail: React.FC<Props> = (props: Props) => {
     }
 
   };
-
 
   return (
     <>
@@ -82,13 +73,19 @@ const InputEmail: React.FC<Props> = (props: Props) => {
     </>
   );
 };
+
 const QuestionBox = styled.h1`
   font-size: 36px;
 `;
-const Warning = styled.h3``;
+
+const Warning = styled.h3`
+  font-size: 18px;
+`;
+
 const EmailInputWrapper = styled.div`
   width: 473px;
 `;
+
 const EmailInput = styled.input<{ checkDuple : boolean }>`
   width: 100%;
   height: 72px;
@@ -107,6 +104,7 @@ const EmailInput = styled.input<{ checkDuple : boolean }>`
     outline: none;
   }
 `;
+
 const DupleMsgWrapper = styled.h3<{isDuple: boolean}>`
   color: ${(props) => (props.isDuple? '#FFFFFF' : '#F600E1')};
 `;
