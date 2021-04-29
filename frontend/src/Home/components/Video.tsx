@@ -9,7 +9,7 @@ const Video = ({ url }: VideoProps): ReactElement => {
   return (
     <iframe
       width="100%"
-      height="400px"
+      height="600px"
       src={url}
       title="YouTube video player"
       frameBorder="0"
