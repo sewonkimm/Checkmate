@@ -48,39 +48,41 @@ const InputEmail: React.FC<Props> = ({ putEmail }: Props) => {
 
   return (
     <>
-      <QuestionBox>이메일을 입력하세요</QuestionBox>
+      <Question>이메일을 입력하세요</Question>
       <EmailInput
-        checkDuple={isDuple}
+        isValid={isValidEmail}
+        isDuple={isDuple}
         value={emailValue}
         onChange={onChangeInput}
         type="text"
         placeholder="ssafy123@ssafy.com"
       />
-      <Warning>{emailValue && !isValidEmail && '유효하지 않은 이메일입니다'}</Warning>
-      <Warning>{isDuple && '이미 사용중인 이메일입니다'}</Warning>
+      <Warning isValid={isValidEmail}>{emailValue && !isValidEmail && '유효하지 않은 이메일입니다'}</Warning>
+      <Warning isValid={isDuple}>{isDuple && '이미 사용중인 이메일입니다'}</Warning>
     </>
   );
 };
 
-const QuestionBox = styled.h1`
+const Question = styled.h1`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSizes.h3};
 `;
 
-const Warning = styled.h3`
+const Warning = styled.h3<{ isValid: boolean }>`
   margin-top: 5px;
+  color: ${(props) => (props.isValid ? '#FFFFFF' : '#F600E1')};
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
 `;
 
-const EmailInput = styled.input<{ checkDuple: boolean }>`
+const EmailInput = styled.input<{ isValid: boolean; isDuple: boolean }>`
   width: 100%;
   height: 72px;
   margin-top: 20px;
-  border: 3px solid ${(props) => (props.checkDuple ? '#F016DE' : '#038EFC')};
+  border: 3px solid ${(props) => (props.isValid && !props.isDuple ? '#038EFC' : '#F016DE')};
   border-radius: 8px;
   padding: 22px 25px 23px 25px;
-  color: ${(props) => (props.checkDuple ? '#F016DE' : '#038EFC')};
+  color: ${(props) => (props.isValid && !props.isDuple ? '#038EFC' : '#F016DE')};
   font-size: ${({ theme }) => theme.fontSizes.body};
   &::placeholder {
     color: ${({ theme }) => theme.colors.secondary};
