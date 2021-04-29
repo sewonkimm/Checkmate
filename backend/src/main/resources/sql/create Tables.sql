@@ -26,6 +26,8 @@ CREATE TABLE `auth` (
   `auth_university` varchar(255) NOT NULL,
   `auth_department` varchar(255) NOT NULL,
   `auth_name` varchar(255) NOT NULL,
+  `auth_file_url` VARCHAR(255) NOT NULL,
+  `auth_status` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`member_id`),
   CONSTRAINT `mem_foreign_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
 );
