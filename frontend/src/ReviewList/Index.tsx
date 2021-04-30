@@ -11,7 +11,7 @@ const ReviewList: React.FC = () => {
       <SubHeader />
       <Header />
       <BannerSection img={ImagePath}>
-        <BannerTitle>질문 리스트</BannerTitle>
+        <BannerTitle>Help Center</BannerTitle>
         <BannerDescription>
           획득한 포인트로 첨삭 신청이 가능합니다<br />
           또한 첨삭을 도와주고, 포인트를 획득하세요 😃
@@ -38,11 +38,14 @@ const BannerSection = styled.section<{img: string}>`
   padding: 12px;
 `;
 const BannerTitle = styled.h3`
-  font-size: 52px;
+  font-family: 'Kirang Haerang', cursive;
+  margin: 35px 0 35px 0;
+  font-size: 56px;
+  font-weight: 500;
   color: ${({ theme }) => theme.colors.white};
 `;
 const BannerDescription = styled.p`
-  font-size: 34px;
+  font-size: 28px;
   color: ${({ theme }) => theme.colors.white};
 `;
 
