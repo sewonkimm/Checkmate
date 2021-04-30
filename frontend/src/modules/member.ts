@@ -7,14 +7,18 @@ import { MemberType } from '../entity';
 
 // action types
 const LOGIN = 'member/LOGIN' as const; // action type 선언시 as const(const assertions 문법)라는 키워드를 붙어야 합니다
+const LOGOUT = 'member/LOGOUT' as const;
 
 // action creators
 export const login = (member: MemberType) => ({
   type: LOGIN,
   payload: member,
 });
+export const logout = () => ({
+  type: LOGOUT,
+});
 
-type MemberAction = ReturnType<typeof login>;
+type MemberAction = ReturnType<typeof login> | ReturnType<typeof logout>;
 
 // state
 type MemberState = {
@@ -40,6 +44,8 @@ function memberReducer(state = initialState, action: MemberAction): MemberState 
   switch (action.type) {
     case LOGIN:
       return { member: action.payload };
+    case LOGOUT:
+      return { member: initialState.member };
     default:
       return state;
   }
