@@ -1,0 +1,105 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { debounce } from 'lodash';
+import register from '../../api/register';
+
+interface Props {
+  putNickname: (name: string) => void;
+  preventNext: (value: React.SetStateAction<boolean>) => void;
+}
+
+const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => {
+  const [nicknameValue, setNicknameValue] = useState<string>('');
+  const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
+  const [isDuple, setIsDuple] = useState<boolean>(false);
+
+  // 닉네임 유효성 검사
+  const validateNickname = (nickname: string) => {
+    const regExp = /^[a-z0-9]{4,12}$/; // 4~12자리 닉네임을 만들수 있습니다. 한글은 안된다
+    return regExp.test(nickname);
+  };
+
+  // 닉네임 중복 검사
+  // 디바운싱(추후 보완)
+  const checkValidNickname = debounce((nickname: string) => {
+    onSubmitForm(nickname);
+  }, 400);
+
+  const onSubmitForm = async (value: string) => {
+    const response = await register.validateNicknameAPI(`members/nickName/${value}`);
+    if (response === 0) {
+      setIsDuple(false);
+      putNickname(value); // 중복이 안되면 부모 컴포넌트에 닉네임 전달
+    } else {
+      setIsDuple(false);
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+    }
+  };
+
+  // input event 핸들러
+  const onChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setNicknameValue(value);
+    setIsValidNickname(validateNickname(value));
+
+    if (validateNickname(value)) {
+      checkValidNickname(value);
+    } else {
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+    }
+  };
+
+  return (
+    <>
+      <Question>닉네임을 입력해주세요</Question>
+
+      <NicknameInput
+        isValid={isValidNickname}
+        isDuple={isDuple}
+        value={nicknameValue}
+        onChange={onChangeInput}
+        type="text"
+        placeholder="닉네임"
+      />
+
+      <Warning isValid={isValidNickname} isDuple={isDuple}>
+        {nicknameValue && (isValidNickname ? '' : '영어, 숫자로 4~12자리 닉네임으로 만들어주세요')}
+        {isDuple && '이미 사용중인 닉네임입니다'}
+      </Warning>
+    </>
+  );
+};
+
+const Question = styled.h1`
+  margin: 0;
+  font-size: ${({ theme }) => theme.fontSizes.h3};
+`;
+
+const NicknameInput = styled.input<{ isValid: boolean; isDuple: boolean }>`
+  width: 100%;
+  height: 72px;
+  margin-top: 20px;
+  border: 3px solid ${(props) => (props.isValid && !props.isDuple ? '#038EFC' : '#F016DE')};
+  border-radius: 8px;
+  padding: 22px 25px 23px 25px;
+  color: ${(props) => (props.isValid && !props.isDuple ? '#038EFC' : '#F016DE')};
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.secondary};
+    opacity: 0.55;
+    font-size: ${({ theme }) => theme.fontSizes.body};
+    font-weight: normal;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Warning = styled.h3<{ isValid: boolean; isDuple: boolean }>`
+  margin-top: 5px;
+  color: ${(props) => (props.isValid && !props.isDuple ? '#FFFFFF' : '#F600E1')};
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: normal;
+`;
+
+export default InputNickname;

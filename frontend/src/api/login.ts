@@ -3,7 +3,7 @@ import axios from 'axios';
 const apiBaseURL = process.env.REACT_APP_API_URL;
 
 const axiosInstance = axios.create({
-  baseURL: `${apiBaseURL}/`,
+  baseURL: `${apiBaseURL}`,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json; charset=utf-8',
@@ -21,7 +21,7 @@ type responseType = {
 };
 
 const LoginAPI = async (data: loginData): Promise<responseType> => {
-  const url = '/members/signIn';
+  const url = 'members/signIn';
   const response = await axiosInstance
     .post(url, data)
     .then((response) => {
