@@ -21,13 +21,18 @@ const Register: React.FC = () => {
   const [nickname, setNickname] = useState<string>('');
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const [ableNextBtn, setAbleNextBtn] = useState<boolean>(false);
+  const [nextBtnText, setNextBtnText] = useState<string>('다음으로');
 
   const history = useHistory();
 
   const handleNextBtn = async () => {
-    if (step >= 0 && step < registerGroup.length - 1) {
+    if (step >= 0 && step < registerGroup.length) {
       setStep(step + 1); // 다음 컴포넌트 표시
       setAbleNextBtn(false); // NextBtn 비활성화
+
+      if (step === 2) {
+        setNextBtnText('회원가입'); // 버튼 문구 변경
+      }
 
       // 조건을 다 만족하면 회원가입 api 호출
       if (step >= 3 && email && password && nickname) {
@@ -52,6 +57,7 @@ const Register: React.FC = () => {
           alert('회원가입에 실패했습니다.'); // 추후 토스트 메세지로 변경
         } else {
           setCanRegister(true);
+          setNextBtnText('로그인하러 가기');
         }
       } else if (step >= 3 && !(email && password && nickname)) {
         // 추후 토스트 메세지 추가
@@ -98,7 +104,9 @@ const Register: React.FC = () => {
       {canRegister ? (
         <>
           <Message>가입을 축하합니다!</Message>
-          <NextBtn onClick={handleLoginBtn}>로그인하러 가기</NextBtn>
+          <ButtonWrap>
+            <NextBtn onClick={handleLoginBtn}>{nextBtnText}</NextBtn>
+          </ButtonWrap>
         </>
       ) : (
         <>
@@ -111,7 +119,7 @@ const Register: React.FC = () => {
 
           <ButtonWrap>
             <NextBtn onClick={handleNextBtn} disabled={!ableNextBtn}>
-              다음으로
+              {nextBtnText}
             </NextBtn>
           </ButtonWrap>
         </>
@@ -123,7 +131,8 @@ const Register: React.FC = () => {
 // Register page style
 const RegisterWrap = styled.section`
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  overflow: scroll;
   padding: 100px 0;
   display: flex;
   flex-direction: column;
@@ -159,10 +168,10 @@ const ButtonWrap = styled.div`
   justify-content: space-around;
 `;
 const NextBtn = styled.button`
-  font-size: 20px;
   width: 100%;
   height: 65px;
   border-radius: 10px;
+  font-size: 20px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
   background-color: ${({ theme }) => theme.colors.white};
