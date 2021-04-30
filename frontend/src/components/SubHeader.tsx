@@ -1,17 +1,22 @@
 import React, { ReactElement, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../modules';
 import { MemberType } from '../entity';
+import { logout } from '../modules/member';
 
 const SubHeader = (): ReactElement => {
-  const [member, setMember] = useState<MemberType>(useSelector((state: RootState) => state.member.member));
+  const [member, setMember] = useState<MemberType | null>(useSelector((state: RootState) => state.member.member));
   const [isMember, setIsMember] = useState<boolean>(false);
   const [profileLink, setProfileLink] = useState<string>('');
+  const dispatch = useDispatch();
+  const router = useHistory();
 
   useEffect(() => {
-    if (member.memberId > 0) {
+    if (member === null) {
+      setIsMember(false);
+    } else if (member.memberId > 0) {
       setIsMember(true);
       setProfileLink(`/profile/${member.memberId}`);
     }
@@ -19,7 +24,9 @@ const SubHeader = (): ReactElement => {
 
   // 로그아웃 액션 호출
   const onClickLogoutBtn = () => {
-    console.log('logout');
+    dispatch(logout());
+    setMember(null);
+    router.push('/');
   };
 
   return (
