@@ -5,9 +5,10 @@ import register from '../../api/register';
 
 interface Props {
   putNickname: (name: string) => void;
+  preventNext: (value: React.SetStateAction<boolean>) => void;
 }
 
-const InputNickname: React.FC<Props> = ({ putNickname }: Props) => {
+const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => {
   const [nicknameValue, setNicknameValue] = useState<string>('');
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
   const [isDuple, setIsDuple] = useState<boolean>(false);
@@ -31,6 +32,7 @@ const InputNickname: React.FC<Props> = ({ putNickname }: Props) => {
       putNickname(value); // 중복이 안되면 부모 컴포넌트에 닉네임 전달
     } else {
       setIsDuple(false);
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
     }
   };
 
@@ -39,8 +41,11 @@ const InputNickname: React.FC<Props> = ({ putNickname }: Props) => {
     const { value } = e.target;
     setNicknameValue(value);
     setIsValidNickname(validateNickname(value));
+
     if (validateNickname(value)) {
       checkValidNickname(value);
+    } else {
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
     }
   };
 

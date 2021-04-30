@@ -5,34 +5,28 @@ import register from '../../api/register';
 
 interface Props {
   putEmail: (emailValue: string) => void;
+  preventNext: (value: React.SetStateAction<boolean>) => void;
 }
 
-const InputEmail: React.FC<Props> = ({ putEmail }: Props) => {
-  const [emailValue, setEmailValue] = useState<string>(''); // 컴포넌트가 변경되어도 입력한 값을 동일하게 유지
+const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
+  const [emailValue, setEmailValue] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isDuple, setIsDuple] = useState<boolean>(false);
 
-  // Email 유효성 판단 함수
+  // Email 유효성 검사
   const validateEmail = (email: string) => {
     // eslint-disable-next-line no-useless-escape
     const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     return regExp.test(email); // 형식에 맞으면 true 리턴
   };
 
-  // 유효성 검사 함수
+  // Email 중복 검사
+  // 디바운싱(추후 보완)
   const checkValidEmail = debounce(async (value: string) => {
     if (isValidEmail) {
       onSubmitForm(value);
     }
   }, 400);
-
-  // input event 핸들러
-  const onChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setEmailValue(value);
-    await setIsValidEmail(validateEmail(value));
-    await checkValidEmail(value);
-  };
 
   const onSubmitForm = async (email: string) => {
     if (isValidEmail && emailValue) {
@@ -42,8 +36,22 @@ const InputEmail: React.FC<Props> = ({ putEmail }: Props) => {
         putEmail(email); // 중복이 안되면 부모 컴포넌트에 email 전달
       } else {
         setIsDuple(true);
+        preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
       }
     }
+  };
+
+  // input event 핸들러
+  const onChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setEmailValue(value);
+    if (validateEmail(value)) {
+      setIsValidEmail(true);
+    } else {
+      setIsValidEmail(false);
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+    }
+    await checkValidEmail(value);
   };
 
   return (

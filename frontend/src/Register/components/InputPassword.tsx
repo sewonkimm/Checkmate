@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 interface Props {
   putPassword: (password: string) => void;
+  preventNext: (value: React.SetStateAction<boolean>) => void;
 }
 
-const InputPassword: React.FC<Props> = ({ putPassword }: Props) => {
+const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => {
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
   const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
@@ -22,6 +23,7 @@ const InputPassword: React.FC<Props> = ({ putPassword }: Props) => {
       setIsValidPassword(true);
     } else {
       setIsValidPassword(false);
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
     }
   };
 
@@ -32,6 +34,7 @@ const InputPassword: React.FC<Props> = ({ putPassword }: Props) => {
       putPassword(passwordValue);
     } else {
       setIsSamePassword(false);
+      preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
     }
   };
 
