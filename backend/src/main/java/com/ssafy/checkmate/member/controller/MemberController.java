@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Api(tags = "Members", description = "사용자 API")
@@ -62,5 +64,11 @@ public class MemberController {
     public int nickNameExits(@PathVariable String memberNickName) {
 
         return memberService.validateNickName(memberNickName);
+    }
+
+    @ApiOperation(value = "활동로그 조회하기", notes = "질문, 답변 갯수를 날짜에 맞게 리턴합니다.")
+    @GetMapping("/activate/{memberId}")
+    public ResponseEntity<Map<LocalDate, Object>> activateLog(@PathVariable Long memberId) {
+        return memberService.activateLog(memberId);
     }
 }

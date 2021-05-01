@@ -3,6 +3,7 @@ package com.ssafy.checkmate.answer.dto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,7 +28,7 @@ public class Answer {
     private String answerContext;
 
     @Column(insertable = false, updatable = false)
-    private LocalDateTime answerDate;
+    private LocalDate answerDate;
 
     @Column(insertable = false)
     private LocalDateTime answerModifiedDate;
