@@ -69,6 +69,7 @@ public class MemberController {
     @ApiOperation(value = "활동로그 조회하기", notes = "질문, 답변 갯수를 날짜에 맞게 리턴합니다.")
     @GetMapping("/activate/{memberId}")
     public ResponseEntity<Map<LocalDate, Object>> activateLog(@PathVariable Long memberId) {
+
         return memberService.activateLog(memberId);
     }
 }
