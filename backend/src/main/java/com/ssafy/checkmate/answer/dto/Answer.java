@@ -28,7 +28,7 @@ public class Answer {
     private String answerContext;
 
     @Column(insertable = false, updatable = false)
-    private LocalDate answerDate;
+    private LocalDateTime answerDate;
 
     @Column(insertable = false)
     private LocalDateTime answerModifiedDate;

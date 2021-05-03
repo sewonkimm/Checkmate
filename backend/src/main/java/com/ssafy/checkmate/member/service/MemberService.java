@@ -3,7 +3,6 @@ package com.ssafy.checkmate.member.service;
 import com.ssafy.checkmate.answer.dto.Answer;
 import com.ssafy.checkmate.answer.repository.AnswerRepository;
 import com.ssafy.checkmate.common.exception.LoginFailedException;
-import com.ssafy.checkmate.common.exception.ValidationException;
 import com.ssafy.checkmate.common.security.Sha256;
 import com.ssafy.checkmate.member.dto.Member;
 import com.ssafy.checkmate.member.repository.MemberRepository;
@@ -140,12 +139,13 @@ public class MemberService {
         for (int i = 0; i < question.size(); i++) {
 
             if (question.get(i).getQuestionDate() != null) {
-                LocalDate templeDate = question.get(i).getQuestionDate();
+                LocalDateTime templeDate = question.get(i).getQuestionDate();
+                LocalDate templeDateLocalDate = templeDate.toLocalDate();
 
-                if (resultMap.get(templeDate) == null) {
-                    resultMap.put(templeDate, 1);
+                if (resultMap.get(templeDateLocalDate) == null) {
+                    resultMap.put(templeDateLocalDate, 1);
                 } else {
-                    resultMap.put(templeDate, (int) resultMap.get(templeDate) + 1);
+                    resultMap.put(templeDateLocalDate, (int) resultMap.get(templeDateLocalDate) + 1);
                 }
             }
         }
@@ -153,12 +153,13 @@ public class MemberService {
         for (int i = 0; i < answer.size(); i++) {
 
             if (answer.get(i).getAnswerDate() != null) {
-                LocalDate templeDate = answer.get(i).getAnswerDate();
+                LocalDateTime templeDate = answer.get(i).getAnswerDate();
+                LocalDate templeDateLocalDate = templeDate.toLocalDate();
 
-                if (resultMap.get(templeDate) == null) {
-                    resultMap.put(templeDate, 1);
+                if (resultMap.get(templeDateLocalDate) == null) {
+                    resultMap.put(templeDateLocalDate, 1);
                 } else {
-                    resultMap.put(templeDate, (int) resultMap.get(templeDate) + 1);
+                    resultMap.put(templeDateLocalDate, (int) resultMap.get(templeDateLocalDate) + 1);
                 }
             }
         }

@@ -31,7 +31,7 @@ public class Question {
     private String questionContents;
 
     @Column(insertable = false, updatable = false)
-    private LocalDate questionDate;
+    private LocalDateTime questionDate;
 
     @NonNull
     private LocalDate questionEndDate;
