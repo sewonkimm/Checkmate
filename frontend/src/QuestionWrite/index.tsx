@@ -18,8 +18,8 @@ const QuestionWrite: React.FC = () => {
   const [deadLine, setDeadLine] = useState<string>('');
   const [point, setPoint] = useState<number>(0);
   const [file, setFile] = useState<File | null>();
+  const [explain, setExplain] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [reviewContent, setReviewContent] = useState<string>('');
 
   useEffect(() => {
     const date = new Date();
@@ -59,12 +59,12 @@ const QuestionWrite: React.FC = () => {
     }
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleExplainChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setExplain(e.target.value);
   };
 
-  const handleReviewContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewContent(e.target.value);
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
   };
 
   const handleCancelButton = () => {
@@ -83,8 +83,8 @@ const QuestionWrite: React.FC = () => {
   // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
   const validateSubmit = (): boolean => {
     if (title === '') return false;
-    if (point === 0 && reviewContent === '') return false;
-    if (point > 0 && file === undefined && reviewContent === '') return false;
+    if (point === 0 && content === '') return false;
+    if (point > 0 && file === undefined && content === '') return false;
     return true;
   };
 
@@ -141,8 +141,8 @@ const QuestionWrite: React.FC = () => {
             내용
             <TextareaInput
               rows={5}
-              value={content}
-              onChange={handleContentChange}
+              value={explain}
+              onChange={handleExplainChange}
               placeholder="질문하고 싶은 내용을 자세히 작성해주세요"
             />
           </Label>
@@ -150,8 +150,8 @@ const QuestionWrite: React.FC = () => {
             첨삭내용
             <TextareaInput
               rows={10}
-              value={reviewContent}
-              onChange={handleReviewContentChange}
+              value={content}
+              onChange={handleContentChange}
               placeholder="첨삭 받을 내용을 1,000자 이내로 작성해주세요"
             />
           </Label>
