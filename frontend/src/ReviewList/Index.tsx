@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import SubHeader from '../components/SubHeader';
 import Header from '../components/Header';
 import ImagePath from '../assets/review_img.jpg'
+import QuestionGroup from './components/QuestionGroup'
+import Filters from './components/Filters'
 
 const ReviewList: React.FC = () => {
 
@@ -14,9 +16,11 @@ const ReviewList: React.FC = () => {
         <BannerTitle>Help Center</BannerTitle>
         <BannerDescription>
           획득한 포인트로 첨삭 신청이 가능합니다<br />
-          또한 첨삭을 도와주고, 포인트를 획득하세요 😃
+          또한 첨삭을 도와주고, 포인트를 획득하세요 😇
         </BannerDescription>
       </BannerSection>
+      <Filters />
+      <QuestionGroup />
     </HomeContainer>
   );
 };
@@ -48,6 +52,5 @@ const BannerDescription = styled.p`
   font-size: 28px;
   color: ${({ theme }) => theme.colors.white};
 `;
-
 
 export default ReviewList;
