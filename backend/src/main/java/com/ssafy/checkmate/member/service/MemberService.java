@@ -1,11 +1,14 @@
 package com.ssafy.checkmate.member.service;
 
+import com.ssafy.checkmate.answer.dto.Answer;
+import com.ssafy.checkmate.answer.repository.AnswerRepository;
 import com.ssafy.checkmate.common.exception.LoginFailedException;
-import com.ssafy.checkmate.common.exception.ValidationException;
 import com.ssafy.checkmate.common.security.Sha256;
 import com.ssafy.checkmate.member.dto.Member;
 import com.ssafy.checkmate.member.repository.MemberRepository;
 import com.ssafy.checkmate.member.vo.SelectMember;
+import com.ssafy.checkmate.question.dto.Question;
+import com.ssafy.checkmate.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,9 +28,11 @@ import java.util.Map;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
     private final JwtService jwtService;
     private final Sha256 sha256;
-    private static int check = 0;
+    private static int check, count = 0;
 
     public void signUp(Member member) {
 
@@ -121,5 +128,42 @@ public class MemberService {
         Member member = memberRepository.findMemberByMemberId(memberId);
         member.setMemberPoint(member.getMemberPoint() - questionPoint);
         memberRepository.save(member);
+    }
+
+    public ResponseEntity<Map<LocalDate, Object>> activateLog(Long memberId) {
+
+        List<Question> question = questionRepository.findQuestionsBymemberId(memberId);
+        List<Answer> answer = answerRepository.findAnswerByMemberId(memberId);
+        Map<LocalDate, Object> resultMap = new HashMap<LocalDate, Object>();
+
+        for (int i = 0; i < question.size(); i++) {
+
+            if (question.get(i).getQuestionDate() != null) {
+                LocalDateTime templeDate = question.get(i).getQuestionDate();
+                LocalDate templeDateLocalDate = templeDate.toLocalDate();
+
+                if (resultMap.get(templeDateLocalDate) == null) {
+                    resultMap.put(templeDateLocalDate, 1);
+                } else {
+                    resultMap.put(templeDateLocalDate, (int) resultMap.get(templeDateLocalDate) + 1);
+                }
+            }
+        }
+
+        for (int i = 0; i < answer.size(); i++) {
+
+            if (answer.get(i).getAnswerDate() != null) {
+                LocalDateTime templeDate = answer.get(i).getAnswerDate();
+                LocalDate templeDateLocalDate = templeDate.toLocalDate();
+
+                if (resultMap.get(templeDateLocalDate) == null) {
+                    resultMap.put(templeDateLocalDate, 1);
+                } else {
+                    resultMap.put(templeDateLocalDate, (int) resultMap.get(templeDateLocalDate) + 1);
+                }
+            }
+        }
+
+        return new ResponseEntity<Map<LocalDate, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
 }

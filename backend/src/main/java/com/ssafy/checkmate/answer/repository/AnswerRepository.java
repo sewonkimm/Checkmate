@@ -13,9 +13,12 @@ public interface AnswerRepository extends CrudRepository<Answer, Long> {
 
     public Answer findAnswerByAnswerId(Long answerId);
 
+    public List<Answer> findAnswerByMemberId(Long memberId);
+
     public List<Answer> findAllByQuestionId(Long questionId);
 
     public List<Answer> findAllByQuestionIdOrderByAnswerDateDesc(Long questionId, Pageable pageable);
+
 
     @Transactional
     public void deleteByAnswerId(Long answerId);
