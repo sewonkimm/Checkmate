@@ -5,12 +5,12 @@ Home/Index.tsx
 
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import SubHeader from '../components/SubHeader';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import SubHeader from '../../components/SubHeader';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import Button from './components/Button';
 import Video from './components/Video';
-import { mainImage1 } from '../assets';
+import { mainImage1 } from '../../assets';
 
 const Home = (): ReactElement => {
   const [title, setTitle] = useState('레포트 체크해줄 사람 어디 없나?');

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
-import register from '../../api/register';
+import register from '../../../api/register';
 
 interface Props {
   putEmail: (emailValue: string) => void;

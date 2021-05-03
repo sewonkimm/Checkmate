@@ -8,9 +8,9 @@ import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 
-import Home from './Home/Index';
-import Register from './Register/Index';
-import Login from './Login/Index';
+import Home from './pages/Home/Index';
+import Register from './pages/Register/Index';
+import Login from './pages/Login/Index';
 
 const App = (): ReactElement => {
   return (
