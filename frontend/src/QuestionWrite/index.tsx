@@ -47,6 +47,9 @@ const QuestionWrite: React.FC = () => {
   };
 
   const handlePointChange = (value: any) => {
+    if (value === 0) {
+      setFile(undefined);
+    }
     setPoint(value);
   };
 
@@ -80,8 +83,8 @@ const QuestionWrite: React.FC = () => {
   // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
   const validateSubmit = (): boolean => {
     if (title === '') return false;
-    if (reviewContent === '') return false;
-    if (point > 0 && file === (null || undefined)) return false;
+    if (point === 0 && reviewContent === '') return false;
+    if (point > 0 && file === undefined && reviewContent === '') return false;
     return true;
   };
 
@@ -203,6 +206,10 @@ const TextInput = styled.input`
   &::placehorder {
     color: ${({ theme }) => theme.colors.whiteD9};
   }
+  &:focus {
+    border: 2px solid ${({ theme }) => theme.colors.secondary};
+    outline: none;
+  }
 `;
 const DateInput = styled(TextInput)``;
 
@@ -243,6 +250,10 @@ const TextareaInput = styled.textarea`
 
   &::placehorder {
     color: ${({ theme }) => theme.colors.whiteD9};
+  }
+  &:focus {
+    border: 2px solid ${({ theme }) => theme.colors.secondary};
+    outline: none;
   }
 `;
 
