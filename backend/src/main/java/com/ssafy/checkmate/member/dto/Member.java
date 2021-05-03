@@ -37,4 +37,7 @@ public class Member {
     private int memberPoint;
 
     private String memberProfileUrl;
+
+    @NonNull
+    private int memberGrade;
 }

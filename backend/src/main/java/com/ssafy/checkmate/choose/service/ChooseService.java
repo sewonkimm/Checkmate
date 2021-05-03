@@ -7,9 +7,12 @@ import com.ssafy.checkmate.member.repository.MemberRepository;
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.repository.QuestionRepository;
 import com.ssafy.checkmate.review.dto.Review;
+import com.ssafy.checkmate.review.repository.ReviewRepository;
 import com.ssafy.checkmate.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ public class ChooseService {
     private final ReviewService reviewService;
     private final MemberRepository memberRepository;
     private final QuestionRepository questionRepository;
+    private final ReviewRepository reviewRepository;
 
     public void chooseAnswer(Long questionId, Long answerId, Review review) {
 
@@ -33,6 +37,31 @@ public class ChooseService {
 
         answerRepository.save(answer);
         reviewService.insertReview(review);
+        memberRepository.save(member);
+    }
+
+    public void calculateGrade(Long answerId, Review review) {
+
+        Answer answer = answerRepository.findAnswerByAnswerId(answerId);
+        Member member = memberRepository.findMemberByMemberId(answer.getMemberId());
+        List<Answer> answerList = answerRepository.findAnswerByMemberId(member.getMemberId());
+
+        double reviewCount = 0.0;
+        double sumGrade = 0.0;
+        int avgGrade = 0;
+
+        for (Answer ans : answerList) {
+
+            if (reviewRepository.existsByAnswerId(ans.getAnswerId())) {
+                Review rv = reviewRepository.findReviewByAnswerId(ans.getAnswerId());
+
+                sumGrade = sumGrade + rv.getReviewScore();
+                reviewCount++;
+            }
+        }
+
+        avgGrade = (int) Math.round(sumGrade / reviewCount);
+        member.setMemberGrade(avgGrade);
         memberRepository.save(member);
     }
 }
