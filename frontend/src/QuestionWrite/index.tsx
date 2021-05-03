@@ -5,10 +5,14 @@ QuestionWrite/index.tsx
 
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import NumericInput from 'react-numeric-input';
+import { RootState } from '../modules';
 import SubHeader from '../components/SubHeader';
 import Header from '../components/Header';
+import WriteAPI from '../api/question';
+import { QuestionType } from '../entity';
 
 const QuestionWrite: React.FC = () => {
   const router = useHistory();
@@ -20,8 +24,10 @@ const QuestionWrite: React.FC = () => {
   const [file, setFile] = useState<File | null>();
   const [explain, setExplain] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [memberId, setMemberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
 
   useEffect(() => {
+    // 오늘 날짜 설정
     const date = new Date();
     const year = date.getFullYear();
     const month = `0${1 + date.getMonth()}`.slice(-2);
@@ -72,9 +78,33 @@ const QuestionWrite: React.FC = () => {
     router.push('/');
   };
 
-  const handleSubmitButton = () => {
+  const handleSubmitButton = async () => {
     if (validateSubmit()) {
-      console.log('제출');
+      let data: QuestionType = {
+        // 파일첨부 X
+        memberId,
+        questionContents: content,
+        questionEndDate: deadLine,
+        questionExplain: explain,
+        questionPoint: point,
+        questionTitle: title,
+        questionUrl: '',
+      };
+      if (point > 0) {
+        // 파일첨부 O
+        data = {
+          ...data,
+          questionUrl: 'file',
+        };
+      }
+
+      const response = await WriteAPI(data);
+      if (response === 200) {
+        // 제출 성공
+        router.push('/check/mate');
+      } else {
+        // 제출 실패
+      }
     } else {
       // 항목을 모두 입력해주세요 알림!
     }
