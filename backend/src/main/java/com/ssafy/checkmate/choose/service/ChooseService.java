@@ -10,6 +10,7 @@ import com.ssafy.checkmate.review.dto.Review;
 import com.ssafy.checkmate.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class ChooseService {
     private final MemberRepository memberRepository;
     private final QuestionRepository questionRepository;
 
+    @Transactional
     public void chooseAnswer(Long questionId, Long answerId, Review review) {
 
         Answer answer = answerRepository.findAnswerByAnswerId(answerId);
