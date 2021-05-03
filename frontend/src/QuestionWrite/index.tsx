@@ -5,14 +5,11 @@ QuestionWrite/index.tsx
 
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import NumericInput from 'react-numeric-input';
-import { RootState } from '../modules';
 import SubHeader from '../components/SubHeader';
 import Header from '../components/Header';
-import { WriteAPI, FileUploadAPI } from '../api/question';
-import { QuestionType } from '../entity';
+import SubmitButton from './components/SubmitButton';
 
 const QuestionWrite: React.FC = () => {
   const router = useHistory();
@@ -24,7 +21,6 @@ const QuestionWrite: React.FC = () => {
   const [file, setFile] = useState<File | null>();
   const [explain, setExplain] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [memberId, setMemberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
 
   useEffect(() => {
     // 오늘 날짜 설정
@@ -76,50 +72,6 @@ const QuestionWrite: React.FC = () => {
   const handleCancelButton = () => {
     // 정말 취소하겠냐는 alert 추가하기
     router.push('/');
-  };
-
-  const handleSubmitButton = async () => {
-    if (validateSubmit()) {
-      let data: QuestionType = {
-        // 파일첨부 X
-        memberId,
-        questionContents: content,
-        questionEndDate: deadLine,
-        questionExplain: explain,
-        questionPoint: point,
-        questionTitle: title,
-        questionUrl: '',
-      };
-
-      if (point > 0 && file !== null && file !== undefined) {
-        // 파일첨부 O
-        const response = await FileUploadAPI(file);
-        if (response !== 500) {
-          data = {
-            ...data,
-            questionUrl: response,
-          };
-        }
-      }
-
-      const response = await WriteAPI(data);
-      if (response === 200) {
-        // 제출 성공
-        router.push('/check/mate');
-      } else {
-        // 제출 실패
-      }
-    } else {
-      // 항목을 모두 입력해주세요 알림!
-    }
-  };
-
-  // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
-  const validateSubmit = (): boolean => {
-    if (title === '') return false;
-    if (point === 0 && content === '') return false;
-    if (point > 0 && file === undefined && content === '') return false;
-    return true;
   };
 
   return (
@@ -194,9 +146,7 @@ const QuestionWrite: React.FC = () => {
           <CancelButton type="button" onClick={handleCancelButton}>
             취소
           </CancelButton>
-          <SubmitButton type="button" onClick={handleSubmitButton}>
-            등록
-          </SubmitButton>
+          <SubmitButton props={{ title, explain, content, deadLine, point, file }} />
         </ButtonContainer>
       </WriteContainer>
     </>
@@ -301,21 +251,17 @@ const ButtonContainer = styled.div`
   flex-direction: rows;
   justify-content: flex-end;
 `;
-const SubmitButton = styled.button`
+const CancelButton = styled.button`
   width: 20%;
   height: 65px;
   margin-left: 10px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-`;
-const CancelButton = styled(SubmitButton)`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primary};
+  font-size: 20px;
+  font-weight: bold;
   border: 3px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 10px;
+  cursor: pointer;
 `;
 
 export default QuestionWrite;
