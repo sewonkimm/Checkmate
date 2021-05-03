@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -123,6 +124,7 @@ public class MemberService {
         return memberSelect;
     }
 
+    @Transactional
     public void chargePoint(Long memberId, int questionPoint) {
 
         Member member = memberRepository.findMemberByMemberId(memberId);
@@ -130,6 +132,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    @Transactional
     public ResponseEntity<Map<LocalDate, Object>> activateLog(Long memberId) {
 
         List<Question> question = questionRepository.findQuestionsBymemberId(memberId);

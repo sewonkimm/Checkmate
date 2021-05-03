@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -76,6 +77,7 @@ public class AnswerService {
         return answerRepository.findAllByQuestionIdOrderByAnswerDateDesc(id, pageable);
     }
 
+    @Transactional
     public void putAnswer(UpdateRequestAnswer updateRequestAnswer) {
 
         Answer answer = answerRepository.findAnswerByAnswerId(updateRequestAnswer.getAnswerId());
@@ -87,6 +89,7 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
+    @Transactional
     public void deleteAnswer(Long id) {
 
         answerRepository.deleteByAnswerId(id);
