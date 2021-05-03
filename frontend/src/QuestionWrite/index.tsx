@@ -66,11 +66,11 @@ const QuestionWrite: React.FC = () => {
   };
 
   const handleExplainChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setExplain(e.target.value);
+    setExplain(e.target.value.slice(0, 1000)); // 1,000자 제한
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+    setContent(e.target.value.slice(0, 1000)); // 1,000자 제한
   };
 
   const handleCancelButton = () => {
