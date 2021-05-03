@@ -11,19 +11,40 @@ const axiosInstance = axios.create({
   },
 });
 
-const WriteAPI = async (data: QuestionType) => {
+const WriteAPI = async (data: QuestionType): Promise<number> => {
   const url = 'questions';
   const response = await axiosInstance
     .post(url, data)
     .then((response) => {
-      const { status } = response;
-      return status;
+      return response.status;
     })
     .catch((error) => {
       console.error(error);
+      return 500;
     });
 
   return response;
 };
 
-export default WriteAPI;
+const FileUploadAPI = async (file: File): Promise<string | number> => {
+  const fileData = new FormData();
+  fileData.append('questionFile', file);
+
+  const url = 'questions/fileUpload';
+  const response = await axiosInstance
+    .post(url, fileData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      return response.data.fileUrl;
+    })
+    .catch((error) => {
+      console.error(error);
+      return 500;
+    });
+  return response;
+};
+
+export { WriteAPI, FileUploadAPI };

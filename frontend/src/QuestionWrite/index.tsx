@@ -11,7 +11,7 @@ import NumericInput from 'react-numeric-input';
 import { RootState } from '../modules';
 import SubHeader from '../components/SubHeader';
 import Header from '../components/Header';
-import WriteAPI from '../api/question';
+import { WriteAPI, FileUploadAPI } from '../api/question';
 import { QuestionType } from '../entity';
 
 const QuestionWrite: React.FC = () => {
@@ -90,12 +90,16 @@ const QuestionWrite: React.FC = () => {
         questionTitle: title,
         questionUrl: '',
       };
-      if (point > 0) {
+
+      if (point > 0 && file !== null && file !== undefined) {
         // 파일첨부 O
-        data = {
-          ...data,
-          questionUrl: 'file',
-        };
+        const response = await FileUploadAPI(file);
+        if (response !== 500) {
+          data = {
+            ...data,
+            questionUrl: response,
+          };
+        }
       }
 
       const response = await WriteAPI(data);
