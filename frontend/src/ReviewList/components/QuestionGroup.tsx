@@ -32,8 +32,6 @@ const ReviewGroup: React.FC =  () => {
 	useEffect(() => {
 		async function fetchQuestions() {
 			const res = await QuestionAPI.getQuestions(`questions/${listType}/${offset}/3`)
-				// eslint-disable-next-line no-console
-				console.log(res)
 				const questionGroup = res.map(item => item)
 				setQuestions(questionGroup)
 		}
