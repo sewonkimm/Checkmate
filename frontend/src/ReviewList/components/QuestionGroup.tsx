@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import QuestionCard from './QuestionCard';
-import Question from '../../api/question';
+import QuestionAPI from '../../api/question';
+
+// type responseType = Array<questionType>;
+type questionType = {
+	memberId: number,
+	questionContents:string,
+	questionDate: string,
+	questionEndDate: string,
+	questionExplain: string,
+	questionId: number,
+	questionPoint: number,
+	questionStatus: number,
+	questionTitle: string,
+	questionUrl: string,
+};
 
 // 전체 질문 조회
 // list type = 
@@ -10,19 +24,35 @@ import Question from '../../api/question';
 // limit은 보내달라고 하는 갯수
 
 const ReviewGroup: React.FC =  () => {
-	const [questions, setQuestions] = useState([]);
+	const [questions, setQuestions] = useState<questionType[]>([]);
 	const [listType, setListType] = useState<number>(1);
 	const [offset, setOffset] = useState<number>(0);
-	const [limit, setLimit] = useState<number>(4);
+
+
 	useEffect(() => {
-		const res = Question.getQuestions(`questions/${listType}/${offset}/${limit}`)
-	}, [questions, listType, offset, limit])
-		
+		async function fetchQuestions() {
+			const res = await QuestionAPI.getQuestions(`questions/${listType}/${offset}/3`)
+				// eslint-disable-next-line no-console
+				console.log(res)
+				const questionGroup = res.map(item => item)
+				setQuestions(questionGroup)
+		}
+		fetchQuestions()		
+	}, [listType, offset])
+
 
 
 	return(
 		<QuestionsWrap>
-			<QuestionCard />
+			{
+				questions.map( (item: questionType) => (
+					<QuestionCard
+						key={item.questionId}
+						question={item}
+					/>
+
+				))
+			}
 		</QuestionsWrap>
 	)
 };

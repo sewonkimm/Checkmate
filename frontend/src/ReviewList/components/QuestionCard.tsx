@@ -1,23 +1,44 @@
 import React from 'react';
 import styled from 'styled-components'
+import QuestionAPI from '../../api/question'
 
-const Review: React.FC = () => {	
+type questionType = {
+	memberId: number,
+	questionContents:string,
+	questionDate: string,
+	questionEndDate: string,
+	questionExplain: string,
+	questionId: number,
+	questionPoint: number,
+	questionStatus: number,
+	questionTitle: string,
+	questionUrl: string,
+};
+type Props = {
+	question : questionType
+}
+
+const Review: React.FC<Props> = (props: Props) => {	
+	const {question} = props;
+	const day = QuestionAPI.getRemainDate(question.questionEndDate)
+	const createdDate = question.questionDate.split('T')[0]
+	
 
 	return(
 		<ReviewWrap>
 			<Header>
-				<ReviewHeader>700</ReviewHeader>
-				<ReviewHeader>D-12</ReviewHeader>
+				<ReviewHeader>{question.questionPoint}</ReviewHeader>
+				<ReviewHeader>D-{day}</ReviewHeader>
 			</Header>
 			<Title>
-				Need a quick help for my history essay
+				{question.questionTitle}
 			</Title>
 			<Body>
-				sorry for being hurry
+				{question.questionExplain}
 			</Body>
 			<Footer>
-				<p>답변 2</p>
-				<p>작성일 2021.4.29</p>
+				<FooterText>답변 2</FooterText>
+				<FooterText>작성일 {createdDate}</FooterText>
 			</Footer>
 		</ReviewWrap>
 	);
@@ -27,6 +48,7 @@ const ReviewWrap = styled.div`
 	box-shadow: 0px 5px 20px 2px rgba(48, 70, 89, 0.15);
 	border-radius: 10px;
 	padding: .4em;
+	margin: .5em 0;
 `;
 const Header = styled.div`
 	display: flex;
@@ -56,6 +78,10 @@ const Footer = styled.footer`
 	font-weight: 400;
 	font-size: 1.1rem;
 	text-align: end;
+`;
+const FooterText = styled.p`
+	margin: 0;
+	margin-top: 0.3em;
 `;
 
 export default Review;
