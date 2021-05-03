@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+/*
+QuestionWrite/index.tsx
+: 원어민 첨삭 질문 작성 페이지
+*/
+
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import NumericInput from 'react-numeric-input';
@@ -9,12 +14,30 @@ const QuestionWrite: React.FC = () => {
   const router = useHistory();
 
   const [title, setTitle] = useState<string>('');
+  const [today, setToday] = useState<string>('');
   const [deadLine, setDeadLine] = useState<string>('');
   const [point, setPoint] = useState<number>(0);
   const [file, setFile] = useState<File | null>();
   const [content, setContent] = useState<string>('');
   const [reviewContent, setReviewContent] = useState<string>('');
 
+  useEffect(() => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = `0${1 + date.getMonth()}`.slice(-2);
+    const day = `0${date.getDate()}`.slice(-2);
+    setToday(`${year}-${month}-${day}`);
+    setDeadLine(`${year}-${month}-${day}`);
+  }, []);
+
+  useEffect(() => {
+    // 오늘을 포함한 미래의 날짜만 마감일로 설정 가능
+    if (deadLine < today) {
+      setDeadLine(today);
+    }
+  }, [today, deadLine]);
+
+  // Event handler
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -42,11 +65,24 @@ const QuestionWrite: React.FC = () => {
   };
 
   const handleCancelButton = () => {
+    // 정말 취소하겠냐는 alert 추가하기
     router.push('/');
   };
 
   const handleSubmitButton = () => {
-    console.log('제출');
+    if (validateSubmit()) {
+      console.log('제출');
+    } else {
+      // 항목을 모두 입력해주세요 알림!
+    }
+  };
+
+  // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
+  const validateSubmit = (): boolean => {
+    if (title === '') return false;
+    if (reviewContent === '') return false;
+    if (point > 0 && file === (null || undefined)) return false;
+    return true;
   };
 
   return (
@@ -56,7 +92,6 @@ const QuestionWrite: React.FC = () => {
 
       <WriteContainer>
         <PageTitle>질문하기</PageTitle>
-
         <Form>
           <Label>
             제목
@@ -86,10 +121,17 @@ const QuestionWrite: React.FC = () => {
                 }}
               />
             </Label>
-            <FileLabel>
-              파일 추가
-              <FileInput type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" onChange={handleFileChange} />
-            </FileLabel>
+            {point > 0 ? (
+              <FileLabel>
+                파일 추가
+                <FileInput type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" onChange={handleFileChange} />
+              </FileLabel>
+            ) : (
+              <FileLabel style={{ color: '#D9D9D9', border: '2px solid #D9D9D9' }}>
+                파일 추가
+                <FileInput disabled />
+              </FileLabel>
+            )}
           </PointFileDiv>
 
           <Label>
@@ -111,7 +153,6 @@ const QuestionWrite: React.FC = () => {
             />
           </Label>
         </Form>
-
         <ButtonContainer>
           <CancelButton type="button" onClick={handleCancelButton}>
             취소
@@ -125,6 +166,7 @@ const QuestionWrite: React.FC = () => {
   );
 };
 
+// 질문 작성 페이지 style
 const WriteContainer = styled.div`
   width: 100%;
   padding: 80px 133px;
