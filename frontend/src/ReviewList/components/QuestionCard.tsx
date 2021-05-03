@@ -23,7 +23,6 @@ const Review: React.FC<Props> = (props: Props) => {
 	const day = QuestionAPI.getRemainDate(question.questionEndDate)
 	const createdDate = question.questionDate.split('T')[0]
 	
-
 	return(
 		<ReviewWrap>
 			<Header>
