@@ -43,6 +43,9 @@ pipeline {
 				sh 'docker container ls -a -f name=backend -q \
 		| xargs -r docker container rm'
 
+                sh 'docker images -f dangling=true'
+				sh 'docker rmi $(docker images -f dangling=true -q)'
+
                 sh 'docker run -d --name backend \
                 -p 8197:8197 \
                 -v /home/ubuntu/files/:/files \

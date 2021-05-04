@@ -13,6 +13,8 @@ public interface QuestionRepository extends CrudRepository<Question, String> {
 
     public List<Question> findQuestionsBymemberId(Long memberId, Pageable Pageable);
 
+    public List<Question> findQuestionsBymemberId(Long memberId);
+
     public int countQuestionsBymemberId(Long memberId);
 
     public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(LocalDate currentDate, int questionStatus, Pageable Pageable);
