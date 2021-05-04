@@ -7,8 +7,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import NumericInput from 'react-numeric-input';
-import SubHeader from '../components/SubHeader';
-import Header from '../components/Header';
+import SubHeader from '../../components/SubHeader';
+import Header from '../../components/Header';
 import SubmitButton from './components/SubmitButton';
 
 const QuestionWrite: React.FC = () => {
