@@ -46,6 +46,7 @@ public class QuestionController {
 
         resultMap.put("list", questionService.getMemberQuestionList(memberId, offset, limit));
         resultMap.put("totalSize", questionService.countMemberQuestionList(memberId));
+        resultMap.put("answerTotal", questionService.getMemberQuestionAnswerTotal((memberId)));
 
         return resultMap;
     }

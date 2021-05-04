@@ -1,8 +1,10 @@
 package com.ssafy.checkmate.question.service;
 
+import com.ssafy.checkmate.answer.repository.AnswerRepository;
 import com.ssafy.checkmate.member.service.MemberService;
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.repository.QuestionRepository;
+import com.ssafy.checkmate.question.vo.ReadQuestionAnswer;
 import com.ssafy.checkmate.question.vo.UpdateRequestQuestion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +29,31 @@ import java.util.Map;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
     private final MemberService memberService;
 
     @Deprecated
     public static PageRequest of(int page, int size) {
 
         return of(page, size);
+    }
+
+    public List<ReadQuestionAnswer> makeQuestionList(List<Question> list) {
+        int answerCount = 0;
+        List<ReadQuestionAnswer> resultList = new ArrayList<>();
+
+        for (Question q : list) {
+            answerCount = answerRepository.countAnswerByQuestionId(q.getQuestionId());
+
+            ReadQuestionAnswer rqa = new ReadQuestionAnswer();
+
+            rqa.setQuestion(q);
+            rqa.setAnswerCount(answerCount);
+
+            resultList.add(rqa);
+        }
+
+        return resultList;
     }
 
     public void registerQuestion(Question question) {
@@ -69,11 +91,28 @@ public class QuestionService {
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
 
-    public List<Question> getMemberQuestionList(Long memberId, int offset, int limit) {
+    public List<ReadQuestionAnswer> getMemberQuestionList(Long memberId, int offset, int limit) {
 
         Pageable Pageable = PageRequest.of(offset, limit);
 
-        return questionRepository.findQuestionsBymemberId(memberId, Pageable);
+        List<Question> list = questionRepository.findQuestionsBymemberId(memberId, Pageable);
+
+        return makeQuestionList(list);
+    }
+
+    public int getMemberQuestionAnswerTotal(Long memberId) {
+
+        List<Question> list = questionRepository.findQuestionsBymemberId(memberId);
+
+        int answerTotal = 0;
+        int answerCount = 0;
+
+        for (Question q : list) {
+            answerCount = answerRepository.countAnswerByQuestionId(q.getQuestionId());
+            answerTotal = answerTotal + answerCount;
+        }
+
+        return answerTotal;
     }
 
     public int countMemberQuestionList(Long memberId) {
@@ -81,21 +120,25 @@ public class QuestionService {
         return questionRepository.countQuestionsBymemberId(memberId);
     }
 
-    public List<Question> getQuestionList(int listType, int offset, int limit) {
+    public List<ReadQuestionAnswer> getQuestionList(int listType, int offset, int limit) {
 
         LocalDate currentDate = LocalDate.now();
         Pageable pageable = PageRequest.of(offset, limit);
+        List<Question> list = new ArrayList<>();
 
         switch (listType) {
             case 1: // 등록날짜순(내림차순)
-                return questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(currentDate, 0, pageable);
+                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(currentDate, 0, pageable);
+                break;
             case 2: // 마감날짜순(오름차순)
-                return questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionEndDate(currentDate, 0, pageable);
+                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionEndDate(currentDate, 0, pageable);
+                break;
             case 3: // 포인트순(내림차순)
-                return questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionPointDesc(currentDate, 0, pageable);
+                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionPointDesc(currentDate, 0, pageable);
+                break;
         }
 
-        return null;
+        return makeQuestionList(list);
     }
 
     public int countQuestionList(int listType) {
