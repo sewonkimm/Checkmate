@@ -39,5 +39,5 @@ public class Member {
     private String memberProfileUrl;
 
     @NonNull
-    private int memberGrade;
+    private Double memberGrade;
 }

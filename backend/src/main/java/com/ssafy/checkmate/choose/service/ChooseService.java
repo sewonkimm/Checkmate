@@ -48,7 +48,8 @@ public class ChooseService {
 
         double reviewCount = 0.0;
         double sumGrade = 0.0;
-        int avgGrade = 0;
+        double avgGrade = 0.0;
+        double n = Math.pow(10.0, 1);
 
         for (Answer ans : answerList) {
 
@@ -60,7 +61,8 @@ public class ChooseService {
             }
         }
 
-        avgGrade = (int) Math.round(sumGrade / reviewCount);
+        avgGrade = Math.round((sumGrade / reviewCount) * n) / n;
+
         member.setMemberGrade(avgGrade);
         memberRepository.save(member);
     }
