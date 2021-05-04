@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
-import ImagePath from '../../assets/review_img.jpg';
+import { bannerImage } from '../../assets';
 import QuestionGroup from './components/QuestionGroup';
 import Filters from './components/Filters';
 
@@ -11,7 +11,7 @@ const QuestionList: React.FC = () => {
     <HomeContainer>
       <SubHeader />
       <Header />
-      <BannerSection img={ImagePath}>
+      <BannerSection img={bannerImage}>
         <BannerTitle>Help Center</BannerTitle>
         <BannerDescription>
           획득한 포인트로 첨삭 신청이 가능합니다

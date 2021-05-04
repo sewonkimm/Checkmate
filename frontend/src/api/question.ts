@@ -26,16 +26,6 @@ const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
   return response;
 };
 
-const getRemainDate = (endDate: string): number => {
-  const setDate = new Date(`${endDate}`);
-  // 현재 날짜를 new 연산자를 사용해서 Date 객체를 생성
-  const now = new Date();
-  // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다.
-  const distance = setDate.getTime() - now.getTime();
-  const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-  return day;
-};
-
 const WriteAPI = async (data: QuestionType): Promise<number> => {
   const url = 'questions';
   const response = await axiosInstance
@@ -72,4 +62,4 @@ const FileUploadAPI = async (file: File): Promise<string | number> => {
   return response;
 };
 
-export { WriteAPI, FileUploadAPI, getQuestions, getRemainDate };
+export { WriteAPI, FileUploadAPI, getQuestions };
