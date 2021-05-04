@@ -41,7 +41,7 @@ public class AuthService {
 
         try {
             authFile.transferTo(saveFile);
-            fileName = "http://k4a106.p.ssafy.io:8888/files/" + "auth_" + subFileName + subFileExtension;
+            fileName = "http://k4a106.p.ssafy.io:8888/" + "auth_" + subFileName + subFileExtension;
         } catch (IOException e) {
             e.printStackTrace();
         }

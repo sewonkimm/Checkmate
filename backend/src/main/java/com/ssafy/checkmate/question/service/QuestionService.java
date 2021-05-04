@@ -58,7 +58,7 @@ public class QuestionService {
 
         try {
             questionFile.transferTo(saveFile);
-            fileName = "http://k4a106.p.ssafy.io:8888/files/" + "question_" + subFileName + subFileExtension;
+            fileName = "http://k4a106.p.ssafy.io:8888/" + "question_" + subFileName + subFileExtension;
         } catch (IOException e) {
             e.printStackTrace();
         }
