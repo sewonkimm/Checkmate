@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { QuestionType } from '../entity';
+import { QuestionType, QuestionResponseType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -11,11 +11,8 @@ const axiosInstance = axios.create({
   },
 });
 
-// type
-type responseType = Array<QuestionType>;
-
 // API
-const getQuestions = async (url: string): Promise<responseType> => {
+const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {

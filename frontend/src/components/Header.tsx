@@ -8,9 +8,9 @@ const Header = (): ReactElement => {
     <HeaderContainer>
       <img src={logo} alt="logo" width="70" />
       <LinkContainer>
-        <StyledLink to="/Store">스토어</StyledLink>
-        <StyledLink to="/Check/ai">AI첨삭</StyledLink>
-        <StyledLink to="/Check/mate">원어민첨삭</StyledLink>
+        <StyledLink to="/store">스토어</StyledLink>
+        <StyledLink to="/check/ai">AI첨삭</StyledLink>
+        <StyledLink to="/check/mate">원어민첨삭</StyledLink>
       </LinkContainer>
     </HeaderContainer>
   );

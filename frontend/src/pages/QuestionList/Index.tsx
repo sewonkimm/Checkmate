@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import SubHeader from '../components/SubHeader';
-import Header from '../components/Header';
-import ImagePath from '../assets/review_img.jpg'
-import QuestionGroup from './components/QuestionGroup'
-import Filters from './components/Filters'
+import SubHeader from '../../components/SubHeader';
+import Header from '../../components/Header';
+import ImagePath from '../../assets/review_img.jpg';
+import QuestionGroup from './components/QuestionGroup';
+import Filters from './components/Filters';
 
-const ReviewList: React.FC = () => {
-
-  return(
+const QuestionList: React.FC = () => {
+  return (
     <HomeContainer>
       <SubHeader />
       <Header />
       <BannerSection img={ImagePath}>
         <BannerTitle>Help Center</BannerTitle>
         <BannerDescription>
-          획득한 포인트로 첨삭 신청이 가능합니다<br />
+          획득한 포인트로 첨삭 신청이 가능합니다
+          <br />
           또한 첨삭을 도와주고, 포인트를 획득하세요 😇
         </BannerDescription>
       </BannerSection>
@@ -32,11 +32,10 @@ const HomeContainer = styled.div`
   color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.fontSizes.h1};
 `;
-const BannerSection = styled.section<{img: string}>`
+const BannerSection = styled.section<{ img: string }>`
   width: 100%;
   height: 300px;
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.3)), 
-              url(${(props) => (props.img)});
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.3)), url(${(props) => props.img});
   background-size: cover;
   background-position: 50% 47%;
   padding: 12px;
@@ -53,4 +52,4 @@ const BannerDescription = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-export default ReviewList;
+export default QuestionList;
