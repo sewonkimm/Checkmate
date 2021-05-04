@@ -1964,6 +1964,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-numeric-input@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@types/react-numeric-input/-/react-numeric-input-2.2.3.tgz#fbb0e8f24a4775374eda9cdce2355679d40f9e92"
+  integrity sha512-TQtZ+0PM3/Pk15YYY3xJGOmfwETFQYHGydMaY42OvAbRTBmYJSmGPL7f/Yi/9FfXWb4m4T8FrZborccZX6VXDw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-redux@^7.1.16":
   version "7.1.16"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.16.tgz#0fbd04c2500c12105494c83d4a3e45c084e3cb21"
@@ -9520,6 +9527,11 @@ react-is@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+
+react-numeric-input@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-numeric-input/-/react-numeric-input-2.2.3.tgz#4bf5918c3eafed851a80df1eb992d941002bb552"
+  integrity sha1-S/WRjD6v7YUagN8euZLZQQArtVI=
 
 react-redux@^7.2.4:
   version "7.2.4"
