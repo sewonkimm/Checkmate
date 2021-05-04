@@ -146,7 +146,7 @@ const QuestionWrite: React.FC = () => {
           <CancelButton type="button" onClick={handleCancelButton}>
             취소
           </CancelButton>
-          <SubmitButton props={{ title, explain, content, deadLine, point, file }} />
+          <SubmitButton data={{ title, explain, content, deadLine, point, file }} />
         </ButtonContainer>
       </WriteContainer>
     </>

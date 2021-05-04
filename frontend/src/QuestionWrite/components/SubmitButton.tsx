@@ -12,7 +12,7 @@ import { WriteAPI, FileUploadAPI } from '../../api/question';
 import { QuestionType } from '../../entity';
 
 type PropsType = {
-  props: {
+  data: {
     title: string;
     explain: string;
     content: string;
@@ -28,9 +28,9 @@ const SubmitButton = (props: PropsType): ReactElement => {
 
   // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
   const validateSubmit = (): boolean => {
-    if (props.props.title === '') return false;
-    if (props.props.point === 0 && props.props.content === '') return false;
-    if (props.props.point > 0 && props.props.file === undefined && props.props.content === '') return false;
+    if (props.data.title === '') return false;
+    if (props.data.point === 0 && props.data.content === '') return false;
+    if (props.data.point > 0 && props.data.file === undefined && props.data.content === '') return false;
     return true;
   };
 
@@ -40,18 +40,17 @@ const SubmitButton = (props: PropsType): ReactElement => {
       let data: QuestionType = {
         // 파일첨부 X
         memberId,
-        questionContents: props.props.content,
-        questionEndDate: props.props.deadLine,
-        questionExplain: props.props.explain,
-        questionPoint: props.props.point,
-        questionTitle: props.props.title,
-        questionUrl: '',
+        questionContents: props.data.content,
+        questionEndDate: props.data.deadLine,
+        questionExplain: props.data.explain,
+        questionPoint: props.data.point,
+        questionTitle: props.data.title,
       };
 
-      if (props.props.point > 0 && props.props.file !== null && props.props.file !== undefined) {
+      if (props.data.point > 0 && props.data.file !== null && props.data.file !== undefined) {
         // 파일첨부 한 경우 -> 파일 업로드 API 호출
-        const response = await FileUploadAPI(props.props.file);
-        if (response !== 500) {
+        const response = await FileUploadAPI(props.data.file);
+        if (response !== 500 && typeof response !== 'number') {
           data = {
             ...data,
             questionUrl: response,

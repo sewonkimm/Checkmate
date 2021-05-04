@@ -23,5 +23,5 @@ export type QuestionType = {
   questionExplain: string;
   questionPoint: number;
   questionTitle: string;
-  questionUrl: string | number;
+  questionUrl?: string;
 };
