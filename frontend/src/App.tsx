@@ -11,6 +11,7 @@ import theme from './styles/theme';
 import Home from './pages/Home/Index';
 import Register from './pages/Register/Index';
 import Login from './pages/Login/Index';
+import QuestionWrite from './pages/QuestionWrite';
 import QuestionDetail from './pages/QuestionDetail';
 
 const App = (): ReactElement => {
@@ -23,6 +24,7 @@ const App = (): ReactElement => {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/question/:id" component={QuestionDetail} />
+        <Route path="/question/write" component={QuestionWrite} />
       </Switch>
     </ThemeProvider>
   );

@@ -17,7 +17,8 @@ CREATE TABLE `member` (
   `member_profile_url` varchar(255) DEFAULT NULL,
   `member_point` int DEFAULT NULL,
   `member_type_id` varchar(45) NOT NULL DEFAULT '1',
-  `member_introduce` varchar(1000) NULL
+  `member_introduce` varchar(1000) NULL,
+  `member_grade` DOUBLE DEFAULT 0.0
   PRIMARY KEY (`member_id`)
 );
 

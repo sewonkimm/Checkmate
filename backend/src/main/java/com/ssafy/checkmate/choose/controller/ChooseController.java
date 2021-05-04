@@ -21,5 +21,7 @@ public class ChooseController {
     public void chooseAnswer(@PathVariable Long questionId, @PathVariable Long answerId, @RequestBody Review review) {
 
         chooseService.chooseAnswer(questionId, answerId, review);
+
+        chooseService.calculateGrade(answerId, review);
     }
 }

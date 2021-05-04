@@ -46,7 +46,7 @@ public class AnswerService {
 
         try {
             answerFile.transferTo(saveFile);
-            fileName = "http://k4a106.p.ssafy.io:8888/files/" + "answer_" + subFileName + subFileExtension;
+            fileName = "http://k4a106.p.ssafy.io:8888/" + "answer_" + subFileName + subFileExtension;
         } catch (IOException e) {
             e.printStackTrace();
         }
