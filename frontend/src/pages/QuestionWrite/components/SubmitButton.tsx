@@ -7,9 +7,9 @@ import React, { ReactElement, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { RootState } from '../../modules';
-import { WriteAPI, FileUploadAPI } from '../../api/question';
-import { QuestionType } from '../../entity';
+import { RootState } from '../../../modules';
+import { WriteAPI, FileUploadAPI } from '../../../api/question';
+import { QuestionType } from '../../../entity';
 
 type PropsType = {
   data: {

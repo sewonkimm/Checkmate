@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { debounce } from 'lodash';
-import register from '../../api/register';
+import register from '../../../api/register';
 
 interface Props {
   putNickname: (name: string) => void;

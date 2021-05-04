@@ -16,7 +16,7 @@ export type LoginReturnType = {
 };
 
 // question
-export type QuestionType = {
+export interface QuestionType {
   memberId: number;
   questionContents: string;
   questionEndDate: string;
@@ -24,4 +24,10 @@ export type QuestionType = {
   questionPoint: number;
   questionTitle: string;
   questionUrl?: string;
-};
+}
+
+export interface QuestionResponseType extends QuestionType {
+  questionDate: string;
+  questionId: number;
+  questionStatus: number;
+}

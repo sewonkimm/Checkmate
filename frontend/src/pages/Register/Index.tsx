@@ -6,12 +6,12 @@ Register/Index.tsx
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { signupIconNormal } from '../assets';
+import { signupIconNormal } from '../../assets';
 import MotherLanguage from './components/MotherLanguage';
 import InputEmail from './components/InputEmail';
 import InputNickname from './components/InputNickname';
 import InputPassword from './components/InputPassword';
-import register from '../api/register';
+import register from '../../api/register';
 
 const Register: React.FC = () => {
   const [step, setStep] = useState<number>(0); // 몇 번째 컴포넌트가 보여질지 정해주는 state

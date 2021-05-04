@@ -9,10 +9,10 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
-import { login } from '../modules/member';
-import { signupIconNormal } from '../assets';
-import LoginAPI from '../api/login';
-import { LoginReturnType } from '../entity';
+import { login } from '../../modules/member';
+import { signupIconNormal } from '../../assets';
+import LoginAPI from '../../api/login';
+import { LoginReturnType } from '../../entity';
 
 const Login: React.FC = () => {
   const router = useHistory();

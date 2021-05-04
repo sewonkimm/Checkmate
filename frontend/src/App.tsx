@@ -8,10 +8,11 @@ import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 
-import Home from './Home/Index';
-import Register from './Register/Index';
-import Login from './Login/Index';
-import QuestionWrite from './QuestionWrite';
+import Home from './pages/Home/Index';
+import Register from './pages/Register/Index';
+import Login from './pages/Login/Index';
+import QuestionList from './pages/QuestionList/Index';
+import QuestionWrite from './pages/QuestionWrite';
 
 const App = (): ReactElement => {
   return (
@@ -22,6 +23,7 @@ const App = (): ReactElement => {
         <Route exact path="/" component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/check/mate" component={QuestionList} />
         <Route path="/question/write" component={QuestionWrite} />
       </Switch>
     </ThemeProvider>
