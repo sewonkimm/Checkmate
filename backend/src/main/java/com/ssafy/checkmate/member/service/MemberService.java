@@ -58,7 +58,7 @@ public class MemberService {
 
         try {
             proFile.transferTo(saveFile);
-            fileName = "http://k4a106.p.ssafy.io:8888/files/" + "proFile_" + subFileName + subFileExtension;
+            fileName = "http://k4a106.p.ssafy.io:8888/" + "proFile_" + subFileName + subFileExtension;
         } catch (IOException e) {
             e.printStackTrace();
         }
