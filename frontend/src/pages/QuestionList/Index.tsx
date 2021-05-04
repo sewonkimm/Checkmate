@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
@@ -7,6 +7,20 @@ import QuestionGroup from './components/QuestionGroup';
 import Filters from './components/Filters';
 
 const QuestionList: React.FC = () => {
+  // 상태값을 스테이트로 갖고,
+  // 버튼을 누르면 스테이트가 true가 되고
+  // 부모한테 props가 가고
+  // 부모가 props를 받아서 자기 스테이트를 바꾸고
+  // true된다고 하면, 배열을 filter돌아서 member.id === login.id맞는애를 보여주는 이벤트 ㄱㄱ
+  const [isMyQuestion, setIsMyQuestion] = useState<boolean>(false);
+
+  const handleMyQuestion = () => {
+    let current: boolean = isMyQuestion;
+    current = !current;
+    console.log(`${current}`);
+    setIsMyQuestion(current);
+  };
+
   return (
     <HomeContainer>
       <SubHeader />
@@ -19,8 +33,8 @@ const QuestionList: React.FC = () => {
           또한 첨삭을 도와주고, 포인트를 획득하세요 😇
         </BannerDescription>
       </BannerSection>
-      <Filters />
-      <QuestionGroup />
+      <Filters onOnlyMyQuestion={handleMyQuestion} />
+      <QuestionGroup myQuestionStatus={isMyQuestion} />
     </HomeContainer>
   );
 };

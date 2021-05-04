@@ -17,6 +17,7 @@ const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
     .get(url)
     .then((response) => {
       const resList = response.data.list;
+      console.log(resList)
       return resList;
     })
     .catch((err) => {
