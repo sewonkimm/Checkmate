@@ -21,11 +21,11 @@ const Footer = (): ReactElement => {
       sites: [
         {
           name: '서비스 소개',
-          link: '/Service',
+          link: '/service',
         },
         {
           name: '팀',
-          link: '/Service/team',
+          link: '/service/team',
         },
       ],
     },
@@ -34,11 +34,11 @@ const Footer = (): ReactElement => {
       sites: [
         {
           name: 'AI 첨삭',
-          link: '/Check/ai',
+          link: '/check/ai',
         },
         {
           name: '원어민 첨삭',
-          link: '/Check/mate',
+          link: '/check/mate',
         },
       ],
     },
@@ -47,11 +47,11 @@ const Footer = (): ReactElement => {
       sites: [
         {
           name: '이용약관',
-          link: '/Service/policy',
+          link: '/service/policy',
         },
         {
           name: '개인정보처리방침',
-          link: '/Service/terms',
+          link: '/service/terms',
         },
       ],
     },
