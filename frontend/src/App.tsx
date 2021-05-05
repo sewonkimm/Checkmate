@@ -11,6 +11,7 @@ import theme from './styles/theme';
 import Home from './pages/Home/Index';
 import Register from './pages/Register/Index';
 import Login from './pages/Login/Index';
+import QuestionList from './pages/QuestionList/Index';
 import QuestionWrite from './pages/QuestionWrite';
 import QuestionDetail from './pages/QuestionDetail';
 
@@ -23,8 +24,9 @@ const App = (): ReactElement => {
         <Route exact path="/" component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/question/:id" component={QuestionDetail} />
+        <Route path="/check/mate" component={QuestionList} />
         <Route path="/question/write" component={QuestionWrite} />
+        <Route path="/question/:id" component={QuestionDetail} />
       </Switch>
     </ThemeProvider>
   );
