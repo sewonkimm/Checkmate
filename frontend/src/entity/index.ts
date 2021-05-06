@@ -26,8 +26,12 @@ export interface QuestionType {
   questionUrl?: string;
 }
 
-export interface QuestionResponseType extends QuestionType {
+export interface ResponseQuestionType extends QuestionType {
   questionDate: string;
   questionId: number;
   questionStatus: number;
 }
+export type QuestionResponseType = {
+  answerCount: number;
+  question: ResponseQuestionType;
+};

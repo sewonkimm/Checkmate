@@ -17,12 +17,25 @@ const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
     .get(url)
     .then((response) => {
       const resList = response.data.list;
-      console.log(resList)
       return resList;
     })
     .catch((err) => {
       console.error(err);
       return [];
+    });
+  return response;
+};
+
+const getTotalSize = async (url: string): Promise<number> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      const resSize = response.data.totalSize;
+      return resSize;
+    })
+    .catch((err) => {
+      console.error(err);
+      return -1;
     });
   return response;
 };
@@ -63,4 +76,4 @@ const FileUploadAPI = async (file: File): Promise<string | number> => {
   return response;
 };
 
-export { WriteAPI, FileUploadAPI, getQuestions };
+export { WriteAPI, FileUploadAPI, getQuestions, getTotalSize };
