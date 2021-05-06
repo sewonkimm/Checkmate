@@ -34,7 +34,10 @@ const Question = (props: PropsType): ReactElement => {
   }, [memberId]);
 
   // 작성일 문자열 다듬기
-  const createdDate = props.data.questionDate.split('T')[0];
+  const createdDate = props.data.questionDate.split('T')[0].replaceAll('-', '.');
+
+  // 첨삭내용 문자 수
+  const contentLength = props.data.questionContents.length;
 
   return (
     <QuestionContainer>
@@ -59,7 +62,14 @@ const Question = (props: PropsType): ReactElement => {
       <Title>{props.data.questionTitle}</Title>
       <Explain>{props.data.questionExplain}</Explain>
 
-      {props.data.questionContents !== '' ? <Contents>{props.data.questionContents}</Contents> : <div>파일첨부</div>}
+      {props.data.questionContents !== '' ? (
+        <Contents>
+          <Length>첨삭내용 ( {contentLength}자 )</Length>
+          {props.data.questionContents}
+        </Contents>
+      ) : (
+        <div>파일첨부</div>
+      )}
 
       {memberId === props.data.memberId && <div>수정 삭제 버튼</div>}
     </QuestionContainer>
@@ -112,7 +122,7 @@ const Title = styled.h1`
   line-height: 36px;
 `;
 const Explain = styled.p`
-  margin: 0;
+  margin: 0 0 50px 0;
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;
@@ -120,9 +130,19 @@ const Explain = styled.p`
 
 const Contents = styled.div`
   padding: 30px 22px;
+  position: relative;
   background-color: ${({ theme }) => theme.colors.whiteF4};
   font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: normal;
   line-height: 27px;
   border-radius: 10px;
 `;
+const Length = styled.p`
+  position: absolute;
+  top: -35px;
+  left: 22px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: bold;
+`;
+
 export default Question;
