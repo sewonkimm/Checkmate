@@ -1,4 +1,4 @@
-JPype1-py3
+JPype1
 fastapi
 uvicorn
 pydantic
