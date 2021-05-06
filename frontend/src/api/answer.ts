@@ -26,4 +26,18 @@ const getAnswers = async (url: string): Promise<AnswerResponseType> => {
   return response;
 };
 
-export { getAnswers };
+// 답변 삭제
+const DeleteAPI = async (url: string): Promise<number> => {
+  const response = await axiosInstance
+    .delete(url)
+    .then((response) => {
+      return 200;
+    })
+    .catch((err) => {
+      console.error(err);
+      return err;
+    });
+  return response;
+};
+
+export { getAnswers, DeleteAPI };

@@ -17,7 +17,6 @@ const Answers = (props: AnswerResponseType): ReactElement => {
     answerComponents = props.list.map((item: AnswerType) => {
       return <Answer key={item.answerId} data={item} />;
     });
-    console.log(answerComponents);
   }
 
   return (

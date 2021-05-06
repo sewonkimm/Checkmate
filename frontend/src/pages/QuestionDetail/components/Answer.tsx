@@ -6,16 +6,25 @@ QuestionDetail/components/Answer.tsx
 */
 
 import React, { ReactElement, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { RootState } from '../../../modules';
 import { AnswerType, MemberType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
+import { DeleteAPI } from '../../../api/answer';
 
 type PropsType = {
   data: AnswerType;
 };
 
 const Answer = (props: PropsType): ReactElement => {
+  const router = useHistory();
+
+  const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   // 작성일 문자열 다듬기
@@ -31,6 +40,29 @@ const Answer = (props: PropsType): ReactElement => {
     };
     fetchMemberInfo();
   }, [props]);
+
+  const MySwal = withReactContent(Swal);
+
+  // 답변 수정
+
+  // 답변 삭제
+  const handleDelete = () => {
+    MySwal.fire({
+      text: '답변을 정말 삭제하시겠습니까?',
+      icon: 'warning',
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
+      showCancelButton: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await DeleteAPI(`answers/delete/${props.data.answerId}`);
+
+        if (response === 200) {
+          router.go(0);
+        }
+      }
+    });
+  };
 
   return (
     <AnswerContainer key={props.data.answerId}>
@@ -54,6 +86,13 @@ const Answer = (props: PropsType): ReactElement => {
         <FileButton href={props.data.answerUrl} target="_blank" download>
           첨부파일보기
         </FileButton>
+      )}
+
+      {myId === props.data.memberId && (
+        <ButtonContainer>
+          <Button>수정</Button>
+          <Button onClick={handleDelete}>삭제</Button>
+        </ButtonContainer>
       )}
     </AnswerContainer>
   );
@@ -116,6 +155,29 @@ const FileButton = styled.a`
   color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
   text-decoration: none;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-end;
+`;
+
+const Button = styled.button`
+  width: 130px;
+  height: 53px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0.005em;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export default Answer;
