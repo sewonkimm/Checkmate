@@ -1,6 +1,5 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';

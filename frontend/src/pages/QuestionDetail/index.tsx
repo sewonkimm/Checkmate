@@ -17,6 +17,7 @@ import Header from '../../components/Header';
 import Question from './components/Question';
 import Answers from './components/Answers';
 import WriteAnswer from './components/WriteAnswer';
+import Message from './components/Message';
 
 type Params = {
   id: string;
@@ -70,6 +71,12 @@ const QuestionDetail: React.FC = () => {
           <Question data={{ ...question }} />
 
           {myId !== question.memberId && !isChecked && <WriteAnswer id={myId} />}
+          {myId !== question.memberId && isChecked && (
+            <Message type={1} id={myId} message="질문자의 채택을 기다리고 있습니다." />
+          )}
+          {myId === question.memberId && isChecked && (
+            <Message type={3} id={myId} message="님, 마감 기한 내에 답변을 채택해주세요!" />
+          )}
           <Answers totalSize={answers.totalSize} list={answers.list} />
         </>
       )}
