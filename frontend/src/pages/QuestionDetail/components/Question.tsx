@@ -13,6 +13,7 @@ import { QuestionResponseType, MemberType } from '../../../entity';
 import { getMemberInfo } from '../../../api/member';
 import { profileImage } from '../../../assets';
 import BadgeComponent from '../../../components/Badge';
+import Button from './Button';
 
 // index.tsx에서 fetch 해온 정보 중 질문에 관한 정보를 props로 받아옴
 type PropsType = {
@@ -71,7 +72,12 @@ const Question = (props: PropsType): ReactElement => {
         <div>파일첨부</div>
       )}
 
-      {memberId === props.data.memberId && <div>수정 삭제 버튼</div>}
+      {memberId === props.data.memberId && (
+        <ButtonContainer>
+          <Button type="UPDATE" />
+          <Button type="DELETE" />
+        </ButtonContainer>
+      )}
     </QuestionContainer>
   );
 };
@@ -143,6 +149,13 @@ const Length = styled.p`
   left: 22px;
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: bold;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-end;
 `;
 
 export default Question;
