@@ -31,7 +31,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     async function fetchQuestions() {
       const response = await getQuestions(`questions/${listType}/${offset}/5`);
       if (response === []) {
-        alert('전체 질문 리스트 요청 실패 !');
+        window.alert('전체 질문 리스트 요청 실패 !');
       } else if (myQuestionStatus === false) {
         const questionGroup = [...questions, ...response];
         setQuestions(questionGroup);
