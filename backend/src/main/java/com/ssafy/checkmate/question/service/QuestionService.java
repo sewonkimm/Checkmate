@@ -39,6 +39,7 @@ public class QuestionService {
     }
 
     public List<ReadQuestionAnswer> makeQuestionList(List<Question> list) {
+
         int answerCount = 0;
         List<ReadQuestionAnswer> resultList = new ArrayList<>();
 
