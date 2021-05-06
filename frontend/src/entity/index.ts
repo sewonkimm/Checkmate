@@ -45,15 +45,15 @@ export interface QuestionResponseType extends QuestionType {
 
 // answer
 export type AnswerType = {
-  answerId: number;
+  answerId?: number;
   memberId: number;
   questionId: number;
   answerContents: string;
   answerExplain: string;
-  answerDate: string;
-  answerModifiedDate: string | null;
+  answerDate?: string;
+  answerModifiedDate?: string;
   answerSelect: number;
-  answerUrl: string;
+  answerUrl?: string;
 };
 
 export type AnswerResponseType = {

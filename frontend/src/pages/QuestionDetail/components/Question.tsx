@@ -13,7 +13,7 @@ import { QuestionResponseType, MemberType } from '../../../entity';
 import { getMemberInfo } from '../../../api/member';
 import { profileImage } from '../../../assets';
 import BadgeComponent from '../../../components/Badge';
-import UpdateButton from './Button';
+import UpdateButton from './UpdateButton';
 
 // index.tsx에서 fetch 해온 정보 중 질문에 관한 정보를 props로 받아옴
 type PropsType = {
@@ -21,7 +21,7 @@ type PropsType = {
 };
 
 const Question = (props: PropsType): ReactElement => {
-  const [memberId, setMemberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const [memberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Question = (props: PropsType): ReactElement => {
 // 질문 컴포넌트 style
 const QuestionContainer = styled.div`
   max-width: 985px;
-  margin: 100px auto;
+  margin: 100px auto 50px;
   padding: 30px;
   display: flex;
   flex-direction: column;

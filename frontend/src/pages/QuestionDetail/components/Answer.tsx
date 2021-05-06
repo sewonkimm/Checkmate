@@ -28,7 +28,10 @@ const Answer = (props: PropsType): ReactElement => {
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   // 작성일 문자열 다듬기
-  const createdDate = props.data.answerDate.split('T')[0].replaceAll('-', '.');
+  let createdDate;
+  if (props.data.answerDate !== undefined) {
+    createdDate = props.data.answerDate.split('T')[0].replaceAll('-', '.');
+  }
 
   // 작성자 정보
   useEffect(() => {
@@ -82,7 +85,7 @@ const Answer = (props: PropsType): ReactElement => {
 
       <>{props.data.answerContents}</>
 
-      {props.data.answerUrl !== '' && (
+      {props.data.answerUrl !== null && (
         <FileButton href={props.data.answerUrl} target="_blank" download>
           첨부파일보기
         </FileButton>

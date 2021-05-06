@@ -28,7 +28,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
   const router = useHistory();
   const MySwal = withReactContent(Swal);
 
-  const [memberId, setMemberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const [memberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
 
   // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
   const validateSubmit = (): boolean => {
@@ -76,7 +76,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
       } else {
         // 제출 실패
         MySwal.fire({
-          text: '문제가 있어 업로드에 실패했습니다.',
+          text: '업로드에 실패했습니다.',
           icon: 'error',
         });
       }
