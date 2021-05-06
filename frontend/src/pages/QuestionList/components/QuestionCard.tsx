@@ -50,6 +50,7 @@ const ReviewWrap = styled.div`
   border-radius: 10px;
   padding: 0.4em;
   margin: 0.5em 0;
+  cursor: pointer;
 `;
 const Header = styled.div`
   display: flex;

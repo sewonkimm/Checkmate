@@ -12,6 +12,7 @@ const axiosInstance = axios.create({
 });
 
 // API
+// 질문 목록 조회
 const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
   const response = await axiosInstance
     .get(url)
@@ -26,6 +27,21 @@ const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
   return response;
 };
 
+// 질문 상세조회
+const getQuestionDetail = async (url: string): Promise<QuestionResponseType | null> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(err);
+      return null;
+    });
+  return response;
+};
+
+// 질문 작성
 const WriteAPI = async (data: QuestionType): Promise<number> => {
   const url = 'questions';
   const response = await axiosInstance
@@ -41,6 +57,7 @@ const WriteAPI = async (data: QuestionType): Promise<number> => {
   return response;
 };
 
+// 첨부파일 업로드
 const FileUploadAPI = async (file: File): Promise<string | number> => {
   const fileData = new FormData();
   fileData.append('questionFile', file);
@@ -62,4 +79,4 @@ const FileUploadAPI = async (file: File): Promise<string | number> => {
   return response;
 };
 
-export { WriteAPI, FileUploadAPI, getQuestions };
+export { WriteAPI, FileUploadAPI, getQuestions, getQuestionDetail };
