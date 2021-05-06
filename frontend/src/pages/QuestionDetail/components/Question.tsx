@@ -26,13 +26,13 @@ const Question = (props: PropsType): ReactElement => {
 
   useEffect(() => {
     const fetchMemberInfo = async () => {
-      const data = await getMemberInfo(`/members/${memberId}`);
+      const data = await getMemberInfo(`/members/${props.data.memberId}`);
       if (data !== null) {
         setMemberInfo(data);
       }
     };
     fetchMemberInfo();
-  }, [memberId]);
+  }, [props]);
 
   // 작성일 문자열 다듬기
   const createdDate = props.data.questionDate.split('T')[0].replaceAll('-', '.');
