@@ -69,7 +69,9 @@ const Question = (props: PropsType): ReactElement => {
           {props.data.questionContents}
         </Contents>
       ) : (
-        <div>파일첨부</div>
+        <FileButton href={props.data.questionUrl} target="_blank" download>
+          첨부파일보기
+        </FileButton>
       )}
 
       {memberId === props.data.memberId && (
@@ -149,6 +151,22 @@ const Length = styled.p`
   left: 22px;
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: bold;
+`;
+
+const FileButton = styled.a`
+  width: 270px;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: normal;
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
+  text-decoration: none;
 `;
 
 const ButtonContainer = styled.div`

@@ -46,10 +46,15 @@ const Answer = (props: PropsType): ReactElement => {
         <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
 
-      <Explain>{props.data.answerExplain}</Explain>
+      {props.data.answerExplain !== '' && <Explain>{props.data.answerExplain}</Explain>}
+
       <>{props.data.answerContents}</>
 
-      {props.data.answerUrl !== '' && <div>첨부파일보기</div>}
+      {props.data.answerUrl !== '' && (
+        <FileButton href={props.data.answerUrl} target="_blank" download>
+          첨부파일보기
+        </FileButton>
+      )}
     </AnswerContainer>
   );
 };
@@ -95,6 +100,22 @@ const Explain = styled.p`
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;
+`;
+
+const FileButton = styled.a`
+  width: 270px;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: normal;
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
+  text-decoration: none;
 `;
 
 export default Answer;
