@@ -199,10 +199,9 @@ public class MemberService {
             }
         }
 
-        if(offset + limit <= reviewTotal){
+        if (offset + limit <= reviewTotal) {
             endIndex = offset + limit;
-        }
-        else{
+        } else {
             endIndex = reviewTotal;
         }
 
