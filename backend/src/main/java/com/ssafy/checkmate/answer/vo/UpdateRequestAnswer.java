@@ -18,7 +18,7 @@ public class UpdateRequestAnswer {
     private Long answerId;
 
     @NonNull
-    private String answerContext;
+    private String answerContents;
 
-    private String answerReplyUrl;
+    private String answerUrl;
 }

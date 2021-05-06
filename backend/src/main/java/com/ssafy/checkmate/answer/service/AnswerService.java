@@ -82,8 +82,8 @@ public class AnswerService {
 
         Answer answer = answerRepository.findAnswerByAnswerId(updateRequestAnswer.getAnswerId());
 
-        answer.setAnswerContext(updateRequestAnswer.getAnswerContext());
-        answer.setAnswerReplyUrl(updateRequestAnswer.getAnswerReplyUrl());
+        answer.setAnswerContents(updateRequestAnswer.getAnswerContents());
+        answer.setAnswerUrl(updateRequestAnswer.getAnswerUrl());
         answer.setAnswerModifiedDate(LocalDateTime.now());
 
         answerRepository.save(answer);

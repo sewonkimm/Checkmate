@@ -25,7 +25,10 @@ public class Answer {
     private Long questionId;
 
     @NonNull
-    private String answerContext;
+    private String answerExplain;
+
+    @NonNull
+    private String answerContents;
 
     @Column(insertable = false, updatable = false)
     private LocalDateTime answerDate;
@@ -35,5 +38,5 @@ public class Answer {
 
     private int answerSelect;
 
-    private String answerReplyUrl;
+    private String answerUrl;
 }
