@@ -1,5 +1,5 @@
 // member
-export type MemberType = {
+export type LoginMemberType = {
   memberEmail: string;
   memberId: number;
   memberIntroduce: string;
@@ -12,7 +12,18 @@ export type MemberType = {
 };
 export type LoginReturnType = {
   greeting: string;
-  member: MemberType;
+  member: LoginMemberType;
+};
+
+export type MemberType = {
+  memberEmail: string;
+  memberId: number;
+  memberIntroduce: string;
+  memberNativeLang: string;
+  memberNickname: string;
+  memberPoint: number;
+  memberProfileUrl: string;
+  memberTypeId: number;
 };
 
 // question

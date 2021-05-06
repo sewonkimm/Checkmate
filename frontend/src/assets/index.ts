@@ -6,4 +6,6 @@ import signupIconSuccess from './signup_icon_success.svg';
 import mainImage1 from './mainImage1.png';
 import bannerImage from './bannerImage.jpg';
 
-export { logo, mainImage1, bannerImage, signupIconNormal, signupIconError, signupIconSuccess };
+import profileImage from './profile.png';
+
+export { logo, mainImage1, bannerImage, profileImage, signupIconNormal, signupIconError, signupIconSuccess };

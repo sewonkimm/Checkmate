@@ -156,6 +156,8 @@ const QuestionWrite: React.FC = () => {
 // 질문 작성 페이지 style
 const WriteContainer = styled.div`
   width: 100%;
+  max-width: 1600px;
+  margin: auto;
   padding: 80px 133px;
 `;
 

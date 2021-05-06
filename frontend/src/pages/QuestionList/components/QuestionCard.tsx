@@ -23,6 +23,8 @@ const Review = (props: PropsType): ReactElement => {
   };
 
   const day = getRemainDate(question.questionEndDate);
+
+  // 작성일 문자열 다듬기
   const createdDate = question.questionDate.split('T')[0];
 
   // 해당 질문 상세 조회 페이지로 이동

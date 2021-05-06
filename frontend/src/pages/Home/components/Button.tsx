@@ -19,11 +19,11 @@ const Button = ({ type, text }: ButtonsProps): ReactElement => {
     <>
       {type === ButtonType.Primary ? (
         <PrimaryBtn>
-          <LinkText to="/Check/mate">{text}</LinkText>
+          <LinkText to="/check/mate">{text}</LinkText>
         </PrimaryBtn>
       ) : (
         <SecondaryBtn>
-          <LinkText to="/Check/ai">{text}</LinkText>
+          <LinkText to="/check/ai">{text}</LinkText>
         </SecondaryBtn>
       )}
     </>

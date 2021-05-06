@@ -5,8 +5,11 @@ QuestionDetail/index.tsx
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import { getQuestionDetail } from '../../api/question';
 import { QuestionResponseType } from '../../entity';
+import SubHeader from '../../components/SubHeader';
+import Header from '../../components/Header';
 import Question from './components/Question';
 
 type Params = {
@@ -24,7 +27,18 @@ const QuestionDetail: React.FC = () => {
     fetchQuestionDetail();
   }, [params]);
 
-  return <>{question === null || question === undefined ? <>loading...</> : <Question data={{ ...question }} />}</>;
+  return (
+    <QuestionDetailContainer>
+      <SubHeader />
+      <Header />
+      {question === null || question === undefined ? <>loading...</> : <Question data={{ ...question }} />}
+    </QuestionDetailContainer>
+  );
 };
+
+const QuestionDetailContainer = styled.div`
+  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.whiteF7};
+`;
 
 export default QuestionDetail;

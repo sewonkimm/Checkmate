@@ -5,11 +5,14 @@ QuestionDetail/components/Question.tsx
 : 질문 상세 조회 페이지의 질문 컴포넌트
 */
 
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../../modules';
-import { QuestionResponseType } from '../../../entity';
+import { QuestionResponseType, MemberType } from '../../../entity';
+import { getMemberInfo } from '../../../api/member';
+import { profileImage } from '../../../assets';
+import BadgeComponent from '../../../components/Badge';
 
 // index.tsx에서 fetch 해온 정보 중 질문에 관한 정보를 props로 받아옴
 type PropsType = {
@@ -18,18 +21,39 @@ type PropsType = {
 
 const Question = (props: PropsType): ReactElement => {
   const [memberId, setMemberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const [memberInfo, setMemberInfo] = useState<MemberType>();
 
-  console.log(props.data);
+  useEffect(() => {
+    const fetchMemberInfo = async () => {
+      const data = await getMemberInfo(`/members/${memberId}`);
+      if (data !== null) {
+        setMemberInfo(data);
+      }
+    };
+    fetchMemberInfo();
+  }, [memberId]);
+
+  // 작성일 문자열 다듬기
+  const createdDate = props.data.questionDate.split('T')[0];
+
   return (
     <QuestionContainer>
       <Infomation>
-        <div>D-day</div>
-        <div>작성일</div>
+        <BadgeContainer>
+          {props.data.questionPoint > 0 && <BadgeComponent content={props.data.questionPoint} date="" />}
+          <BadgeComponent content="" date={props.data.questionEndDate} />
+        </BadgeContainer>
+        <div>작성일 {createdDate}</div>
       </Infomation>
 
       <ProfileContainer>
-        <div>프로필사진</div>
-        <div>{props.data.memberId}</div>
+        {memberInfo?.memberProfileUrl === '' ? (
+          <ProfileImage src={profileImage} alt="profile" />
+        ) : (
+          <ProfileImage src={memberInfo?.memberProfileUrl} alt="profile" />
+        )}
+
+        <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
 
       <Title>{props.data.questionTitle}</Title>
@@ -44,7 +68,15 @@ const Question = (props: PropsType): ReactElement => {
 
 // 질문 컴포넌트 style
 const QuestionContainer = styled.div`
+  max-width: 985px;
+  margin: 100px auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px 0;
   background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 15px;
+  box-shadow: 0px 5px 20px 2px rgba(48, 70, 89, 0.15);
 `;
 
 const Infomation = styled.div`
@@ -52,17 +84,45 @@ const Infomation = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+const BadgeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const ProfileContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-itmes: center;
 `;
+const ProfileImage = styled.img`
+  width: 44px;
+  height: 44px;
+  margin: auto 10px auto 0;
+`;
+const Nickname = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: bold;
+`;
 
-const Title = styled.h1``;
-const Explain = styled.p``;
+const Title = styled.h1`
+  margin: 0;
+  font-size: ${({ theme }) => theme.fontSizes.title};
+  font-weight: bold;
+  line-height: 36px;
+`;
+const Explain = styled.p`
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+`;
 
 const Contents = styled.div`
+  padding: 30px 22px;
   background-color: ${({ theme }) => theme.colors.whiteF4};
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  line-height: 27px;
+  border-radius: 10px;
 `;
 export default Question;
