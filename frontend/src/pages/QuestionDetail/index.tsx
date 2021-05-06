@@ -25,13 +25,15 @@ const QuestionDetail: React.FC = () => {
   const limit = 3; // 답변을 몇 개 단위로 볼 것인지
 
   useEffect(() => {
+    // 질문 내용 불러오기
     const fetchQuestionDetail = async () => {
       const questionDetail = await getQuestionDetail(`/questions/${params.id}`);
       setQuestion(questionDetail);
     };
 
+    // 답변들 불러오기
     const fetchAnswers = async () => {
-      const answers = await getAnswers(`/questions/${params.id}/0/${limit}`);
+      const answers = await getAnswers(`/answers/list/${params.id}/0/${limit}`);
       setAnswers(answers);
     };
 
@@ -48,7 +50,7 @@ const QuestionDetail: React.FC = () => {
       ) : (
         <>
           <Question data={{ ...question }} />
-          <Answers totalSize={answers?.totalSize} list={answers?.list} />
+          <Answers totalSize={answers.totalSize} list={answers.list} />
         </>
       )}
     </QuestionDetailContainer>

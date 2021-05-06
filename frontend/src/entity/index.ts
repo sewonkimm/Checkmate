@@ -48,11 +48,12 @@ export type AnswerType = {
   answerId: number;
   memberId: number;
   questionId: number;
-  answerContext: string;
+  answerContents: string;
+  answerExplain: string;
   answerDate: string;
   answerModifiedDate: string | null;
   answerSelect: number;
-  answerReplyUrl: string;
+  answerUrl: string;
 };
 
 export type AnswerResponseType = {

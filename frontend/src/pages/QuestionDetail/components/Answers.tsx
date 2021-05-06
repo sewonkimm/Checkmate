@@ -2,16 +2,24 @@
 
 /*
 QuestionDetail/components/Answers.tsx
-: 질문 상세 조회 페이지의 답변 컴포넌트
+: 질문 상세 조회 페이지의 답변들을 담는 컴포넌트
 */
 
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { AnswerResponseType } from '../../../entity';
+import { AnswerType, AnswerResponseType } from '../../../entity';
 import { noAnswer } from '../../../assets';
+import Answer from './Answer';
 
 const Answers = (props: AnswerResponseType): ReactElement => {
-  console.log(props);
+  let answerComponents;
+  if (props.list !== null) {
+    answerComponents = props.list.map((item: AnswerType) => {
+      return <Answer key={item.answerId} data={item} />;
+    });
+    console.log(answerComponents);
+  }
+
   return (
     <AnswerContainer>
       {props.totalSize === 0 ? (
@@ -20,13 +28,13 @@ const Answers = (props: AnswerResponseType): ReactElement => {
           아직 달린 답변이 없어요...
         </NoAnswer>
       ) : (
-        <>{props.totalSize}</>
+        <>{answerComponents}</>
       )}
     </AnswerContainer>
   );
 };
 
-// 질문 컴포넌트 style
+// 답변 컴포넌트 style
 const AnswerContainer = styled.div`
   margin: 100px auto;
   padding-bottom: 100px;
@@ -46,5 +54,4 @@ const NoAnswerImage = styled.img`
   height: 388px;
   margin-bottom: 10px;
 `;
-
 export default Answers;
