@@ -72,4 +72,12 @@ public class MemberController {
 
         return memberService.activateLog(memberId);
     }
+
+    @ApiOperation(value = "리뷰 조회하기", notes = "리뷰 ")
+    @GetMapping("/reviews/{memberId}/{offset}/{limit}")
+    public ResponseEntity<Map<String, Object>> receiveReview(@PathVariable Long memberId, @PathVariable int offset, @PathVariable int limit) {
+
+        return memberService.receiveReview(memberId, offset, limit);
+    }
+
 }
