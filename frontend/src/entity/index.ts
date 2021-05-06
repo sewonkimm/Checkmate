@@ -42,3 +42,20 @@ export interface QuestionResponseType extends QuestionType {
   questionId: number;
   questionStatus: number;
 }
+
+// answer
+export type AnswerType = {
+  answerId: number;
+  memberId: number;
+  questionId: number;
+  answerContext: string;
+  answerDate: string;
+  answerModifiedDate: string | null;
+  answerSelect: number;
+  answerReplyUrl: string;
+};
+
+export type AnswerResponseType = {
+  totalSize: number;
+  list: AnswerType[] | null;
+};
