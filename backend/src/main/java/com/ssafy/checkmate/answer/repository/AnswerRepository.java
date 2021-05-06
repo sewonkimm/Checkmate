@@ -19,7 +19,8 @@ public interface AnswerRepository extends CrudRepository<Answer, Long> {
 
     public List<Answer> findAllByQuestionIdOrderByAnswerDateDesc(Long questionId, Pageable pageable);
 
-
     @Transactional
     public void deleteByAnswerId(Long answerId);
+
+    public int countAnswerByQuestionId(Long questionId);
 }
