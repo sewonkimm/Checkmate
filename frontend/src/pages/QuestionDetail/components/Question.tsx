@@ -13,7 +13,7 @@ import { QuestionResponseType, MemberType } from '../../../entity';
 import { getMemberInfo } from '../../../api/member';
 import { profileImage } from '../../../assets';
 import BadgeComponent from '../../../components/Badge';
-import Button from './Button';
+import UpdateButton from './Button';
 
 // index.tsx에서 fetch 해온 정보 중 질문에 관한 정보를 props로 받아옴
 type PropsType = {
@@ -26,7 +26,7 @@ const Question = (props: PropsType): ReactElement => {
 
   useEffect(() => {
     const fetchMemberInfo = async () => {
-      const data = await getMemberInfo(`/members/${props.data.memberId}`);
+      const data = await getMemberInfo(`members/${props.data.memberId}`);
       if (data !== null) {
         setMemberInfo(data);
       }
@@ -76,8 +76,7 @@ const Question = (props: PropsType): ReactElement => {
 
       {memberId === props.data.memberId && (
         <ButtonContainer>
-          <Button type="UPDATE" />
-          <Button type="DELETE" />
+          <UpdateButton id={props.data.questionId} />
         </ButtonContainer>
       )}
     </QuestionContainer>

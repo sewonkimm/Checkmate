@@ -79,4 +79,25 @@ const FileUploadAPI = async (file: File): Promise<string | number> => {
   return response;
 };
 
-export { WriteAPI, FileUploadAPI, getQuestions, getQuestionDetail };
+// 질문 수정
+type UpdateQuestionType = {
+  questionExplain: string;
+  questionId: number;
+};
+
+const UpdateAPI = async (data: UpdateQuestionType): Promise<number> => {
+  const url = 'questions';
+  const response = await axiosInstance
+    .put(url, data)
+    .then((response) => {
+      return response.status;
+    })
+    .catch((error) => {
+      console.error(error);
+      return 500;
+    });
+
+  return response;
+};
+
+export { WriteAPI, UpdateAPI, FileUploadAPI, getQuestions, getQuestionDetail };

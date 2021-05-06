@@ -27,13 +27,13 @@ const QuestionDetail: React.FC = () => {
   useEffect(() => {
     // 질문 내용 불러오기
     const fetchQuestionDetail = async () => {
-      const questionDetail = await getQuestionDetail(`/questions/${params.id}`);
+      const questionDetail = await getQuestionDetail(`questions/${params.id}`);
       setQuestion(questionDetail);
     };
 
     // 답변들 불러오기
     const fetchAnswers = async () => {
-      const answers = await getAnswers(`/answers/list/${params.id}/0/${limit}`);
+      const answers = await getAnswers(`answers/list/${params.id}/0/${limit}`);
       setAnswers(answers);
     };
 

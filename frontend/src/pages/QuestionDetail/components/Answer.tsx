@@ -24,7 +24,7 @@ const Answer = (props: PropsType): ReactElement => {
   // 작성자 정보
   useEffect(() => {
     const fetchMemberInfo = async () => {
-      const data = await getMemberInfo(`/members/${props.data.memberId}`);
+      const data = await getMemberInfo(`members/${props.data.memberId}`);
       if (data !== null) {
         setMemberInfo(data);
       }
