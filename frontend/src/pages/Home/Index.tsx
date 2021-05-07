@@ -13,8 +13,8 @@ import Video from './components/Video';
 import { mainImage1 } from '../../assets';
 
 const Home = (): ReactElement => {
-  const [title, setTitle] = useState('레포트 체크해줄 사람 어디 없나?');
-  const [subTitle, setSubTitle] = useState('체크메이트가 당신의 레포트를 체크해드립니다!');
+  const [title] = useState('레포트 체크해줄 사람 어디 없나?');
+  const [subTitle] = useState('체크메이트가 당신의 레포트를 체크해드립니다!');
 
   return (
     <HomeContainer>

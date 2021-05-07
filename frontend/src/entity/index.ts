@@ -16,7 +16,7 @@ export type LoginReturnType = {
 };
 
 // question
-export interface QuestionType {
+export interface RequestQuestionType {
   memberId: number;
   questionContents: string;
   questionEndDate: string;
@@ -26,8 +26,13 @@ export interface QuestionType {
   questionUrl?: string;
 }
 
-export interface QuestionResponseType extends QuestionType {
+interface QuestionType extends RequestQuestionType {
   questionDate: string;
   questionId: number;
   questionStatus: number;
 }
+// 응답 데이터 형태가 바뀌었기 때문에 타입을 그에 따라 수정했습니다.
+export type ResponseQuestionType = {
+  answerCount: number;
+  question: QuestionType;
+};

@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import { bannerImage } from '../../assets';
 import QuestionGroup from './components/QuestionGroup';
 import Filters from './components/Filters';
+import { RootState } from '../../modules';
 
 const QuestionList: React.FC = () => {
+  // 상태값을 스테이트로 갖고,
+  // 버튼을 누르면 스테이트가 true가 되고
+  // 부모한테 props가 가고
+  // 부모가 props를 받아서 자기 스테이트를 바꾸고
+  // true된다고 하면, 배열을 filter 돈다
+  const [isMyQuestion, setIsMyQuestion] = useState<boolean>(false);
+  const loginUserId: number = useSelector((state: RootState) => state.member).member.memberId;
+  const handleMyQuestion = () => {
+    if (loginUserId > 0) {
+      setIsMyQuestion(!isMyQuestion);
+    }
+  };
+
   return (
     <HomeContainer>
       <SubHeader />
@@ -19,8 +34,8 @@ const QuestionList: React.FC = () => {
           또한 첨삭을 도와주고, 포인트를 획득하세요 😇
         </BannerDescription>
       </BannerSection>
-      <Filters />
-      <QuestionGroup />
+      <Filters onOnlyMyQuestion={handleMyQuestion} />
+      <QuestionGroup myQuestionStatus={isMyQuestion} />
     </HomeContainer>
   );
 };
