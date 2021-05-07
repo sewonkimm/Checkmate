@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RequestQuestionType, ResponseQuestionType } from '../entity';
+import { RequestQuestionType, ResponseQuestionType, QuestionType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -26,6 +26,20 @@ const getQuestions = async (url: string): Promise<ResponseQuestionType[]> => {
   return response;
 };
 
+// 질문 상세조회
+const getQuestionDetail = async (url: string): Promise<QuestionType> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(err);
+      return {};
+    });
+  return response;
+};
+
 const getTotalSize = async (url: string): Promise<number> => {
   const response = await axiosInstance
     .get(url)
@@ -40,6 +54,7 @@ const getTotalSize = async (url: string): Promise<number> => {
   return response;
 };
 
+// 질문 작성
 const WriteAPI = async (data: RequestQuestionType): Promise<number> => {
   const url = 'questions';
   const response = await axiosInstance
@@ -55,6 +70,7 @@ const WriteAPI = async (data: RequestQuestionType): Promise<number> => {
   return response;
 };
 
+// 첨부파일 업로드
 const FileUploadAPI = async (file: File): Promise<string | number> => {
   const fileData = new FormData();
   fileData.append('questionFile', file);
@@ -76,4 +92,25 @@ const FileUploadAPI = async (file: File): Promise<string | number> => {
   return response;
 };
 
-export { WriteAPI, FileUploadAPI, getQuestions, getTotalSize };
+// 질문 수정
+type UpdateQuestionType = {
+  questionExplain: string;
+  questionId: number;
+};
+
+const UpdateAPI = async (data: UpdateQuestionType): Promise<number> => {
+  const url = 'questions';
+  const response = await axiosInstance
+    .put(url, data)
+    .then((response) => {
+      return response.status;
+    })
+    .catch((error) => {
+      console.error(error);
+      return 500;
+    });
+
+  return response;
+};
+
+export { WriteAPI, UpdateAPI, FileUploadAPI, getQuestions, getTotalSize, getQuestionDetail };

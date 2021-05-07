@@ -1,5 +1,5 @@
 // member
-export type MemberType = {
+export type LoginMemberType = {
   memberEmail: string;
   memberId: number;
   memberIntroduce: string;
@@ -12,7 +12,18 @@ export type MemberType = {
 };
 export type LoginReturnType = {
   greeting: string;
-  member: MemberType;
+  member: LoginMemberType;
+};
+
+export type MemberType = {
+  memberEmail: string;
+  memberId: number;
+  memberIntroduce: string;
+  memberNativeLang: string;
+  memberNickname: string;
+  memberPoint: number;
+  memberProfileUrl: string;
+  memberTypeId: number;
 };
 
 // question
@@ -26,13 +37,31 @@ export interface RequestQuestionType {
   questionUrl?: string;
 }
 
-interface QuestionType extends RequestQuestionType {
+export interface QuestionType extends RequestQuestionType {
   questionDate: string;
   questionId: number;
   questionStatus: number;
 }
-// 응답 데이터 형태가 바뀌었기 때문에 타입을 그에 따라 수정했습니다.
+
 export type ResponseQuestionType = {
   answerCount: number;
   question: QuestionType;
+};
+
+// answer
+export type AnswerType = {
+  answerId?: number;
+  memberId: number;
+  questionId: number;
+  answerContents: string;
+  answerExplain: string;
+  answerDate?: string;
+  answerModifiedDate?: string;
+  answerSelect: number;
+  answerUrl?: string;
+};
+
+export type ResponseAnswerType = {
+  totalSize: number;
+  list: AnswerType[] | null;
 };

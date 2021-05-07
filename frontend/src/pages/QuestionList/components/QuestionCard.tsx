@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { ResponseQuestionType } from '../../../entity';
 
@@ -8,6 +9,7 @@ type PropsType = {
 
 const Review = (props: PropsType): ReactElement => {
   const { question } = props;
+  const history = useHistory();
 
   // D-Day 계산
   const getRemainDate = (endDate: string): number => {
@@ -22,8 +24,13 @@ const Review = (props: PropsType): ReactElement => {
   const day = getRemainDate(question.question.questionEndDate);
   const createdDate = question.question.questionDate.split('T')[0];
 
+  // 해당 질문 상세 조회 페이지로 이동
+  const onClickReviewWrap = () => {
+    history.push(`/question/${question.question.questionId}`);
+  };
+
   return (
-    <ReviewWrap>
+    <ReviewWrap onClick={onClickReviewWrap}>
       <Header>
         <ReviewHeader>{question.question.questionPoint}</ReviewHeader>
         <ReviewHeader>D-{day}</ReviewHeader>
@@ -42,6 +49,7 @@ const ReviewWrap = styled.div`
   border-radius: 10px;
   padding: 0.4em;
   margin: 0.5em 0;
+  cursor: pointer;
 `;
 const Header = styled.div`
   display: flex;
