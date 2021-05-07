@@ -31,6 +31,7 @@ export interface ResponseQuestionType extends QuestionType {
   questionId: number;
   questionStatus: number;
 }
+// 응답 데이터 형태가 바뀌었기 때문에 타입을 그에 따라 수정했습니다.
 export type QuestionResponseType = {
   answerCount: number;
   question: ResponseQuestionType;
