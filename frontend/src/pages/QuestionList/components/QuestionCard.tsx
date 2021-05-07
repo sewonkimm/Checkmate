@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { QuestionResponseType } from '../../../entity';
+import { ResponseQuestionType } from '../../../entity';
 
 type PropsType = {
-  question: QuestionResponseType;
+  question: ResponseQuestionType;
 };
 
 const Review = (props: PropsType): ReactElement => {
@@ -13,26 +13,25 @@ const Review = (props: PropsType): ReactElement => {
   const getRemainDate = (endDate: string): number => {
     const setDate = new Date(`${endDate}`);
     const now = new Date(); // 현재 날짜를 new 연산자를 사용해서 Date 객체를 생성
-
     // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다.
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
     return day;
   };
 
-  const day = getRemainDate(question.questionEndDate);
-  const createdDate = question.questionDate.split('T')[0];
+  const day = getRemainDate(question.question.questionEndDate);
+  const createdDate = question.question.questionDate.split('T')[0];
 
   return (
     <ReviewWrap>
       <Header>
-        <ReviewHeader>{question.questionPoint}</ReviewHeader>
+        <ReviewHeader>{question.question.questionPoint}</ReviewHeader>
         <ReviewHeader>D-{day}</ReviewHeader>
       </Header>
-      <Title>{question.questionTitle}</Title>
-      <Body>{question.questionExplain}</Body>
+      <Title>{question.question.questionTitle}</Title>
+      <Body>{question.question.questionExplain}</Body>
       <Footer>
-        <FooterText>답변 2</FooterText>
+        <FooterText>답변 {question.answerCount}</FooterText>
         <FooterText>작성일 {createdDate}</FooterText>
       </Footer>
     </ReviewWrap>

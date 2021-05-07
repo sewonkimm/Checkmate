@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../../modules';
 import { WriteAPI, FileUploadAPI } from '../../../api/question';
-import { QuestionType } from '../../../entity';
+import { RequestQuestionType } from '../../../entity';
 
 type PropsType = {
   data: {
@@ -24,7 +24,7 @@ type PropsType = {
 
 const SubmitButton = (props: PropsType): ReactElement => {
   const router = useHistory();
-  const [memberId, setMemberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const [memberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
 
   // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
   const validateSubmit = (): boolean => {
@@ -37,7 +37,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
   // 질문 작성 API 호출
   const handleSubmitButton = async () => {
     if (validateSubmit()) {
-      let data: QuestionType = {
+      let data: RequestQuestionType = {
         // 파일첨부 X
         memberId,
         questionContents: props.data.content,
