@@ -9,13 +9,9 @@ import Filters from './components/Filters';
 import { RootState } from '../../modules';
 
 const QuestionList: React.FC = () => {
-  // 상태값을 스테이트로 갖고,
-  // 버튼을 누르면 스테이트가 true가 되고
-  // 부모한테 props가 가고
-  // 부모가 props를 받아서 자기 스테이트를 바꾸고
-  // true된다고 하면, 배열을 filter 돈다
   const [isMyQuestion, setIsMyQuestion] = useState<boolean>(false);
   const loginUserId: number = useSelector((state: RootState) => state.member).member.memberId;
+
   const handleMyQuestion = () => {
     if (loginUserId > 0) {
       setIsMyQuestion(!isMyQuestion);
@@ -27,14 +23,14 @@ const QuestionList: React.FC = () => {
       <SubHeader />
       <Header />
       <BannerSection img={bannerImage}>
-        <BannerTitle>Help Center</BannerTitle>
+        <BannerTitle>원어민 첨삭</BannerTitle>
         <BannerDescription>
-          획득한 포인트로 첨삭 신청이 가능합니다
+          자연스러운 한국어 표현을 위해 원어민 메이트들이 도와드려요!
           <br />
-          또한 첨삭을 도와주고, 포인트를 획득하세요 😇
+          질문을 올리고, 메이트들의 답변을 기다리세요 😇
         </BannerDescription>
       </BannerSection>
-      <Filters onOnlyMyQuestion={handleMyQuestion} />
+      <Filters onOnlyMyQuestion={handleMyQuestion} id={loginUserId} />
       <QuestionGroup myQuestionStatus={isMyQuestion} />
     </HomeContainer>
   );
@@ -56,7 +52,6 @@ const BannerSection = styled.section<{ img: string }>`
   padding: 12px;
 `;
 const BannerTitle = styled.h3`
-  font-family: 'Kirang Haerang', cursive;
   margin: 35px 0 35px 0;
   font-size: 56px;
   font-weight: 500;
@@ -65,6 +60,7 @@ const BannerTitle = styled.h3`
 const BannerDescription = styled.p`
   font-size: 28px;
   color: ${({ theme }) => theme.colors.white};
+  line-height: 36px;
 `;
 
 export default QuestionList;
