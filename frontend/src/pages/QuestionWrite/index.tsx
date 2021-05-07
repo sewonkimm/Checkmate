@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import NumericInput from 'react-numeric-input';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Editor from '@monaco-editor/react';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import SubmitButton from './components/SubmitButton';
@@ -23,7 +24,8 @@ const QuestionWrite: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
   const [file, setFile] = useState<File | null>();
   const [explain, setExplain] = useState<string>('');
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>('// 첨삭 받을 내용을 1,000자 이내로 작성해주세요');
+  const [readOnly, setReadOnly] = useState<boolean>(false);
 
   useEffect(() => {
     // 오늘 날짜 설정
@@ -68,8 +70,13 @@ const QuestionWrite: React.FC = () => {
     setExplain(e.target.value.slice(0, 1000)); // 1,000자 제한
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value.slice(0, 1000)); // 1,000자 제한
+  const handleEditorChange = (value: any) => {
+    if (value.length > 1000) {
+      setContent(value.slice(0, 1000)); // 1,000자 제한
+      setReadOnly(true); // 입력이 1,000자가 넘어가면 더이상 작성이 불가능하도록 함
+    } else {
+      setReadOnly(false);
+    }
   };
 
   const handleCancelButton = () => {
@@ -85,6 +92,19 @@ const QuestionWrite: React.FC = () => {
         router.push('/check/mate');
       }
     });
+  };
+
+  const options = {
+    cursorBlinking: 'blink',
+    cursorSmoothCaretAnimation: false,
+    cursorStyle: 'line',
+    colorDecorators: false,
+    fontSize: 16,
+    fontLigatures: false,
+    letterSpacing: 1.3,
+    lineHeight: 25,
+    wordWrap: 'on',
+    readOnly,
   };
 
   return (
@@ -147,12 +167,20 @@ const QuestionWrite: React.FC = () => {
           </Label>
           <Label>
             첨삭내용
-            <TextareaInput
+            <Editor
+              width="85%"
+              height="300px"
+              defaultLanguage="markdown"
+              value={content}
+              options={options}
+              onChange={handleEditorChange}
+            />
+            {/* <TextareaInput
               rows={10}
               value={content}
               onChange={handleContentChange}
               placeholder="첨삭 받을 내용을 1,000자 이내로 작성해주세요"
-            />
+            /> */}
           </Label>
         </Form>
         <ButtonContainer>

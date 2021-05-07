@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import { DiffEditor } from '@monaco-editor/react';
-import { relative } from 'node:path';
 
 type PropsType = {
   origin: string;
@@ -32,6 +31,7 @@ const Diff = ({ origin, input }: PropsType): ReactElement => {
     formatOnType: false,
     hideCursorInOverviewRuler: false,
     highlightActiveIndentGuide: false,
+    horizontal: 'hidden',
     letterSpacing: 1.3,
     lineHeight: 25,
     links: false,
@@ -57,7 +57,7 @@ const Diff = ({ origin, input }: PropsType): ReactElement => {
     suggestOnTriggerCharacters: true,
     wordBasedSuggestions: false,
     wordSeparators: '~!@#$%^&*()-=+[{]}|;:\'",.<>/?',
-    wordWrap: 'off',
+    wordWrap: 'on',
     wordWrapBreakAfterCharacters: '\t})]?|&,;',
     wordWrapBreakBeforeCharacters: '{([+',
     wordWrapBreakObtrusiveCharacters: '.',
