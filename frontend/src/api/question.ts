@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { QuestionType, QuestionResponseType } from '../entity';
+import { RequestQuestionType, ResponseQuestionType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 });
 
 // API
-const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
+const getQuestions = async (url: string): Promise<ResponseQuestionType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
@@ -40,7 +40,7 @@ const getTotalSize = async (url: string): Promise<number> => {
   return response;
 };
 
-const WriteAPI = async (data: QuestionType): Promise<number> => {
+const WriteAPI = async (data: RequestQuestionType): Promise<number> => {
   const url = 'questions';
   const response = await axiosInstance
     .post(url, data)

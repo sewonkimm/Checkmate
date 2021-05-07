@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import QuestionCard from './QuestionCard';
 import { getQuestions, getTotalSize } from '../../../api/question';
-import { QuestionResponseType } from '../../../entity';
+import { ResponseQuestionType } from '../../../entity';
 import { RootState } from '../../../modules';
 
 type PropsType = {
@@ -17,9 +17,9 @@ type PropsType = {
 // limit은 보내달라고 하는 갯수
 
 const QuestionGroup = (props: PropsType): ReactElement => {
-  const [questions, setQuestions] = useState<QuestionResponseType[]>([]);
-  const [myQuestions, setMyQuestions] = useState<QuestionResponseType[]>([]);
-  const [listType, setListType] = useState<number>(1);
+  const [questions, setQuestions] = useState<ResponseQuestionType[]>([]);
+  const [myQuestions, setMyQuestions] = useState<ResponseQuestionType[]>([]);
+  const [listType] = useState<number>(1);
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const { myQuestionStatus } = props;
@@ -62,10 +62,10 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     <InfiniteScroll dataLength={offset} next={fetchData} hasMore={hasMore} loader={<h3>Loading . . .</h3>}>
       <QuestionsWrap>
         {myQuestionStatus && loginUserId !== 0
-          ? myQuestions.map((item: QuestionResponseType) => (
+          ? myQuestions.map((item: ResponseQuestionType) => (
               <QuestionCard key={item.question.questionId + Date.now()} question={item} />
             ))
-          : questions.map((item: QuestionResponseType) => (
+          : questions.map((item: ResponseQuestionType) => (
               <QuestionCard key={item.question.questionId + Date.now()} question={item} />
             ))}
       </QuestionsWrap>

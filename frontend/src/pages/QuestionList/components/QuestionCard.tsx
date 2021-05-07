@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { QuestionResponseType } from '../../../entity';
+import { ResponseQuestionType } from '../../../entity';
 
 type PropsType = {
-  question: QuestionResponseType;
+  question: ResponseQuestionType;
 };
 
 const Review = (props: PropsType): ReactElement => {
