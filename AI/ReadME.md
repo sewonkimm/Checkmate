@@ -8,4 +8,10 @@
 $ pip install -r requirements.txt
 ```
 
-3. main.py 실행
+3. app > py-hanspell 이동 후 py-hanspell 설치
+
+```shell
+$ python setup.py install
+```
+
+4. main.py 실행
