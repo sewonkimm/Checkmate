@@ -27,7 +27,7 @@ export type MemberType = {
 };
 
 // question
-export interface QuestionType {
+export interface RequestQuestionType {
   memberId: number;
   questionContents: string;
   questionEndDate: string;
@@ -37,11 +37,16 @@ export interface QuestionType {
   questionUrl?: string;
 }
 
-export interface QuestionResponseType extends QuestionType {
+interface QuestionType extends RequestQuestionType {
   questionDate: string;
   questionId: number;
   questionStatus: number;
 }
+
+export type ResponseQuestionType = {
+  answerCount: number;
+  question: QuestionType;
+};
 
 // answer
 export type AnswerType = {

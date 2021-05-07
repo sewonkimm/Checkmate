@@ -9,7 +9,10 @@ import com.ssafy.checkmate.member.repository.MemberRepository;
 import com.ssafy.checkmate.member.vo.SelectMember;
 import com.ssafy.checkmate.question.dto.Question;
 import com.ssafy.checkmate.question.repository.QuestionRepository;
+import com.ssafy.checkmate.review.dto.Review;
+import com.ssafy.checkmate.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +35,16 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private final ReviewRepository reviewRepository;
     private final JwtService jwtService;
     private final Sha256 sha256;
     private static int check, count = 0;
+
+    @Deprecated
+    public static PageRequest of(int page, int size) {
+
+        return of(page, size);
+    }
 
     public void signUp(Member member) {
 
@@ -168,5 +179,37 @@ public class MemberService {
         }
 
         return new ResponseEntity<Map<LocalDate, Object>>(resultMap, HttpStatus.ACCEPTED);
+    }
+
+    public ResponseEntity<Map<String, Object>> receiveReview(Long memberId, int offset, int limit) {
+
+        Map<String, Object> resultMap = new HashMap<>();
+        List<Answer> answers = answerRepository.findAnswerByMemberId(memberId);
+        List<Review> reviews = new ArrayList<>();
+
+        int reviewTotal = 0;
+        int fromIndex = offset;
+        int endIndex = 0;
+
+        for (Answer ans : answers) {
+            if (reviewRepository.existsByAnswerId(ans.getAnswerId())) {
+                Review review = reviewRepository.findReviewByAnswerId(ans.getAnswerId());
+                reviews.add(review);
+                reviewTotal++;
+            }
+        }
+
+        if (offset + limit <= reviewTotal) {
+            endIndex = offset + limit;
+        } else {
+            endIndex = reviewTotal;
+        }
+
+        List<Review> resultList = new ArrayList<>(reviews.subList(fromIndex, endIndex));
+
+        resultMap.put("reviewList", resultList);
+        resultMap.put("totalSize", reviewTotal);
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
 }

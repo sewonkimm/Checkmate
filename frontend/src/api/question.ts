@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { QuestionType, QuestionResponseType } from '../entity';
+import { RequestQuestionType, ResponseQuestionType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -12,8 +12,7 @@ const axiosInstance = axios.create({
 });
 
 // API
-// 질문 목록 조회
-const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
+const getQuestions = async (url: string): Promise<ResponseQuestionType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
@@ -28,7 +27,7 @@ const getQuestions = async (url: string): Promise<QuestionResponseType[]> => {
 };
 
 // 질문 상세조회
-const getQuestionDetail = async (url: string): Promise<QuestionResponseType | null> => {
+const getQuestionDetail = async (url: string): Promise<ResponseQuestionType | null> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
@@ -41,8 +40,22 @@ const getQuestionDetail = async (url: string): Promise<QuestionResponseType | nu
   return response;
 };
 
+const getTotalSize = async (url: string): Promise<number> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      const resSize = response.data.totalSize;
+      return resSize;
+    })
+    .catch((err) => {
+      console.error(err);
+      return -1;
+    });
+  return response;
+};
+
 // 질문 작성
-const WriteAPI = async (data: QuestionType): Promise<number> => {
+const WriteAPI = async (data: RequestQuestionType): Promise<number> => {
   const url = 'questions';
   const response = await axiosInstance
     .post(url, data)
@@ -100,4 +113,4 @@ const UpdateAPI = async (data: UpdateQuestionType): Promise<number> => {
   return response;
 };
 
-export { WriteAPI, UpdateAPI, FileUploadAPI, getQuestions, getQuestionDetail };
+export { WriteAPI, UpdateAPI, FileUploadAPI, getQuestions, getTotalSize, getQuestionDetail };

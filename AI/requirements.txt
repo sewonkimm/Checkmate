@@ -1,0 +1,11 @@
+JPype1
+fastapi
+uvicorn
+pydantic
+numpy
+pandas
+requests
+gensim==3.8.3
+konlpy
+nltk
+py-hanspell

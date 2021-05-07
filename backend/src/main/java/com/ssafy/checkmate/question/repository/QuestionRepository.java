@@ -1,6 +1,7 @@
 package com.ssafy.checkmate.question.repository;
 
 import com.ssafy.checkmate.question.dto.Question;
+import com.ssafy.checkmate.question.vo.ReadQuestionAnswer;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

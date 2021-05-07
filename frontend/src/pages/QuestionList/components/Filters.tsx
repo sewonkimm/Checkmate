@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Filters: React.FC = () => {
+type PropsType = {
+  onOnlyMyQuestion: () => void;
+};
+
+const Filters = ({ onOnlyMyQuestion }: PropsType): ReactElement => {
   return (
     <FilterWrap>
-      <FilterBtn>내 질문만 보기</FilterBtn>
-      <FilterBtn>질문 작성</FilterBtn>
+      <MyQuestionListBtn onClick={onOnlyMyQuestion}>내 질문만 보기</MyQuestionListBtn>
+      <WriteBtn to="/question/write">질문 작성</WriteBtn>
     </FilterWrap>
   );
 };
@@ -17,11 +22,21 @@ const FilterWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-const FilterBtn = styled.button`
+const MyQuestionListBtn = styled.button`
   width: 9rem;
   hegith: 3rem;
   font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
+
+const WriteBtn = styled(Link)`
+  width: 9rem;
+  hegith: 3rem;
+  font-size: 1rem;
+  text-decoration: none;
   padding: 10px 12px;
   border-radius: 8px;
   color: ${({ theme }) => theme.colors.white};

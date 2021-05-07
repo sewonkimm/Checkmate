@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RootState } from '../../../modules';
 import { WriteAPI, FileUploadAPI } from '../../../api/question';
-import { QuestionType } from '../../../entity';
+import { RequestQuestionType } from '../../../entity';
 
 type PropsType = {
   data: {
@@ -41,7 +41,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
   // 질문 작성 API 호출
   const handleSubmitButton = async () => {
     if (validateSubmit()) {
-      let data: QuestionType = {
+      let data: RequestQuestionType = {
         // 파일첨부 X
         memberId,
         questionContents: props.data.content,
@@ -68,7 +68,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
         MySwal.fire({
           text: '질문 작성에 성공했습니다!',
           icon: 'success',
-        }).then((result) => {
+        }).then((result: any) => {
           if (result.isConfirmed) {
             router.push('/check/mate');
           }
