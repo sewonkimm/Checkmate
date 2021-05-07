@@ -4,11 +4,22 @@
 */
 
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import member from './member';
+
+const persistConfig = {
+  key: 'root',
+  // localStorage에 저장합니다.
+  // session Storage에 저장하고 싶으면 import storageSession from 'redux-persist/lib/storage/session
+  storage,
+  // reducer 중에 member reducer만 localstorage에 저장합니다.
+  whitelist: ['member'],
+};
 
 const rootReducer = combineReducers({
   member,
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);
 export type RootState = ReturnType<typeof rootReducer>;

@@ -13,6 +13,8 @@ import Register from './pages/Register/Index';
 import Login from './pages/Login/Index';
 import QuestionList from './pages/QuestionList/Index';
 import QuestionWrite from './pages/QuestionWrite';
+import QuestionUpdate from './pages/QuestionUpdate';
+import QuestionDetail from './pages/QuestionDetail';
 
 const App = (): ReactElement => {
   return (
@@ -25,6 +27,8 @@ const App = (): ReactElement => {
         <Route path="/login" component={Login} />
         <Route path="/check/mate" component={QuestionList} />
         <Route path="/question/write" component={QuestionWrite} />
+        <Route path="/question/update/:id" component={QuestionUpdate} />
+        <Route path="/question/:id" component={QuestionDetail} />
       </Switch>
     </ThemeProvider>
   );
