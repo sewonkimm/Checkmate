@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react';
+/* eslint-disable react/destructuring-assignment */
+import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 type PropsType = {
@@ -7,8 +8,18 @@ type PropsType = {
 };
 
 const BadgeComponent = (props: PropsType): ReactElement => {
-  let { content } = props;
-  const { date } = props;
+  const [content, setContent] = useState<string | number>(props.content);
+  const [day, setDay] = useState<number>(0);
+
+  useEffect(() => {
+    if (props.date !== '') {
+      const day = getRemainDate(props.date);
+      setContent(`D-${day}`);
+      setDay(day);
+    } else {
+      setContent(props.content);
+    }
+  }, [props]);
 
   // D-Day 계산
   const getRemainDate = (endDate: string): number => {
@@ -21,12 +32,7 @@ const BadgeComponent = (props: PropsType): ReactElement => {
     return day;
   };
 
-  if (date !== '') {
-    const day = getRemainDate(date);
-    content = `D-${day}`;
-  }
-
-  return <Badge>{content}</Badge>;
+  return <>{day >= 0 && <Badge>{content}</Badge>}</>;
 };
 
 const Badge = styled.span`
