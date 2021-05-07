@@ -69,7 +69,7 @@ const QuestionDetail: React.FC = () => {
         <>loading...</>
       ) : (
         <>
-          <Question data={{ ...question }} />
+          <Question question={{ ...question }} id={myId} />
 
           {myId !== question.memberId && !isAnswerd && <WriteAnswer id={myId} setIsAnswerd={setIsAnswerd} />}
           {myId !== question.memberId && isAnswerd && !isChecked && (
@@ -78,7 +78,7 @@ const QuestionDetail: React.FC = () => {
           {myId === question.memberId && isChecked && (
             <Message type={3} id={myId} message="님, 마감 기한 내에 답변을 채택해주세요!" />
           )}
-          <Answers answer={answers} setIsAnswerd={setIsAnswerd} />
+          <Answers answer={answers} id={myId} setIsAnswerd={setIsAnswerd} />
         </>
       )}
     </QuestionDetailContainer>
