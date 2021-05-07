@@ -199,6 +199,7 @@ const TextInput = styled.input`
   padding: 10px 20px;
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
+  line-height: 30px;
   border: 2px solid ${({ theme }) => theme.colors.whiteD9};
   border-radius: 8px;
 

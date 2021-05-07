@@ -137,7 +137,7 @@ const Contents = styled.div`
   background-color: ${({ theme }) => theme.colors.whiteF4};
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
-  line-height: 27px;
+  line-height: 30px;
   border-radius: 10px;
 `;
 const Length = styled.p`

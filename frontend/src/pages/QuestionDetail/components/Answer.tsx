@@ -11,15 +11,17 @@ import { AnswerType, MemberType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
 import { DeleteAPI } from '../../../api/answer';
+import Diff from './Diff';
 
 type PropsType = {
   id: number;
   answer: AnswerType;
+  questionContents: string;
   setIsAnswerd: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
-  const { id, answer } = props;
+  const { id, answer, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   // 작성일 문자열 다듬기
@@ -78,7 +80,7 @@ const Answer = (props: PropsType): ReactElement => {
 
       {answer.answerExplain !== '' && <Explain>{answer.answerExplain}</Explain>}
 
-      <>{answer.answerContents}</>
+      <Diff origin={questionContents} input={answer.answerContents} />
 
       {answer.answerUrl !== null && (
         <FileButton href={answer.answerUrl} target="_blank" download>
@@ -133,7 +135,7 @@ const Nickname = styled.p`
 `;
 
 const Explain = styled.p`
-  margin: 0 0 50px 0;
+  margin: 0;
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;

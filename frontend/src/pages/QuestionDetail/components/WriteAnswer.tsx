@@ -9,6 +9,7 @@ import { WriteAPI } from '../../../api/answer';
 
 type PropsType = {
   id: number;
+  questionContents: string;
   setIsAnswerd: (value: boolean) => void;
 };
 
@@ -16,13 +17,14 @@ type Params = {
   id: string;
 };
 
-const WriteAnswer = ({ id, setIsAnswerd }: PropsType): ReactElement => {
+const WriteAnswer = (props: PropsType): ReactElement => {
   const params: Params = useParams();
+  const { id, questionContents } = props;
 
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showWriteInput, setShowWriteInput] = useState<boolean>(false);
   const [explain, setExplain] = useState<string>('');
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>(questionContents);
 
   useEffect(() => {
     const fetchMemberInfo = async () => {
@@ -68,7 +70,7 @@ const WriteAnswer = ({ id, setIsAnswerd }: PropsType): ReactElement => {
         }).then((result) => {
           if (result.isConfirmed) {
             setShowWriteInput(false);
-            setIsAnswerd(true);
+            props.setIsAnswerd(true);
           }
         });
       } else {
@@ -109,7 +111,7 @@ const WriteAnswer = ({ id, setIsAnswerd }: PropsType): ReactElement => {
             <Label>
               첨삭내용
               <TextareaInput
-                rows={5}
+                rows={10}
                 value={content}
                 onChange={handleContentChange}
                 placeholder="첨삭 내용을 1,000자 이내로 작성해주세요"
@@ -163,6 +165,7 @@ const TextareaInput = styled.textarea`
   padding: 15px 20px;
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
+  line-height: 30px;
   border: 2px solid ${({ theme }) => theme.colors.whiteD9};
   border-radius: 8px;
   resize: none;

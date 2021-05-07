@@ -12,15 +12,24 @@ import Answer from './Answer';
 type PropsType = {
   id: number;
   answer: ResponseAnswerType;
+  questionContents: string;
   setIsAnswerd: (value: boolean) => void;
 };
 
 const Answers = (props: PropsType): ReactElement => {
-  const { id, answer } = props;
+  const { id, answer, questionContents } = props;
   let answerComponents;
   if (answer.list !== null) {
     answerComponents = answer.list.map((item: AnswerType) => {
-      return <Answer key={item.answerId} id={id} answer={item} setIsAnswerd={props.setIsAnswerd} />;
+      return (
+        <Answer
+          key={item.answerId}
+          id={id}
+          answer={item}
+          questionContents={questionContents}
+          setIsAnswerd={props.setIsAnswerd}
+        />
+      );
     });
   }
 
