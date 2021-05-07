@@ -25,7 +25,6 @@ const QuestionUpdate: React.FC = () => {
   const [title, setTitle] = useState<string>('');
   const [deadLine, setDeadLine] = useState<string>('');
   const [point, setPoint] = useState<number>(0);
-  const [file, setFile] = useState<File | null>();
   const [explain, setExplain] = useState<string>('');
   const [content, setContent] = useState<string>('');
 

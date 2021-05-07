@@ -47,6 +47,7 @@ const Register: React.FC = () => {
           memberPoint: 0,
           memberProfileUrl: '',
           memberTypeId: 0,
+          memberGrade: 0,
         };
 
         // axios 회원가입 요청

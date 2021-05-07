@@ -7,21 +7,26 @@ QuestionDetail/components/Answers.tsx
 
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { AnswerType, AnswerResponseType } from '../../../entity';
+import { AnswerType, ResponseAnswerType } from '../../../entity';
 import { noAnswer } from '../../../assets';
 import Answer from './Answer';
 
-const Answers = (props: AnswerResponseType): ReactElement => {
+type PropsType = {
+  answer: ResponseAnswerType;
+  setIsAnswerd: (value: boolean) => void;
+};
+
+const Answers = (props: PropsType): ReactElement => {
   let answerComponents;
-  if (props.list !== null) {
-    answerComponents = props.list.map((item: AnswerType) => {
-      return <Answer key={item.answerId} data={item} />;
+  if (props.answer.list !== null) {
+    answerComponents = props.answer.list.map((item: AnswerType) => {
+      return <Answer key={item.answerId} data={item} setIsAnswerd={props.setIsAnswerd} />;
     });
   }
 
   return (
     <AnswerContainer>
-      {props.totalSize === 0 ? (
+      {props.answer.totalSize === 0 ? (
         <NoAnswer>
           <NoAnswerImage src={noAnswer} alt="no answer" />
           아직 달린 답변이 없어요...

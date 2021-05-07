@@ -3,11 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../modules';
-import { LoginMemberType } from '../entity';
+import { MemberType } from '../entity';
 import { logout } from '../modules/member';
 
 const SubHeader = (): ReactElement => {
-  const [member, setMember] = useState<LoginMemberType | null>(useSelector((state: RootState) => state.member.member));
+  const [member, setMember] = useState<MemberType | null>(useSelector((state: RootState) => state.member.member));
   const [isMember, setIsMember] = useState<boolean>(false);
   const [profileLink, setProfileLink] = useState<string>('');
   const dispatch = useDispatch();

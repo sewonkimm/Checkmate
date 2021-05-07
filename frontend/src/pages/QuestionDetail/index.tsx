@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { RootState } from '../../modules';
 import { getQuestionDetail } from '../../api/question';
 import { getAnswers } from '../../api/answer';
-import { AnswerResponseType, AnswerType, QuestionResponseType } from '../../entity';
+import { ResponseAnswerType, AnswerType, QuestionType } from '../../entity';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Question from './components/Question';
@@ -26,9 +26,10 @@ const QuestionDetail: React.FC = () => {
   const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
   const params: Params = useParams();
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [question, setQuestion] = useState<QuestionResponseType | null>();
-  const [answers, setAnswers] = useState<AnswerResponseType>({ totalSize: 0, list: [] });
+  const [isChecked, setIsChecked] = useState<boolean>(false); // 채택된 답변인지 구분
+  const [isAnswerd, setIsAnswerd] = useState<boolean>(false); // 내가 답변을 작성한 게시글인지 구분
+  const [question, setQuestion] = useState<QuestionType>();
+  const [answers, setAnswers] = useState<ResponseAnswerType>({ totalSize: 0, list: [] });
 
   const limit = 3; // 답변을 몇 개 단위로 볼 것인지
 
@@ -47,14 +48,14 @@ const QuestionDetail: React.FC = () => {
 
     fetchQuestionDetail();
     fetchAnswers();
-  }, [params]);
+  }, [params, isAnswerd]);
 
   // 이미 답변을 작성했으면 isChecked를 true로 변경하여 또 작성하지 못하도록 함
   useEffect(() => {
     if (answers.list !== null) {
       answers.list.map((answer: AnswerType) => {
         if (answer.memberId === myId) {
-          setIsChecked(true);
+          setIsAnswerd(true);
         }
       });
     }
@@ -70,14 +71,14 @@ const QuestionDetail: React.FC = () => {
         <>
           <Question data={{ ...question }} />
 
-          {myId !== question.memberId && !isChecked && <WriteAnswer id={myId} />}
-          {myId !== question.memberId && isChecked && (
+          {myId !== question.memberId && !isAnswerd && <WriteAnswer id={myId} setIsAnswerd={setIsAnswerd} />}
+          {myId !== question.memberId && isAnswerd && !isChecked && (
             <Message type={1} id={myId} message="질문자의 채택을 기다리고 있습니다." />
           )}
           {myId === question.memberId && isChecked && (
             <Message type={3} id={myId} message="님, 마감 기한 내에 답변을 채택해주세요!" />
           )}
-          <Answers totalSize={answers.totalSize} list={answers.list} />
+          <Answers answer={answers} setIsAnswerd={setIsAnswerd} />
         </>
       )}
     </QuestionDetailContainer>

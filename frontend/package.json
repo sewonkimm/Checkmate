@@ -30,6 +30,7 @@
     "react-transition-group": "^4.4.1",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.2.3",
     "styled-normalize": "^8.0.7",
     "sweetalert2": "^10.16.7",

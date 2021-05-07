@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RequestQuestionType, ResponseQuestionType } from '../entity';
+import { RequestQuestionType, ResponseQuestionType, QuestionType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -27,7 +27,7 @@ const getQuestions = async (url: string): Promise<ResponseQuestionType[]> => {
 };
 
 // 질문 상세조회
-const getQuestionDetail = async (url: string): Promise<ResponseQuestionType | null> => {
+const getQuestionDetail = async (url: string): Promise<QuestionType> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
@@ -35,7 +35,7 @@ const getQuestionDetail = async (url: string): Promise<ResponseQuestionType | nu
     })
     .catch((err) => {
       console.error(err);
-      return null;
+      return {};
     });
   return response;
 };

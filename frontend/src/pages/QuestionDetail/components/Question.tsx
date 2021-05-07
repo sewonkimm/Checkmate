@@ -9,19 +9,18 @@ import React, { ReactElement, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../../modules';
-import { QuestionResponseType, MemberType } from '../../../entity';
+import { QuestionType, MemberType } from '../../../entity';
 import { getMemberInfo } from '../../../api/member';
 import { profileImage } from '../../../assets';
 import BadgeComponent from '../../../components/Badge';
 import UpdateButton from './UpdateButton';
 
-// index.tsx에서 fetch 해온 정보 중 질문에 관한 정보를 props로 받아옴
 type PropsType = {
-  data: QuestionResponseType;
+  data: QuestionType;
 };
 
 const Question = (props: PropsType): ReactElement => {
-  const [memberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const Question = (props: PropsType): ReactElement => {
         </FileButton>
       )}
 
-      {memberId === props.data.memberId && (
+      {myId === props.data.memberId && (
         <ButtonContainer>
           <UpdateButton id={props.data.questionId} />
         </ButtonContainer>

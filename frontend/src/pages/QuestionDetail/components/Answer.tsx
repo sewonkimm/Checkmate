@@ -6,7 +6,6 @@ QuestionDetail/components/Answer.tsx
 */
 
 import React, { ReactElement, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
@@ -19,11 +18,10 @@ import { DeleteAPI } from '../../../api/answer';
 
 type PropsType = {
   data: AnswerType;
+  setIsAnswerd: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
-  const router = useHistory();
-
   const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
@@ -61,7 +59,7 @@ const Answer = (props: PropsType): ReactElement => {
         const response = await DeleteAPI(`answers/delete/${props.data.answerId}`);
 
         if (response === 200) {
-          router.go(0);
+          props.setIsAnswerd(false);
         }
       }
     });

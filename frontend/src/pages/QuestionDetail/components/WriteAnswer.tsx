@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -9,14 +9,14 @@ import { WriteAPI } from '../../../api/answer';
 
 type PropsType = {
   id: number;
+  setIsAnswerd: (value: boolean) => void;
 };
 
 type Params = {
   id: string;
 };
 
-const WriteAnswer = ({ id }: PropsType): ReactElement => {
-  const router = useHistory();
+const WriteAnswer = ({ id, setIsAnswerd }: PropsType): ReactElement => {
   const params: Params = useParams();
 
   const [memberInfo, setMemberInfo] = useState<MemberType>();
@@ -67,7 +67,8 @@ const WriteAnswer = ({ id }: PropsType): ReactElement => {
           icon: 'success',
         }).then((result) => {
           if (result.isConfirmed) {
-            router.go(0);
+            setShowWriteInput(false);
+            setIsAnswerd(true);
           }
         });
       } else {

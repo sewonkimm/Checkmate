@@ -9,17 +9,21 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import { GlobalStyle } from './styles/global-styles';
 import rootReducer from './modules';
 
-const store = createStore(rootReducer, composeWithDevTools());
 // composeWithDevTools 를 사용하여 리덕스 개발자 도구 활성화
+const store = createStore(rootReducer, composeWithDevTools());
+const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <GlobalStyle />
+      <PersistGate loading={null} persistor={persistor} />
       <App />
     </BrowserRouter>
   </Provider>,

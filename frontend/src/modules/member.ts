@@ -32,7 +32,6 @@ const initialState: MemberState = {
     memberIntroduce: '',
     memberNativeLang: '',
     memberNickname: '',
-    memberPassword: '',
     memberPoint: 0,
     memberProfileUrl: '',
     memberTypeId: 0,

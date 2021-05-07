@@ -37,7 +37,7 @@ export interface RequestQuestionType {
   questionUrl?: string;
 }
 
-interface QuestionType extends RequestQuestionType {
+export interface QuestionType extends RequestQuestionType {
   questionDate: string;
   questionId: number;
   questionStatus: number;
@@ -61,7 +61,7 @@ export type AnswerType = {
   answerUrl?: string;
 };
 
-export type AnswerResponseType = {
+export type ResponseAnswerType = {
   totalSize: number;
   list: AnswerType[] | null;
 };
