@@ -1,12 +1,18 @@
 import React, { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { logo } from '../assets';
 
 const Header = (): ReactElement => {
+  const router = useHistory();
+
+  const handleLogoClick = () => {
+    router.push('/');
+  };
+
   return (
     <HeaderContainer>
-      <img src={logo} alt="logo" width="70" />
+      <Logo src={logo} alt="logo" onClick={handleLogoClick} width="70" />
       <LinkContainer>
         <StyledLink to="/store">스토어</StyledLink>
         <StyledLink to="/check/ai">AI첨삭</StyledLink>
@@ -26,6 +32,11 @@ const HeaderContainer = styled.div`
   padding: 0 50px;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
+`;
+
+const Logo = styled.img`
+  width: 70px;
+  cursor: pointer;
 `;
 
 const LinkContainer = styled.div`
