@@ -49,7 +49,7 @@ const Answers = (props: PropsType): ReactElement => {
 
 // 답변 컴포넌트 style
 const AnswerContainer = styled.div`
-  margin: 100px auto;
+  margin: 50px auto;
   padding-bottom: 100px;
 `;
 
