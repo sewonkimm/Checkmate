@@ -9,13 +9,11 @@ import Filters from './components/Filters';
 import { RootState } from '../../modules';
 
 const QuestionList: React.FC = () => {
-  const [isMyQuestion, setIsMyQuestion] = useState<boolean>(false);
+  const [isFiltered, setIsFiltered] = useState<boolean>(false);
   const loginUserId: number = useSelector((state: RootState) => state.member).member.memberId;
 
   const handleMyQuestion = () => {
-    if (loginUserId > 0) {
-      setIsMyQuestion(!isMyQuestion);
-    }
+    setIsFiltered(!isFiltered);
   };
 
   return (
@@ -30,8 +28,8 @@ const QuestionList: React.FC = () => {
           질문을 올리고, 메이트들의 답변을 기다리세요 😇
         </BannerDescription>
       </BannerSection>
-      <Filters onOnlyMyQuestion={handleMyQuestion} id={loginUserId} />
-      <QuestionGroup myQuestionStatus={isMyQuestion} />
+      <Filters handleMyQuestion={handleMyQuestion} id={loginUserId} />
+      <QuestionGroup isFiltered={isFiltered} id={loginUserId} />
     </HomeContainer>
   );
 };
