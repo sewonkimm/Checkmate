@@ -1,14 +1,10 @@
-/* eslint-disable react/destructuring-assignment */
-
 /*
 QuestionDetail/components/Question.tsx
 : 질문 상세 조회 페이지의 질문 컴포넌트
 */
 
 import React, { ReactElement, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { RootState } from '../../../modules';
 import { QuestionType, MemberType } from '../../../entity';
 import { getMemberInfo } from '../../../api/member';
 import { profileImage } from '../../../assets';
@@ -16,35 +12,36 @@ import BadgeComponent from '../../../components/Badge';
 import UpdateButton from './UpdateButton';
 
 type PropsType = {
-  data: QuestionType;
+  id: number;
+  question: QuestionType;
 };
 
 const Question = (props: PropsType): ReactElement => {
-  const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const { id, question } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   useEffect(() => {
     const fetchMemberInfo = async () => {
-      const data = await getMemberInfo(`members/${props.data.memberId}`);
-      if (data !== null) {
-        setMemberInfo(data);
+      const member = await getMemberInfo(`members/${question.memberId}`);
+      if (member !== null) {
+        setMemberInfo(member);
       }
     };
     fetchMemberInfo();
-  }, [props]);
+  }, [question]);
 
   // 작성일 문자열 다듬기
-  const createdDate = props.data.questionDate.split('T')[0].replaceAll('-', '.');
+  const createdDate = question.questionDate.split('T')[0].replaceAll('-', '.');
 
   // 첨삭내용 문자 수
-  const contentLength = props.data.questionContents.length;
+  const contentLength = question.questionContents.length;
 
   return (
     <QuestionContainer>
       <Infomation>
         <BadgeContainer>
-          {props.data.questionPoint > 0 && <BadgeComponent content={props.data.questionPoint} date="" />}
-          <BadgeComponent content="" date={props.data.questionEndDate} />
+          {question.questionPoint > 0 && <BadgeComponent content={question.questionPoint} date="" />}
+          <BadgeComponent content="" date={question.questionEndDate} />
         </BadgeContainer>
         <div>작성일 {createdDate}</div>
       </Infomation>
@@ -59,23 +56,23 @@ const Question = (props: PropsType): ReactElement => {
         <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
 
-      <Title>{props.data.questionTitle}</Title>
-      <Explain>{props.data.questionExplain}</Explain>
+      <Title>{question.questionTitle}</Title>
+      <Explain>{question.questionExplain}</Explain>
 
-      {props.data.questionContents !== '' ? (
+      {question.questionContents !== '' ? (
         <Contents>
           <Length>첨삭내용 ( {contentLength}자 )</Length>
-          {props.data.questionContents}
+          {question.questionContents}
         </Contents>
       ) : (
-        <FileButton href={props.data.questionUrl} target="_blank" download>
+        <FileButton href={question.questionUrl} target="_blank" download>
           첨부파일보기
         </FileButton>
       )}
 
-      {myId === props.data.memberId && (
+      {id === question.memberId && (
         <ButtonContainer>
-          <UpdateButton id={props.data.questionId} />
+          <UpdateButton id={question.questionId} />
         </ButtonContainer>
       )}
     </QuestionContainer>
@@ -140,7 +137,7 @@ const Contents = styled.div`
   background-color: ${({ theme }) => theme.colors.whiteF4};
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
-  line-height: 27px;
+  line-height: 30px;
   border-radius: 10px;
 `;
 const Length = styled.p`
