@@ -17,13 +17,14 @@ import ReviewModal from './ReviewModal';
 type PropsType = {
   id: number;
   answer: AnswerType;
+  questionStatus: number;
   questionContents: string;
   setIsAnswerd: (value: boolean) => void;
   setIsChecked: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
-  const { id, answer, questionContents } = props;
+  const { id, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isReviewed, setIsReviewd] = useState<boolean>(false);
@@ -45,10 +46,10 @@ const Answer = (props: PropsType): ReactElement => {
     fetchMemberInfo();
 
     // 리뷰 채택 여부
-    if (answer.answerSelect !== 0) {
+    if (questionStatus !== 0) {
       setIsReviewd(true);
     }
-  }, [answer]);
+  }, [answer, questionStatus]);
 
   const MySwal = withReactContent(Swal);
 

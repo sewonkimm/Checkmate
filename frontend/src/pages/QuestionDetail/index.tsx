@@ -86,6 +86,7 @@ const QuestionDetail: React.FC = () => {
           {isChecked && <Message type={2} id={myId} message="메이트님, 축하합니다! 답변이 채택되었어습니다." />}
           <Answers
             answer={answers}
+            questionStatus={question.questionStatus}
             questionContents={question.questionContents}
             id={myId}
             setIsAnswerd={setIsAnswerd}
