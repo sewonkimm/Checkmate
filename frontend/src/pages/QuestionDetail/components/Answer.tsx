@@ -1,46 +1,45 @@
-/* eslint-disable react/destructuring-assignment */
-
 /*
 QuestionDetail/components/Answer.tsx
 : 질문 상세 조회 페이지의 답변 컴포넌트
 */
 
 import React, { ReactElement, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { RootState } from '../../../modules';
 import { AnswerType, MemberType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
 import { DeleteAPI } from '../../../api/answer';
+import Diff from './Diff';
 
 type PropsType = {
-  data: AnswerType;
+  id: number;
+  answer: AnswerType;
+  questionContents: string;
   setIsAnswerd: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
-  const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const { id, answer, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
   // 작성일 문자열 다듬기
   let createdDate;
-  if (props.data.answerDate !== undefined) {
-    createdDate = props.data.answerDate.split('T')[0].replaceAll('-', '.');
+  if (answer.answerDate !== undefined) {
+    createdDate = answer.answerDate.split('T')[0].replaceAll('-', '.');
   }
 
   // 작성자 정보
   useEffect(() => {
     const fetchMemberInfo = async () => {
-      const data = await getMemberInfo(`members/${props.data.memberId}`);
-      if (data !== null) {
-        setMemberInfo(data);
+      const member = await getMemberInfo(`members/${answer.memberId}`);
+      if (member !== null) {
+        setMemberInfo(member);
       }
     };
     fetchMemberInfo();
-  }, [props]);
+  }, [answer]);
 
   const MySwal = withReactContent(Swal);
 
@@ -56,7 +55,7 @@ const Answer = (props: PropsType): ReactElement => {
       showCancelButton: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await DeleteAPI(`answers/delete/${props.data.answerId}`);
+        const response = await DeleteAPI(`answers/delete/${answer.answerId}`);
 
         if (response === 200) {
           props.setIsAnswerd(false);
@@ -66,7 +65,7 @@ const Answer = (props: PropsType): ReactElement => {
   };
 
   return (
-    <AnswerContainer key={props.data.answerId}>
+    <AnswerContainer key={answer.answerId}>
       <WriteDate>작성일 {createdDate}</WriteDate>
 
       <ProfileContainer>
@@ -79,17 +78,17 @@ const Answer = (props: PropsType): ReactElement => {
         <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
 
-      {props.data.answerExplain !== '' && <Explain>{props.data.answerExplain}</Explain>}
+      {answer.answerExplain !== '' && <Explain>{answer.answerExplain}</Explain>}
 
-      <>{props.data.answerContents}</>
+      <Diff origin={questionContents} input={answer.answerContents} />
 
-      {props.data.answerUrl !== null && (
-        <FileButton href={props.data.answerUrl} target="_blank" download>
+      {answer.answerUrl !== null && (
+        <FileButton href={answer.answerUrl} target="_blank" download>
           첨부파일보기
         </FileButton>
       )}
 
-      {myId === props.data.memberId && (
+      {id === answer.memberId && (
         <ButtonContainer>
           <Button>수정</Button>
           <Button onClick={handleDelete}>삭제</Button>
@@ -136,7 +135,7 @@ const Nickname = styled.p`
 `;
 
 const Explain = styled.p`
-  margin: 0 0 50px 0;
+  margin: 0;
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;

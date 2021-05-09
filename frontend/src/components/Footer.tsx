@@ -5,10 +5,12 @@ import { logo } from '../assets';
 
 // Sitemap 관련 type 설정
 type Site = {
+  id: number;
   name: string;
   link: string;
 };
 interface Sitemap {
+  id: number;
   category: string;
   sites: Site[];
 }
@@ -17,39 +19,48 @@ const Footer = (): ReactElement => {
   // sitemap 데이터
   const sitemap: Sitemap[] = [
     {
+      id: 1,
       category: '체크메이트',
       sites: [
         {
+          id: 1,
           name: '서비스 소개',
           link: '/service',
         },
         {
+          id: 2,
           name: '팀',
           link: '/service/team',
         },
       ],
     },
     {
+      id: 2,
       category: '서비스',
       sites: [
         {
+          id: 3,
           name: 'AI 첨삭',
           link: '/check/ai',
         },
         {
+          id: 4,
           name: '원어민 첨삭',
           link: '/check/mate',
         },
       ],
     },
     {
+      id: 3,
       category: '회원정보',
       sites: [
         {
+          id: 5,
           name: '이용약관',
           link: '/service/policy',
         },
         {
+          id: 6,
           name: '개인정보처리방침',
           link: '/service/terms',
         },
@@ -60,10 +71,14 @@ const Footer = (): ReactElement => {
   // Link 컴포넌트 반복 렌더링
   const sitemapElements = sitemap.map((value) => {
     return (
-      <LinkContainer>
+      <LinkContainer key={value.id}>
         <Category>{value.category}</Category>
         {value.sites.map((site) => {
-          return <SiteLink to={site.link}>{site.name}</SiteLink>;
+          return (
+            <SiteLink to={site.link} key={site.id}>
+              {site.name}
+            </SiteLink>
+          );
         })}
       </LinkContainer>
     );
