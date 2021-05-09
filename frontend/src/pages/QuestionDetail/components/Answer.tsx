@@ -10,7 +10,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { AnswerType, MemberType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
-import { DeleteAPI } from '../../../api/answer';
+import { DeleteAPI, chooseAnswer } from '../../../api/answer';
 import Diff from './Diff';
 
 type PropsType = {
@@ -18,6 +18,7 @@ type PropsType = {
   answer: AnswerType;
   questionContents: string;
   setIsAnswerd: (value: boolean) => void;
+  setIsChecked: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
@@ -64,6 +65,26 @@ const Answer = (props: PropsType): ReactElement => {
     });
   };
 
+  // 답변 채택
+  const handleChoose = () => {
+    MySwal.fire({
+      text: '이 답변을 채택하시겠습니까?',
+      icon: 'question',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오',
+      showCancelButton: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await chooseAnswer(`choose/${answer.questionId}/${answer.answerId}`);
+
+        if (response === 200) {
+          props.setIsChecked(true);
+          // 리뷰 작성
+        }
+      }
+    });
+  };
+
   return (
     <AnswerContainer key={answer.answerId}>
       <WriteDate>작성일 {createdDate}</WriteDate>
@@ -92,6 +113,11 @@ const Answer = (props: PropsType): ReactElement => {
         <ButtonContainer>
           <Button>수정</Button>
           <Button onClick={handleDelete}>삭제</Button>
+        </ButtonContainer>
+      )}
+      {id !== answer.memberId && (
+        <ButtonContainer>
+          <ChooseButton onClick={handleChoose}>채택하기</ChooseButton>
         </ButtonContainer>
       )}
     </AnswerContainer>
@@ -178,6 +204,24 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   border: 2px solid ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.primary};
+`;
+const ChooseButton = styled.button`
+  width: 127px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: bold;
+  letter-spacing: 0.005em;
+  cursor: pointer;
+  background-color: rgba(240, 22, 222, 0.4);
+  color: ${({ theme }) => theme.colors.white};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 export default Answer;

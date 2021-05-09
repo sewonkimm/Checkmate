@@ -14,6 +14,7 @@ type PropsType = {
   answer: ResponseAnswerType;
   questionContents: string;
   setIsAnswerd: (value: boolean) => void;
+  setIsChecked: (value: boolean) => void;
 };
 
 const Answers = (props: PropsType): ReactElement => {
@@ -28,6 +29,7 @@ const Answers = (props: PropsType): ReactElement => {
           answer={item}
           questionContents={questionContents}
           setIsAnswerd={props.setIsAnswerd}
+          setIsChecked={props.setIsChecked}
         />
       );
     });
