@@ -7,11 +7,12 @@ import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { AnswerType, MemberType } from '../../../entity';
+import { AnswerType, MemberType, ReviewType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
-import { DeleteAPI, chooseAnswer } from '../../../api/answer';
+import { DeleteAPI, chooseAnswerAPI } from '../../../api/answer';
 import Diff from './Diff';
+import ReviewModal from './ReviewModal';
 
 type PropsType = {
   id: number;
@@ -24,6 +25,8 @@ type PropsType = {
 const Answer = (props: PropsType): ReactElement => {
   const { id, answer, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isReviewed, setIsReviewd] = useState<boolean>(false);
 
   // 작성일 문자열 다듬기
   let createdDate;
@@ -31,8 +34,8 @@ const Answer = (props: PropsType): ReactElement => {
     createdDate = answer.answerDate.split('T')[0].replaceAll('-', '.');
   }
 
-  // 작성자 정보
   useEffect(() => {
+    // 작성자 정보
     const fetchMemberInfo = async () => {
       const member = await getMemberInfo(`members/${answer.memberId}`);
       if (member !== null) {
@@ -40,6 +43,11 @@ const Answer = (props: PropsType): ReactElement => {
       }
     };
     fetchMemberInfo();
+
+    // 리뷰 채택 여부
+    if (answer.answerSelect !== 0) {
+      setIsReviewd(true);
+    }
   }, [answer]);
 
   const MySwal = withReactContent(Swal);
@@ -73,16 +81,19 @@ const Answer = (props: PropsType): ReactElement => {
       confirmButtonText: '네',
       cancelButtonText: '아니오',
       showCancelButton: true,
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-        const response = await chooseAnswer(`choose/${answer.questionId}/${answer.answerId}`);
-
-        if (response === 200) {
-          props.setIsChecked(true);
-          // 리뷰 작성
-        }
+        // 리뷰 작성
+        setShowModal(true);
       }
     });
+  };
+
+  const chooseAnswer = async (data: ReviewType) => {
+    const response = await chooseAnswerAPI(`choose/${answer.questionId}/${answer.answerId}`, data);
+    if (response === 200) {
+      props.setIsChecked(true);
+    }
   };
 
   return (
@@ -115,10 +126,15 @@ const Answer = (props: PropsType): ReactElement => {
           <Button onClick={handleDelete}>삭제</Button>
         </ButtonContainer>
       )}
-      {id !== answer.memberId && (
+      {id !== answer.memberId && !isReviewed && (
         <ButtonContainer>
           <ChooseButton onClick={handleChoose}>채택하기</ChooseButton>
         </ButtonContainer>
+      )}
+
+      {/* 리뷰 Modal */}
+      {showModal && answer.answerId !== undefined && (
+        <ReviewModal answerId={answer.answerId} setShowModal={setShowModal} chooseAnswer={chooseAnswer} />
       )}
     </AnswerContainer>
   );

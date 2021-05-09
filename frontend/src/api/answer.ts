@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnswerType, ResponseAnswerType } from '../entity';
+import { AnswerType, ResponseAnswerType, ReviewType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -57,9 +57,9 @@ const DeleteAPI = async (url: string): Promise<number> => {
 };
 
 // 답변 채택
-const chooseAnswer = async (url: string): Promise<number> => {
+const chooseAnswerAPI = async (url: string, data: ReviewType): Promise<number> => {
   const response = await axiosInstance
-    .put(url)
+    .put(url, data)
     .then((response) => {
       return response.status;
     })
@@ -70,4 +70,19 @@ const chooseAnswer = async (url: string): Promise<number> => {
   return response;
 };
 
-export { getAnswers, WriteAPI, DeleteAPI, chooseAnswer };
+// 리뷰 작성
+const WriteReviewAPI = async (data: ReviewType): Promise<number> => {
+  const url = 'reviews';
+  const response = await axiosInstance
+    .post(url, data)
+    .then((response) => {
+      return response.status;
+    })
+    .catch((err) => {
+      console.error(err);
+      return err;
+    });
+  return response;
+};
+
+export { getAnswers, WriteAPI, DeleteAPI, chooseAnswerAPI, WriteReviewAPI };
