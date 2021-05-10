@@ -3,15 +3,32 @@ AI/index.tsx
 : AI 첨삭
 */
 
-import React, { ReactElement } from 'react';
-import styled from 'styled-components';
+import React, { ReactElement, useState, useEffect } from 'react';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Banner from '../../components/Banner';
 import { bannerImageAI } from '../../assets';
 import Input from './components/Input';
+import Result from './components/Result';
+import checkSpell from '../../api/ai';
 
 const AI = (): ReactElement => {
+  const [analysed, setAnalysed] = useState<boolean>(false); // 분석결과 컴포넌트가 나오려면 true
+  const [original, setOriginal] = useState<string>('a');
+
+  useEffect(() => {
+    const fetchCheckSpell = async () => {
+      const data = {
+        sentence: original,
+      };
+      //   const response = await checkSpell(data);
+    };
+
+    if (original !== '') {
+      fetchCheckSpell();
+    }
+  }, [original]);
+
   const bannerData = {
     img: bannerImageAI,
     title: 'AI 첨삭',
@@ -24,7 +41,12 @@ const AI = (): ReactElement => {
       <Header />
       <Banner banner={bannerData} />
 
-      <Input />
+      {analysed ? (
+        // <Result setOriginal={setOriginal} setAnalysed={setAnalysed} />
+        <>분석 결과{original}</>
+      ) : (
+        <Input setOriginal={setOriginal} setAnalysed={setAnalysed} />
+      )}
     </>
   );
 };

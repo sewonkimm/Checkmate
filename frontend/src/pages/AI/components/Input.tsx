@@ -1,13 +1,22 @@
 /*
-AI/index.tsx
-: AI 첨삭
+AI/components/Input.tsx
+: AI 첨삭 페이지 첨삭 내용 작성 컴포넌트
 */
 
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import Editor from '@monaco-editor/react';
 
-const Input = (): ReactElement => {
+type PropsType = {
+  setOriginal: (value: string) => void;
+  setAnalysed: (value: boolean) => void;
+};
+
+const Input = ({ setOriginal, setAnalysed }: PropsType): ReactElement => {
+  const MySwal = withReactContent(Swal);
+
   const [content, setContent] = useState<string>('');
   const [contentLength, setContentLength] = useState<number>(0);
 
@@ -29,12 +38,31 @@ const Input = (): ReactElement => {
   const handleEditorChange = (value: any) => {
     if (value.length > 500) {
       setContent(value.slice(0, 500)); // 500자 제한
+    } else {
+      setContent(value);
+      setContentLength(value.length);
     }
-    setContentLength(value.length);
   };
 
   const handleSubmitButton = () => {
-    // 분석 api 호출 및 보여주기
+    if (validateContent()) {
+      // 분석 api 호출 및 보여주기
+      setOriginal(content);
+      setAnalysed(true);
+    }
+  };
+
+  const validateContent = (): boolean => {
+    if (contentLength > 500) {
+      MySwal.fire({
+        text: '500자 이내의 글만 분석 가능합니다.',
+        icon: 'warning',
+        confirmButtonText: '취소',
+        showCancelButton: false,
+      });
+      return false;
+    }
+    return true;
   };
 
   return (
