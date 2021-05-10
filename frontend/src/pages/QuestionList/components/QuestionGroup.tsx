@@ -1,53 +1,65 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/*
+QuestionList/components/QuestionGroup.tsx
+: 원어민 첨삭 질문 조회 페이지의 질문 컴포넌트들을 출력하는 곳
+
+무한 스크롤을 적용했고, api 요청시 사용되는 변수의 의미는 다음과 같습니다
+
+ - list type = 1- 등록날짜순(내림차순), 2- 마감날짜순(오름차순), 3-포인트순(내림차순)
+ - offset: 페이지 넘버, 0부터 시작
+ - limit: 한번에 몇개의 질문을 보여줄 것인지
+*/
+
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import QuestionCard from './QuestionCard';
 import { getQuestions, getTotalSize } from '../../../api/question';
 import { ResponseQuestionType } from '../../../entity';
-import { RootState } from '../../../modules';
 
 type PropsType = {
-  myQuestionStatus: boolean;
+  isFiltered: boolean;
+  id: number;
 };
-
-// 전체 질문 조회
-// list type = 1- 등록날짜순(내림차순), 2- 마감날짜순(오름차순), 3-포인트순(내림차순)
-// 요청 보내는 수 0부터 시작
-// limit은 보내달라고 하는 갯수
 
 const QuestionGroup = (props: PropsType): ReactElement => {
   const [questions, setQuestions] = useState<ResponseQuestionType[]>([]);
   const [myQuestions, setMyQuestions] = useState<ResponseQuestionType[]>([]);
   const [listType] = useState<number>(1);
+  const [limit] = useState<number>(10);
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const { myQuestionStatus } = props;
-  // selector로 로그인된 memberId 가져오기
-  const loginUserId: number = useSelector((state: RootState) => state.member).member.memberId;
+  const { isFiltered, id } = props;
+
+  const MySwal = withReactContent(Swal);
+
   // 내 질문만 보기 버튼이 클릭 되었을 때
   useEffect(() => {
     // 랜더링 되거나, 리스트타입, 오프셋이 바뀔 때, api요청을 보냄
     async function fetchQuestions() {
-      const response = await getQuestions(`questions/${listType}/${offset}/5`);
+      const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
       if (response === []) {
-        window.alert('전체 질문 리스트 요청 실패 !');
-      } else if (myQuestionStatus === false) {
+        MySwal.fire({
+          text: '질문을 받아오는데 실패했습니다.',
+          icon: 'error',
+        });
+      } else if (isFiltered === false) {
         const questionGroup = [...questions, ...response];
         setQuestions(questionGroup);
       }
     }
     // filtering
-    if (myQuestionStatus && loginUserId !== 0) {
+    if (isFiltered && id !== 0) {
       const myQuestions = questions.filter((item) => {
-        return item.question.memberId === loginUserId;
+        return item.question.memberId === id;
       });
       setMyQuestions(myQuestions);
     } else {
       fetchQuestions();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myQuestionStatus, listType, offset]);
+  }, [isFiltered, listType, offset]);
 
   const fetchData = async () => {
     const totalNum = await getTotalSize(`questions/${listType}/${offset}/5`);
@@ -61,7 +73,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
   return (
     <InfiniteScroll dataLength={offset} next={fetchData} hasMore={hasMore} loader={<h3>Loading . . .</h3>}>
       <QuestionsWrap>
-        {myQuestionStatus && loginUserId !== 0
+        {isFiltered && id !== 0
           ? myQuestions.map((item: ResponseQuestionType) => (
               <QuestionCard key={item.question.questionId + Date.now()} question={item} />
             ))
@@ -76,7 +88,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
 const QuestionsWrap = styled.div`
   margin: auto;
   width: 80vw;
-  max-width: 1200px;
+  max-width: 985px;
   height: auto;
 `;
 

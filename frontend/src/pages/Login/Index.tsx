@@ -122,5 +122,6 @@ const LoginBtn = styled.button`
   border-radius: 8px;
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 `;
 export default Login;

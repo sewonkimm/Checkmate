@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-
 /*
 QuestionDetail/components/Answers.tsx
 : 질문 상세 조회 페이지의 답변들을 담는 컴포넌트
@@ -12,21 +10,36 @@ import { noAnswer } from '../../../assets';
 import Answer from './Answer';
 
 type PropsType = {
+  id: number;
   answer: ResponseAnswerType;
+  questionStatus: number;
+  questionContents: string;
   setIsAnswerd: (value: boolean) => void;
+  setIsChecked: (value: boolean) => void;
 };
 
 const Answers = (props: PropsType): ReactElement => {
+  const { id, answer, questionStatus, questionContents } = props;
   let answerComponents;
-  if (props.answer.list !== null) {
-    answerComponents = props.answer.list.map((item: AnswerType) => {
-      return <Answer key={item.answerId} data={item} setIsAnswerd={props.setIsAnswerd} />;
+  if (answer.list !== null) {
+    answerComponents = answer.list.map((item: AnswerType) => {
+      return (
+        <Answer
+          key={item.answerId}
+          id={id}
+          answer={item}
+          questionStatus={questionStatus}
+          questionContents={questionContents}
+          setIsAnswerd={props.setIsAnswerd}
+          setIsChecked={props.setIsChecked}
+        />
+      );
     });
   }
 
   return (
     <AnswerContainer>
-      {props.answer.totalSize === 0 ? (
+      {answer.totalSize === 0 ? (
         <NoAnswer>
           <NoAnswerImage src={noAnswer} alt="no answer" />
           아직 달린 답변이 없어요...
@@ -40,7 +53,7 @@ const Answers = (props: PropsType): ReactElement => {
 
 // 답변 컴포넌트 style
 const AnswerContainer = styled.div`
-  margin: 100px auto;
+  margin: 50px auto;
   padding-bottom: 100px;
 `;
 

@@ -37,6 +37,9 @@ const QuestionDetail: React.FC = () => {
     // 질문 내용 불러오기
     const fetchQuestionDetail = async () => {
       const questionDetail = await getQuestionDetail(`questions/${params.id}`);
+      if (questionDetail.questionStatus === 1) {
+        setIsChecked(true);
+      }
       setQuestion(questionDetail);
     };
 
@@ -69,16 +72,26 @@ const QuestionDetail: React.FC = () => {
         <>loading...</>
       ) : (
         <>
-          <Question data={{ ...question }} />
+          <Question question={{ ...question }} id={myId} />
 
-          {myId !== question.memberId && !isAnswerd && <WriteAnswer id={myId} setIsAnswerd={setIsAnswerd} />}
+          {myId !== question.memberId && !isAnswerd && (
+            <WriteAnswer id={myId} questionContents={question.questionContents} setIsAnswerd={setIsAnswerd} />
+          )}
           {myId !== question.memberId && isAnswerd && !isChecked && (
             <Message type={1} id={myId} message="질문자의 채택을 기다리고 있습니다." />
           )}
-          {myId === question.memberId && isChecked && (
+          {myId === question.memberId && !isChecked && (
             <Message type={3} id={myId} message="님, 마감 기한 내에 답변을 채택해주세요!" />
           )}
-          <Answers answer={answers} setIsAnswerd={setIsAnswerd} />
+          {isChecked && <Message type={2} id={myId} message="메이트님, 축하합니다! 답변이 채택되었어습니다." />}
+          <Answers
+            answer={answers}
+            questionStatus={question.questionStatus}
+            questionContents={question.questionContents}
+            id={myId}
+            setIsAnswerd={setIsAnswerd}
+            setIsChecked={setIsChecked}
+          />
         </>
       )}
     </QuestionDetailContainer>

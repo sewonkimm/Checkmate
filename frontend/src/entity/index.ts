@@ -89,7 +89,7 @@ export type ResponseAnswerType = {
 };
 
 // review
-export type reviewListType = {
+export type ReviewType = {
   answerId: number;
   reviewCategory: number;
   reviewContents: string;
@@ -98,5 +98,5 @@ export type reviewListType = {
 
 export type ResponseMyReview = {
   totalSize: number;
-  reviewList: reviewListType[];
+  reviewList: ReviewType[];
 };

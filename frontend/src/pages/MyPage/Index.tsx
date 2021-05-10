@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 import MyInfo from './components/MyInfo';
 import MyAvatar from './components/MyAvatar';
 import FillupPoint from './components/FillupPoint';
-import { MemberType, reviewListType } from '../../entity/index';
+import { MemberType, ReviewType } from '../../entity/index';
 import MyQuestions from './components/MyQuestions';
 import MyReview from './components/MyReview';
 
@@ -26,7 +26,7 @@ const Index = (): ReactElement => {
   });
   const [offset, setOffset] = useState<number>(0);
   const [reviewTotalSize, setReviewTotalSize] = useState<number>(0);
-  const [myReview, setMyReview] = useState<reviewListType[]>([]);
+  const [myReview, setMyReview] = useState<ReviewType[]>([]);
 
   // 사용자 기본 정보 조회
   useEffect(() => {

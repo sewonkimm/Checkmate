@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { reviewListType } from '../../../entity/index';
+import { ReviewType } from '../../../entity/index';
 
 type PropsType = {
-  reviews: reviewListType[];
+  reviews: ReviewType[];
   totalReviews: number;
 };
 
