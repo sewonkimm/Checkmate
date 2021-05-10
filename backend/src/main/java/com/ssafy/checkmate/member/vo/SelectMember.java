@@ -25,9 +25,10 @@ public class SelectMember {
     @NonNull
     private String memberIntroduce;
 
+    @NonNull
+    private double memberGrade;
+
     private int memberPoint;
 
     private String memberProfileUrl;
-
-    private double memberGrade;
 }
