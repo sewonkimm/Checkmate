@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MemberType } from '../entity';
+import { MemberType, ResponseMyReview } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -27,4 +27,23 @@ const getMemberInfo = async (url: string): Promise<MemberType | null> => {
   return response;
 };
 
-export { getMemberInfo };
+// 사용자가 받은 review 조회
+const getMemberReview = async (url: string): Promise<ResponseMyReview | null> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      const responseReview = {
+        totalSize: response.data.totalSize,
+        reviewList: response.data.reviewList,
+      };
+      console.log(responseReview);
+      return responseReview;
+    })
+    .catch((err) => {
+      console.log(err);
+      return null;
+    });
+  return response;
+};
+
+export { getMemberInfo, getMemberReview };

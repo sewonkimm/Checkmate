@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { MemberType } from '../../../entity/index';
 
-const MyInfo = () => {
+type PropsType = {
+  memberInfo: MemberType;
+};
+
+const MyInfo = (props: PropsType): ReactElement => {
+  const { memberInfo } = props;
+
   return (
     <InfoWrap>
       <InfoLeft>
-        <Name>Tomas Lee</Name>
-        <LeftDescription>싸피대학교/ 문예창작학과</LeftDescription>
-        <LeftDescription>평균 응답시간 30분 이내</LeftDescription>
+        <Name>{memberInfo.memberNickname}</Name>
         <LeftDescription>별별별별별 120개의 평가</LeftDescription>
       </InfoLeft>
       <InfoRight>
         <Name>소개</Name>
-        <RightDescription>15살에 캐나다 이민을 가고 ~줄안되면 내리는 css필요</RightDescription>
+        <RightDescription>{memberInfo.memberIntroduce}</RightDescription>
       </InfoRight>
     </InfoWrap>
   );

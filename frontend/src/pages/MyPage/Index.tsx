@@ -1,12 +1,62 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
+import { getMemberInfo, getMemberReview } from '../../api/member';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import MyInfo from './components/MyInfo';
 import MyAvatar from './components/MyAvatar';
 import FillupPoint from './components/FillupPoint';
+import { MemberType, reviewListType } from '../../entity/index';
+import MyQuestions from './components/MyQuestions';
+import MyReview from './components/MyReview';
 
 const Index = (): ReactElement => {
+  const userId: number = useSelector((state: RootState) => state.member).member.memberId;
+  const [myInfo, setMyInfo] = useState<MemberType>({
+    memberEmail: '',
+    memberId: 0,
+    memberIntroduce: '',
+    memberNativeLang: '',
+    memberNickname: '',
+    memberPoint: 0,
+    memberProfileUrl: '',
+    memberTypeId: 0,
+  });
+  const [offset, setOffset] = useState<number>(0);
+  const [reviewTotalSize, setReviewTotalSize] = useState<number>(0);
+  const [myReview, setMyReview] = useState<reviewListType[]>([]);
+
+  // 사용자 기본 정보 조회
+  useEffect(() => {
+    const fetchMemberInfo = async () => {
+      const response = await getMemberInfo(`members/${userId}`);
+      if (response === null) {
+        alert('정보 조회 실패');
+      } else {
+        setMyInfo(response);
+      }
+    };
+    fetchMemberInfo();
+  }, [userId]);
+
+  // 사용자가 받은 리뷰 조회
+  useEffect(() => {
+    const fetchMemberReview = async () => {
+      const response = await getMemberReview(`members/reviews/${userId}/${offset}/6`);
+      if (response !== null) {
+        const memberReview = myReview.concat(response.reviewList);
+        setMyReview(memberReview);
+        const reviewTotalSize = response.totalSize;
+        setReviewTotalSize(reviewTotalSize);
+      }
+    };
+    fetchMemberReview();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offset]);
+
   const updateMyInfo = () => {
     console.log(`clicked btn`);
   };
@@ -19,11 +69,13 @@ const Index = (): ReactElement => {
         {/* 유저 정보 섹션 */}
         <MyInfoWrap>
           <MyAvatar />
-          <MyInfo />
+          <MyInfo memberInfo={myInfo} />
         </MyInfoWrap>
-        <MyInfoEditBtn onClick={updateMyInfo}>수 정</MyInfoEditBtn>
         {/* 충전 포인트 관련 섹션 */}
-        <FillupPoint />
+        <FillupPoint memberInfo={myInfo} />
+        <MyInfoEditBtn onClick={updateMyInfo}>수 정</MyInfoEditBtn>
+        <MyQuestions />
+        <MyReview reviews={myReview} totalReviews={reviewTotalSize} />
       </MyPageWrap>
     </>
   );

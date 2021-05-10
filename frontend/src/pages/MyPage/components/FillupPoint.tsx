@@ -1,27 +1,41 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { MemberType } from '../../../entity/index';
 
-const FillupPoint = () => {
+type PropsType = {
+  memberInfo: MemberType;
+};
+
+const FillupPoint = (props: PropsType): ReactElement => {
+  const { memberInfo } = props;
+
   return (
-    <>
-      <Point>Point: 500</Point>
+    <PointWrap>
+      <Point>Point: {memberInfo.memberPoint}</Point>
       <ChargeWrap>
         <ChargeText>충전하기</ChargeText>
         <ChargeBtn5>+ 5,000</ChargeBtn5>
         <ChargeBtn10>+ 10,000</ChargeBtn10>
       </ChargeWrap>
-    </>
+    </PointWrap>
   );
 };
 
-const Point = styled.h2`
+const PointWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5em;
+`;
+
+const Point = styled.div`
   font-weight: 700;
   font-size: 31px;
   margin: 15px 0;
+  width: 200px;
 `;
 const ChargeWrap = styled.div`
-  width: 100%;
   display: flex;
+  align-items: center;
 `;
 const ChargeText = styled.h3`
   display: block;
@@ -47,7 +61,6 @@ const ChargeBtn10 = styled.button`
   height: 50px;
   border: 3px solid ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
-  margin-right: 1em;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   font-size: 18px;
