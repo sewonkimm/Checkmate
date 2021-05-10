@@ -65,3 +65,11 @@ export type ResponseAnswerType = {
   totalSize: number;
   list: AnswerType[] | null;
 };
+
+// review
+export type ReviewType = {
+  answerId: number;
+  reviewCategory: number;
+  reviewContents: string;
+  reviewScore: number;
+};

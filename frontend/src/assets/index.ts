@@ -8,5 +8,18 @@ import mainImage1 from './mainImage1.png';
 import bannerImage from './bannerImage.jpg';
 
 import profileImage from './profile.png';
+import starEmpty from './star_empty.png';
+import star from './star.png';
 
-export { logo, mainImage1, bannerImage, profileImage, signupIconNormal, signupIconError, signupIconSuccess, noAnswer };
+export {
+  logo,
+  mainImage1,
+  bannerImage,
+  profileImage,
+  signupIconNormal,
+  signupIconError,
+  signupIconSuccess,
+  noAnswer,
+  star,
+  starEmpty,
+};
