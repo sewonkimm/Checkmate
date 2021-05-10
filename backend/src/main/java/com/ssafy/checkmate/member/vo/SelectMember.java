@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class SelectMember {
 
-    private long memberId;
+    private Long memberId;
 
     @NonNull
     private String memberEmail;
@@ -24,6 +24,9 @@ public class SelectMember {
 
     @NonNull
     private String memberIntroduce;
+
+    @NonNull
+    private double memberGrade;
 
     private int memberPoint;
 

@@ -124,6 +124,7 @@ public class MemberService {
         Member member = memberRepository.findMemberByMemberId(id);
         SelectMember memberSelect = new SelectMember();
 
+        memberSelect.setMemberId(member.getMemberId());
         memberSelect.setMemberEmail(member.getMemberEmail());
         memberSelect.setMemberNickname(member.getMemberNickname());
         memberSelect.setMemberNativeLang(member.getMemberNativeLang());
@@ -131,6 +132,7 @@ public class MemberService {
         memberSelect.setMemberPoint(member.getMemberPoint());
         memberSelect.setMemberIntroduce(member.getMemberIntroduce());
         memberSelect.setMemberTypeId(member.getMemberTypeId());
+        memberSelect.setMemberGrade(member.getMemberGrade());
 
         return memberSelect;
     }
