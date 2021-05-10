@@ -27,7 +27,7 @@ const Index = (): ReactElement => {
   const [offset, setOffset] = useState<number>(0);
   const [reviewTotalSize, setReviewTotalSize] = useState<number>(0);
   const [myReview, setMyReview] = useState<ReviewType[]>([]);
-  const [getMoreReviewStatus, setGetMoreReviewStatus] = useState<boolean>(false);
+  const [getMoreReviewStatus, setGetMoreReviewStatus] = useState<boolean>(true);
 
   // 사용자 기본 정보 조회
   useEffect(() => {
