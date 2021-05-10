@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Banner from '../../components/Banner';
-import { bannerImage } from '../../assets';
+import { bannerImageMate } from '../../assets';
 import QuestionGroup from './components/QuestionGroup';
 import Filters from './components/Filters';
 import { RootState } from '../../modules';
@@ -18,7 +18,7 @@ const QuestionList: React.FC = () => {
   };
 
   const bannerData = {
-    img: bannerImage,
+    img: bannerImageMate,
     title: '원어민 첨삭',
     description:
       '자연스러운 한국어 표현을 위해 원어민 메이트들이 도와드려요!\n질문을 올리고, 메이트들의 답변을 기다리세요 😇',

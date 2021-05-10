@@ -15,6 +15,7 @@ import QuestionList from './pages/QuestionList/Index';
 import QuestionWrite from './pages/QuestionWrite';
 import QuestionUpdate from './pages/QuestionUpdate';
 import QuestionDetail from './pages/QuestionDetail';
+import AI from './pages/AI';
 
 const App = (): ReactElement => {
   return (
@@ -25,6 +26,7 @@ const App = (): ReactElement => {
         <Route exact path="/" component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/check/ai" component={AI} />
         <Route path="/check/mate" component={QuestionList} />
         <Route path="/question/write" component={QuestionWrite} />
         <Route path="/question/update/:id" component={QuestionUpdate} />

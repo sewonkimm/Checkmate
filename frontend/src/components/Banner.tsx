@@ -27,14 +27,18 @@ const Banner = (props: PropsType): ReactElement => {
 
 const BannerContainer = styled.section<{ img: string }>`
   width: 100%;
-  height: 300px;
+  height: 302px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.3)), url(${(props) => props.img});
   background-size: cover;
   background-position: 50% 47%;
   padding: 12px;
 `;
-const Title = styled.h3`
-  margin: 35px 0 35px 0;
+const Title = styled.h1`
+  margin-bottom: 10px;
   font-size: 56px;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.white};
@@ -43,5 +47,6 @@ const Description = styled.p`
   font-size: 28px;
   color: ${({ theme }) => theme.colors.white};
   line-height: 36px;
+  white-space: pre-wrap;
 `;
 export default Banner;
