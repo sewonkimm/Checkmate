@@ -32,7 +32,7 @@ const MyReview = (props: PropsType): ReactElement => {
             );
           })
         ) : (
-          <span>받으신 리뷰가 없습니다 ㅠ</span>
+          <span>받으신 리뷰가 없습니다</span>
         )}
       </ReviewCards>
       <GetMoreReviewBtn>후기 더 보기</GetMoreReviewBtn>
