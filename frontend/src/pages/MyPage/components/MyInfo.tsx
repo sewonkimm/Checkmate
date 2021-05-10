@@ -1,19 +1,30 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import Rating from 'react-rating';
+import { star, starEmpty } from '../../../assets';
 import { MemberType } from '../../../entity/index';
 
 type PropsType = {
   memberInfo: MemberType;
+  totalReview: number;
 };
 
 const MyInfo = (props: PropsType): ReactElement => {
-  const { memberInfo } = props;
+  const { memberInfo, totalReview } = props;
 
   return (
     <InfoWrap>
       <InfoLeft>
         <Name>{memberInfo.memberNickname}</Name>
-        <LeftDescription>별별별별별 120개의 평가</LeftDescription>
+        <LeftDescription>
+          <Rating
+            initialRating={4}
+            readonly
+            emptySymbol={<img src={starEmpty} className="icon" alt="starEmpty" />}
+            fullSymbol={<img src={star} className="icon" alt="star" />}
+          />
+          <Reviews>{totalReview}개의 평가</Reviews>
+        </LeftDescription>
       </InfoLeft>
       <InfoRight>
         <Name>소개</Name>
@@ -41,6 +52,10 @@ const Name = styled.h3`
 const LeftDescription = styled.p`
   font-size: 14px;
   margin: 0.5em 0;
+`;
+const Reviews = styled.span`
+  margin-left: 1em;
+  font-size: 18px;
 `;
 
 const RightDescription = styled.p`

@@ -12,6 +12,7 @@ const MyQuestions = (): ReactElement => {
   const [totalAsk, setTotalAsk] = useState<number>(0);
   const [totalReply, setTotalReply] = useState<number>(0);
   const [questionList, setQuestionList] = useState<ResponseMyQuestionListType[]>([]);
+  const [getMoreStatus, setGetMoreStatus] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchMyQuestion = async () => {
@@ -40,7 +41,10 @@ const MyQuestions = (): ReactElement => {
   const handleGetMoreBtn = async () => {
     // api부르고 받아온 배열에 추가해서 setState
     if (totalAsk > offset * 3 + 1) {
+      setGetMoreStatus(true);
       setOffset(offset + 1);
+    } else {
+      setGetMoreStatus(false);
     }
   };
 
@@ -74,8 +78,11 @@ const MyQuestions = (): ReactElement => {
       ) : (
         <NoQuestionMsg>아직 글을 쓰신적이 없습니다 😥</NoQuestionMsg>
       )}
-
-      <ExtensionBtn onClick={handleGetMoreBtn}>내가 쓴 글 더보기</ExtensionBtn>
+      {getMoreStatus ? (
+        <ExtensionBtn onClick={handleGetMoreBtn}>내가 쓴 글 더보기</ExtensionBtn>
+      ) : (
+        <FailExtensionBtn onClick={handleGetMoreBtn}>내가 쓴 글 더보기</FailExtensionBtn>
+      )}
     </Questions>
   );
 };
@@ -126,7 +133,7 @@ const MyTitle = styled.div`
   text-align: center;
   text-align: start;
 `;
-const NoQuestionMsg = styled.h4`
+const NoQuestionMsg = styled.h3`
   text-align: center;
 `;
 
@@ -156,6 +163,17 @@ const ExtensionBtn = styled.button`
   &: hover {
     cursor: pointer;
   } ;
+`;
+const FailExtensionBtn = styled.button`
+  width: 100%;
+  margin: 30px 0 0 0;
+  background: #038efc;
+  border-radius: 5px;
+  padding: 11px 15px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 18px;
+  font-weight: 700;
+  opacity: 0.5;
 `;
 
 export default MyQuestions;

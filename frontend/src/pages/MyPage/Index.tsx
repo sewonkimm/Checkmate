@@ -27,6 +27,7 @@ const Index = (): ReactElement => {
   const [offset, setOffset] = useState<number>(0);
   const [reviewTotalSize, setReviewTotalSize] = useState<number>(0);
   const [myReview, setMyReview] = useState<ReviewType[]>([]);
+  const [getMoreReviewStatus, setGetMoreReviewStatus] = useState<boolean>(false);
 
   // 사용자 기본 정보 조회
   useEffect(() => {
@@ -53,13 +54,24 @@ const Index = (): ReactElement => {
       }
     };
     fetchMemberReview();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
+  // 회원 정보 변경
   const updateMyInfo = () => {
     console.log(`clicked btn`);
   };
+  // 후기 더보기 버튼
+  const getMoreReviews = () => {
+    if (reviewTotalSize > offset * 6 + 1) {
+      setGetMoreReviewStatus(true);
+      setOffset(offset + 1);
+      // eslint-disable-next-line no-console
+      console.log(offset);
+      setGetMoreReviewStatus(false);
+    }
+  };
+
   return (
     <>
       <SubHeader />
@@ -69,13 +81,18 @@ const Index = (): ReactElement => {
         {/* 유저 정보 섹션 */}
         <MyInfoWrap>
           <MyAvatar />
-          <MyInfo memberInfo={myInfo} />
+          <MyInfo memberInfo={myInfo} totalReview={reviewTotalSize} />
         </MyInfoWrap>
         {/* 충전 포인트 관련 섹션 */}
         <FillupPoint memberInfo={myInfo} />
         <MyInfoEditBtn onClick={updateMyInfo}>수 정</MyInfoEditBtn>
         <MyQuestions />
-        <MyReview reviews={myReview} totalReviews={reviewTotalSize} />
+        <MyReview
+          reviews={myReview}
+          totalReviews={reviewTotalSize}
+          getMoreReviewFunc={getMoreReviews}
+          getMoreStatus={getMoreReviewStatus}
+        />
       </MyPageWrap>
     </>
   );

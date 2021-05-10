@@ -1,15 +1,23 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import Rating from 'react-rating';
 import { ReviewType } from '../../../entity/index';
+import { star, starEmpty } from '../../../assets';
 
 type PropsType = {
   reviews: ReviewType[];
   totalReviews: number;
+  getMoreReviewFunc: () => void;
+  getMoreStatus: boolean;
 };
 
 const MyReview = (props: PropsType): ReactElement => {
-  const { totalReviews } = props;
-  const { reviews } = props;
+  const { totalReviews, reviews, getMoreStatus } = props;
+
+  // 내려받은 함수 실행
+  const handleGetMoreBtn = () => {
+    props.getMoreReviewFunc();
+  };
 
   return (
     <ReviewWrap>
@@ -26,16 +34,27 @@ const MyReview = (props: PropsType): ReactElement => {
           reviews.map((item) => {
             return (
               <ReviewCard>
-                <SingleStar>{item.reviewScore}</SingleStar>
+                <SingleStar>
+                  <Rating
+                    initialRating={item.reviewScore}
+                    readonly
+                    emptySymbol={<img src={starEmpty} className="icon" alt="starEmpty" />}
+                    fullSymbol={<img src={star} className="icon" alt="star" />}
+                  />
+                </SingleStar>
                 <SingleReview>{item.reviewContents}</SingleReview>
               </ReviewCard>
             );
           })
         ) : (
-          <span>받으신 리뷰가 없습니다 ㅠㅠ</span>
+          <NoReviewMsg>받으신 리뷰가 없습니다😅</NoReviewMsg>
         )}
       </ReviewCards>
-      <GetMoreReviewBtn>후기 더 보기</GetMoreReviewBtn>
+      {getMoreStatus ? (
+        <GetMoreReviewBtn onClick={handleGetMoreBtn}>후기 더 보기</GetMoreReviewBtn>
+      ) : (
+        <NoGetMoreReviewBtn onClick={handleGetMoreBtn}>후기 더 보기</NoGetMoreReviewBtn>
+      )}
     </ReviewWrap>
   );
 };
@@ -80,6 +99,9 @@ const ReviewCard = styled.div`
 `;
 const SingleStar = styled.div``;
 const SingleReview = styled.p``;
+const NoReviewMsg = styled.h3`
+  text-align: center;
+`;
 const GetMoreReviewBtn = styled.button`
   width: 100%;
   background: #038efc;
@@ -89,6 +111,20 @@ const GetMoreReviewBtn = styled.button`
   font-weight: 700;
   padding: 12px;
   margin-bottom: 2em;
+  &: hover {
+    cursor: pointer;
+  }
+`;
+const NoGetMoreReviewBtn = styled.button`
+  width: 100%;
+  background: #038efc;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 18px;
+  font-weight: 700;
+  padding: 12px;
+  margin-bottom: 2em;
+  opacity: 0.5;
 `;
 
 export default MyReview;
