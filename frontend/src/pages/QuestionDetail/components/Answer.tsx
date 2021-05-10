@@ -7,22 +7,27 @@ import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { AnswerType, MemberType } from '../../../entity';
+import { AnswerType, MemberType, ReviewType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
-import { DeleteAPI } from '../../../api/answer';
+import { DeleteAPI, chooseAnswerAPI } from '../../../api/answer';
 import Diff from './Diff';
+import ReviewModal from './ReviewModal';
 
 type PropsType = {
   id: number;
   answer: AnswerType;
+  questionStatus: number;
   questionContents: string;
   setIsAnswerd: (value: boolean) => void;
+  setIsChecked: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
-  const { id, answer, questionContents } = props;
+  const { id, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isReviewed, setIsReviewd] = useState<boolean>(false);
 
   // 작성일 문자열 다듬기
   let createdDate;
@@ -30,8 +35,8 @@ const Answer = (props: PropsType): ReactElement => {
     createdDate = answer.answerDate.split('T')[0].replaceAll('-', '.');
   }
 
-  // 작성자 정보
   useEffect(() => {
+    // 작성자 정보
     const fetchMemberInfo = async () => {
       const member = await getMemberInfo(`members/${answer.memberId}`);
       if (member !== null) {
@@ -39,7 +44,12 @@ const Answer = (props: PropsType): ReactElement => {
       }
     };
     fetchMemberInfo();
-  }, [answer]);
+
+    // 리뷰 채택 여부
+    if (questionStatus !== 0) {
+      setIsReviewd(true);
+    }
+  }, [answer, questionStatus]);
 
   const MySwal = withReactContent(Swal);
 
@@ -62,6 +72,29 @@ const Answer = (props: PropsType): ReactElement => {
         }
       }
     });
+  };
+
+  // 답변 채택
+  const handleChoose = () => {
+    MySwal.fire({
+      text: '이 답변을 채택하시겠습니까?',
+      icon: 'question',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // 리뷰 작성
+        setShowModal(true);
+      }
+    });
+  };
+
+  const chooseAnswer = async (data: ReviewType) => {
+    const response = await chooseAnswerAPI(`choose/${answer.questionId}/${answer.answerId}`, data);
+    if (response === 200) {
+      props.setIsChecked(true);
+    }
   };
 
   return (
@@ -93,6 +126,16 @@ const Answer = (props: PropsType): ReactElement => {
           <Button>수정</Button>
           <Button onClick={handleDelete}>삭제</Button>
         </ButtonContainer>
+      )}
+      {id !== answer.memberId && !isReviewed && (
+        <ButtonContainer>
+          <ChooseButton onClick={handleChoose}>채택하기</ChooseButton>
+        </ButtonContainer>
+      )}
+
+      {/* 리뷰 Modal */}
+      {showModal && answer.answerId !== undefined && (
+        <ReviewModal answerId={answer.answerId} setShowModal={setShowModal} chooseAnswer={chooseAnswer} />
       )}
     </AnswerContainer>
   );
@@ -178,6 +221,24 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   border: 2px solid ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.primary};
+`;
+const ChooseButton = styled.button`
+  width: 127px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: bold;
+  letter-spacing: 0.005em;
+  cursor: pointer;
+  background-color: rgba(240, 22, 222, 0.4);
+  color: ${({ theme }) => theme.colors.white};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 export default Answer;
