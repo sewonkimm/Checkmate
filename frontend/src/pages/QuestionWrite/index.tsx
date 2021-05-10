@@ -104,6 +104,7 @@ const QuestionWrite: React.FC = () => {
     letterSpacing: 1.3,
     lineHeight: 25,
     wordWrap: 'on',
+    snippetSuggestions: 'none',
     readOnly,
   };
 
@@ -171,16 +172,11 @@ const QuestionWrite: React.FC = () => {
               width="85%"
               height="300px"
               defaultLanguage="markdown"
+              theme="light"
               value={content}
               options={options}
               onChange={handleEditorChange}
             />
-            {/* <TextareaInput
-              rows={10}
-              value={content}
-              onChange={handleContentChange}
-              placeholder="첨삭 받을 내용을 1,000자 이내로 작성해주세요"
-            /> */}
           </Label>
         </Form>
         <ButtonContainer>

@@ -9,6 +9,7 @@ import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Banner from '../../components/Banner';
 import { bannerImageAI } from '../../assets';
+import Input from './components/Input';
 
 const AI = (): ReactElement => {
   const bannerData = {
@@ -22,6 +23,8 @@ const AI = (): ReactElement => {
       <SubHeader />
       <Header />
       <Banner banner={bannerData} />
+
+      <Input />
     </>
   );
 };
