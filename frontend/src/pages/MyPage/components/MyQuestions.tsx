@@ -160,8 +160,10 @@ const ExtensionBtn = styled.button`
   color: ${({ theme }) => theme.colors.white};
   font-size: 18px;
   font-weight: 700;
+  transition: all 300ms ease-out;
   &: hover {
     cursor: pointer;
+    transform: translateY(-8px);
   } ;
 `;
 const FailExtensionBtn = styled.button`
