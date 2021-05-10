@@ -1,8 +1,8 @@
 # create table
 CREATE TABLE `correction` (
-  `before` varchar(255) NOT NULL,
-  `after` varchar(45) NOT NULL,
-  `category` int(11) DEFAULT NULL
+    `before` varchar(255) NOT NULL,
+    `after` varchar(255) NOT NULL,
+    `category` int(11) DEFAULT 0
 );
 
 # insert data
