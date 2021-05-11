@@ -1,6 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { RootState } from '../../modules';
 import { getMemberInfo, getMemberReview } from '../../api/member';
 import SubHeader from '../../components/SubHeader';
@@ -42,6 +44,7 @@ const Index = (): ReactElement => {
     fetchMemberInfo();
   }, [userId]);
 
+  const MySwal = withReactContent(Swal);
   // 사용자가 받은 리뷰 조회
   useEffect(() => {
     const fetchMemberReview = async () => {
@@ -51,6 +54,14 @@ const Index = (): ReactElement => {
         setMyReview(memberReview);
         const reviewTotalSize = response.totalSize;
         setReviewTotalSize(reviewTotalSize);
+      } else {
+        MySwal.fire({
+          text: '답변을 정말 삭제하시겠습니까?',
+          icon: 'warning',
+          confirmButtonText: '삭제',
+          cancelButtonText: '취소',
+          showCancelButton: true,
+        });
       }
     };
     fetchMemberReview();
