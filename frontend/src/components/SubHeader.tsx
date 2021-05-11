@@ -1,7 +1,9 @@
+/* eslint-disable react/button-has-type */
 import React, { ReactElement, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../modules';
 import { MemberType } from '../entity';
 import { logout } from '../modules/member';
@@ -29,9 +31,19 @@ const SubHeader = (): ReactElement => {
     router.push('/');
   };
 
+  // 언어 변경
+  const { i18n } = useTranslation();
+  const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    i18n.changeLanguage(e.target.value);
+  };
+
   return (
     <SubHeaderContainer>
-      {/* 언어 선택 버튼 추가 */}
+      <Select onChange={handleChangeLanguage}>
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="cn">中文</option>
+      </Select>
 
       {isMember ? (
         <>
@@ -55,8 +67,19 @@ const SubHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   padding: 16px 20px;
   background-color: ${({ theme }) => theme.colors.primary};
+`;
+
+const Select = styled.select`
+  width: 100px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  font-weight: normal;
+  border: none;
+  background-color: transparent;
+  outline: none;
 `;
 
 const StyledLink = styled(Link)`
