@@ -28,7 +28,7 @@ const Index = (): ReactElement => {
   const [reviewTotalSize, setReviewTotalSize] = useState<number>(0);
   const [myReview, setMyReview] = useState<ReviewType[]>([]);
   const [getMoreReviewStatus, setGetMoreReviewStatus] = useState<boolean>(true);
-
+  const [reviewLimit, setReviewLimit] = useState<number>(6);
   // 사용자 기본 정보 조회
   useEffect(() => {
     const fetchMemberInfo = async () => {
@@ -45,7 +45,7 @@ const Index = (): ReactElement => {
   // 사용자가 받은 리뷰 조회
   useEffect(() => {
     const fetchMemberReview = async () => {
-      const response = await getMemberReview(`members/reviews/${userId}/${offset}/6`);
+      const response = await getMemberReview(`members/reviews/${userId}/${offset}/${reviewLimit}`);
       if (response !== null) {
         const memberReview = myReview.concat(response.reviewList);
         setMyReview(memberReview);
@@ -63,11 +63,9 @@ const Index = (): ReactElement => {
   };
   // 후기 더보기 버튼
   const getMoreReviews = () => {
-    if (reviewTotalSize > offset * 6 + 1) {
+    if (reviewTotalSize > offset) {
       setGetMoreReviewStatus(true);
-      setOffset(offset + 1);
-      // eslint-disable-next-line no-console
-      console.log(offset);
+      setOffset(offset + 6);
       setGetMoreReviewStatus(false);
     }
   };

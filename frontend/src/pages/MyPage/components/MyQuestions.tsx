@@ -1,6 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { MyQuestionAPI } from '../../../api/question';
 import { RootState } from '../../../modules';
 import { ResponseMyQuestionListType } from '../../../entity/index';
@@ -13,6 +15,7 @@ const MyQuestions = (): ReactElement => {
   const [totalReply, setTotalReply] = useState<number>(0);
   const [questionList, setQuestionList] = useState<ResponseMyQuestionListType[]>([]);
   const [getMoreStatus, setGetMoreStatus] = useState<boolean>(true);
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     const fetchMyQuestion = async () => {
@@ -25,7 +28,12 @@ const MyQuestions = (): ReactElement => {
         setTotalReply(totalReply);
         setQuestionList(questionLists);
       } else {
-        alert('내가 쓴 글 요청 실패!');
+        MySwal.fire({
+          text: '내가 쓴 글 요청 실패 ',
+          icon: 'error',
+          cancelButtonText: '확인',
+          showCancelButton: true,
+        });
       }
     };
     fetchMyQuestion();

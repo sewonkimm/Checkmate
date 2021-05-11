@@ -48,10 +48,10 @@ const ChargeText = styled.h3`
 const ChargeBtn5 = styled.button`
   width: 122px;
   height: 50px;
-  border: 3px solid #038efc;
+  border: 3px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 5px;
   margin-right: 1em;
-  background-color: #038efc;
+  background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
   font-size: 18px;
   font-weight: 700;

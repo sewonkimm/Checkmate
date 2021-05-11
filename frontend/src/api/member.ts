@@ -36,7 +36,6 @@ const getMemberReview = async (url: string): Promise<ResponseMyReview | null> =>
         totalSize: response.data.totalSize,
         reviewList: response.data.reviewList,
       };
-      console.log(responseReview);
       return responseReview;
     })
     .catch((err) => {
