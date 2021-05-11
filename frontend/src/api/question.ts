@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RequestQuestionType, ResponseQuestionType, QuestionType } from '../entity';
+import { RequestQuestionType, ResponseQuestionType, QuestionType, ResponseUserQuestionType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -113,4 +113,23 @@ const UpdateAPI = async (data: UpdateQuestionType): Promise<number> => {
   return response;
 };
 
-export { WriteAPI, UpdateAPI, FileUploadAPI, getQuestions, getTotalSize, getQuestionDetail };
+// 유저가 작성한 질문 목록
+const MyQuestionAPI = async (url: string): Promise<ResponseUserQuestionType | null> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      const res: ResponseUserQuestionType = {
+        answerTotal: response.data.answerTotal,
+        list: response.data.list,
+        totalSize: response.data.totalSize,
+      };
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      return null;
+    });
+  return response;
+};
+
+export { WriteAPI, UpdateAPI, FileUploadAPI, getQuestions, getTotalSize, getQuestionDetail, MyQuestionAPI };
