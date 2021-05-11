@@ -1,11 +1,11 @@
 {
-  "login": "로그인",
-  "logout": "로그아웃",
-  "register": "회원가입",
-  "mypage": "마이페이지",
-  "ai": "AI첨삭",
-  "mate": "원어민첨삭",
-  "chooseLang": "언어선택",
+  "login": "登录",
+  "logout": "注销",
+  "register": "注册会员",
+  "mypage": "我的页面",
+  "ai": "AI修整",
+  "mate": "韩国人修整",
+  "chooseLang": "语言",
 
   "home_title": "레포트 체크해줄 사람 어디 없나?",
   "home_description": "체크메이트가 당신의 레포트를 체크해드립니다!",

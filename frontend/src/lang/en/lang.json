@@ -1,4 +1,12 @@
 {
+  "login": "Log in",
+  "logout": "Log out",
+  "register": "Register",
+  "mypage": "My page",
+  "ai": "AI check",
+  "mate": "mate check",
+  "chooseLang": "language",
+
   "home_title": "Check Writing, Being Better.",
   "home_description": "Let us help to check your writing.",
   "home_button_ai": "Get Review with AI",

@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import langEN from './en/lang.json';
 import langKR from './ko/lang.json';
+import langZH from './zh/lang.json';
 
 const resources = {
   en: {
@@ -9,6 +10,9 @@ const resources = {
   },
   ko: {
     translation: langKR,
+  },
+  zh: {
+    translation: langZH,
   },
 } as const;
 
@@ -34,5 +38,5 @@ i18n.use(initReactI18next).init({
 });
 
 export default i18n;
-export const languages = ['English', '한국어'] as const;
+export const languages = ['English', '한국어', '中文'] as const;
 export type Languages = typeof languages[number]; // 'en' | 'ko'
