@@ -2024,6 +2024,13 @@
     "@types/react-dom" "*"
     "@types/react-transition-group" "*"
 
+"@types/react-star-rating-component@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@types/react-star-rating-component/-/react-star-rating-component-1.4.0.tgz#68b097c700c0d54fd7fd707abec2a3d17c52c0e4"
+  integrity sha512-ZpYYZFTcyvH/aWfvPp6A5ayLV5/AyR8lW8XqDusQwRmk5GJKoyo9gYIL8jb0QBIhoBrGlBkyQ41lAXIjZyEmNA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@*", "@types/react-transition-group@^4.4.1":
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.1.tgz#e1a3cb278df7f47f17b5082b1b3da17170bd44b1"

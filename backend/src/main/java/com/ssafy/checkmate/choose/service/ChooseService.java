@@ -34,11 +34,13 @@ public class ChooseService {
         Member member = memberRepository.findMemberByMemberId(answer.getMemberId());
 
         Question question = questionRepository.findQuestionByQuestionId(questionId);
+        question.setQuestionStatus(1);
 
         member.setMemberPoint(member.getMemberPoint() + question.getQuestionPoint());
 
         answerRepository.save(answer);
         reviewService.insertReview(review);
+        questionRepository.save(question);
         memberRepository.save(member);
     }
 

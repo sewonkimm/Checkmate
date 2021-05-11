@@ -48,6 +48,28 @@ export type ResponseQuestionType = {
   question: QuestionType;
 };
 
+export type ResponseMyQuestionListType = {
+  answerCount: number;
+  question: {
+    memberId: number;
+    questionContents: string;
+    questionDate?: string;
+    questionEndDate?: string;
+    questionExplain?: string;
+    questionId: number;
+    questionPoint: number;
+    questionStatus: number;
+    questionTitle: string;
+    questionUrl: string;
+  };
+};
+
+export type ResponseUserQuestionType = {
+  answerTotal: number;
+  list: ResponseMyQuestionListType[];
+  totalSize: number;
+};
+
 // answer
 export type AnswerType = {
   answerId?: number;
@@ -72,6 +94,11 @@ export type ReviewType = {
   reviewCategory: number;
   reviewContents: string;
   reviewScore: number;
+};
+
+export type ResponseMyReview = {
+  totalSize: number;
+  reviewList: ReviewType[];
 };
 
 // AI

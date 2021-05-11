@@ -16,6 +16,7 @@ import QuestionWrite from './pages/QuestionWrite';
 import QuestionUpdate from './pages/QuestionUpdate';
 import QuestionDetail from './pages/QuestionDetail';
 import AI from './pages/AI';
+import MyPage from './pages/MyPage/Index';
 
 const App = (): ReactElement => {
   return (
@@ -31,6 +32,7 @@ const App = (): ReactElement => {
         <Route path="/question/write" component={QuestionWrite} />
         <Route path="/question/update/:id" component={QuestionUpdate} />
         <Route path="/question/:id" component={QuestionDetail} />
+        <Route path="/profile/:id" component={MyPage} />
       </Switch>
     </ThemeProvider>
   );
