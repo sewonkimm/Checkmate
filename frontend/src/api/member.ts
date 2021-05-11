@@ -45,4 +45,19 @@ const getMemberReview = async (url: string): Promise<ResponseMyReview | null> =>
   return response;
 };
 
-export { getMemberInfo, getMemberReview };
+// 사용자가 받은 총 review 평균 점수
+const getAvgReview = async (url: string): Promise<number | null> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      const reviewScore = response.data.memberGrade;
+      return reviewScore;
+    })
+    .catch((err) => {
+      console.error(err);
+      return null;
+    });
+  return response;
+};
+
+export { getMemberInfo, getMemberReview, getAvgReview };

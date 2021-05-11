@@ -7,10 +7,11 @@ import { MemberType } from '../../../entity/index';
 type PropsType = {
   memberInfo: MemberType;
   totalReview: number;
+  avgReviewScore: number;
 };
 
 const MyInfo = (props: PropsType): ReactElement => {
-  const { memberInfo, totalReview } = props;
+  const { memberInfo, totalReview, avgReviewScore } = props;
 
   return (
     <InfoWrap>
@@ -18,7 +19,7 @@ const MyInfo = (props: PropsType): ReactElement => {
         <Name>{memberInfo.memberNickname}</Name>
         <LeftDescription>
           <Rating
-            initialRating={4}
+            initialRating={avgReviewScore}
             readonly
             emptySymbol={<img src={starEmpty} className="icon" alt="starEmpty" />}
             fullSymbol={<img src={star} className="icon" alt="star" />}
@@ -56,6 +57,7 @@ const LeftDescription = styled.p`
 const Reviews = styled.span`
   margin-left: 1em;
   font-size: 18px;
+  font-weight: 600;
 `;
 
 const RightDescription = styled.p`

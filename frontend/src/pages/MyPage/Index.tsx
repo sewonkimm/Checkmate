@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RootState } from '../../modules';
-import { getMemberInfo, getMemberReview } from '../../api/member';
+import { getMemberInfo, getMemberReview, getAvgReview } from '../../api/member';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import MyInfo from './components/MyInfo';
@@ -31,6 +31,7 @@ const Index = (): ReactElement => {
   const [myReview, setMyReview] = useState<ReviewType[]>([]);
   const [getMoreReviewStatus, setGetMoreReviewStatus] = useState<boolean>(true);
   const [reviewLimit, setReviewLimit] = useState<number>(6);
+  const [reviewScore, setReviewScore] = useState<number>(0);
   // 사용자 기본 정보 조회
   useEffect(() => {
     const fetchMemberInfo = async () => {
@@ -56,15 +57,29 @@ const Index = (): ReactElement => {
         setReviewTotalSize(reviewTotalSize);
       } else {
         MySwal.fire({
-          text: '답변을 정말 삭제하시겠습니까?',
-          icon: 'warning',
-          confirmButtonText: '삭제',
+          text: '받은 리뷰 조회 실패',
+          icon: 'error',
+          cancelButtonText: '취소',
+          showCancelButton: true,
+        });
+      }
+    };
+    const fetchMyReviewScore = async () => {
+      const res = await getAvgReview(`members/${userId}`);
+      if (res !== null) {
+        const avgScore = res;
+        setReviewScore(avgScore);
+      } else {
+        MySwal.fire({
+          text: '리뷰 평점 조회 실패',
+          icon: 'error',
           cancelButtonText: '취소',
           showCancelButton: true,
         });
       }
     };
     fetchMemberReview();
+    fetchMyReviewScore();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
@@ -90,13 +105,14 @@ const Index = (): ReactElement => {
         {/* 유저 정보 섹션 */}
         <MyInfoWrap>
           <MyAvatar />
-          <MyInfo memberInfo={myInfo} totalReview={reviewTotalSize} />
+          <MyInfo memberInfo={myInfo} totalReview={reviewTotalSize} avgReviewScore={reviewScore} />
         </MyInfoWrap>
         {/* 충전 포인트 관련 섹션 */}
         <FillupPoint memberInfo={myInfo} />
         <MyInfoEditBtn onClick={updateMyInfo}>수 정</MyInfoEditBtn>
         <MyQuestions />
         <MyReview
+          avgScore={reviewScore}
           reviews={myReview}
           totalReviews={reviewTotalSize}
           getMoreReviewFunc={getMoreReviews}

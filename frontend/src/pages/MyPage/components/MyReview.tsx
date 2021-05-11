@@ -9,10 +9,11 @@ type PropsType = {
   totalReviews: number;
   getMoreReviewFunc: () => void;
   getMoreStatus: boolean;
+  avgScore: number;
 };
 
 const MyReview = (props: PropsType): ReactElement => {
-  const { totalReviews, reviews, getMoreStatus } = props;
+  const { totalReviews, reviews, getMoreStatus, avgScore } = props;
 
   // 내려받은 함수 실행
   const handleGetMoreBtn = () => {
@@ -24,7 +25,14 @@ const MyReview = (props: PropsType): ReactElement => {
       <ReviewHeader>
         <HeaderTitle>Review</HeaderTitle>
         <TotalRates>
-          <TotalStars>별별별</TotalStars>
+          <TotalStars>
+            <Rating
+              initialRating={avgScore}
+              readonly
+              emptySymbol={<img src={starEmpty} className="icon" alt="starEmpty" />}
+              fullSymbol={<img src={star} className="icon" alt="star" />}
+            />
+          </TotalStars>
           <TotalReviewNum>{totalReviews}개의 평가</TotalReviewNum>
         </TotalRates>
       </ReviewHeader>
@@ -73,7 +81,12 @@ const TotalRates = styled.div`
   display: flex;
 `;
 const TotalStars = styled.div``;
-const TotalReviewNum = styled.div``;
+const TotalReviewNum = styled.div`
+  margin-left: 1.5em;
+  font-size: 18px;
+  line-height: 36px;
+  font-weight: 600;
+`;
 const Description = styled.div`
   width: 48%;
   border-bottom: 2px solid grey;
