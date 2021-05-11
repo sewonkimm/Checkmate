@@ -10,16 +10,14 @@ import { ResponseAIType } from '../../../entity';
 
 type PropsType = {
   data: ResponseAIType;
-  setOriginal: (value: string) => void;
-  setAnalysed: (value: boolean) => void;
+  reset: () => void;
 };
 
 const Result = (props: PropsType): ReactElement => {
   const { data } = props;
+
   const handleRewriteButton = () => {
-    // 다시쓰기
-    props.setOriginal('');
-    props.setAnalysed(false);
+    props.reset();
   };
 
   return (
@@ -31,7 +29,9 @@ const Result = (props: PropsType): ReactElement => {
 };
 
 const ResultContainer = styled.div`
-  width: 100%;
+  width: 85%;
+  max-width: 985px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

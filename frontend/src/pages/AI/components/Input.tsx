@@ -57,11 +57,22 @@ const Input = ({ setOriginal, setAnalysed }: PropsType): ReactElement => {
       MySwal.fire({
         text: '500자 이내의 글만 분석 가능합니다.',
         icon: 'warning',
-        confirmButtonText: '취소',
+        confirmButtonText: '닫기',
         showCancelButton: false,
       });
       return false;
     }
+
+    if (contentLength === 0) {
+      MySwal.fire({
+        text: '내용을 작성해주세요!',
+        icon: 'warning',
+        confirmButtonText: '닫기',
+        showCancelButton: false,
+      });
+      return false;
+    }
+
     return true;
   };
 
