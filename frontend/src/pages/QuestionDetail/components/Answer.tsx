@@ -5,6 +5,7 @@ QuestionDetail/components/Answer.tsx
 
 import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { AnswerType, MemberType, ReviewType } from '../../../entity';
@@ -24,6 +25,7 @@ type PropsType = {
 };
 
 const Answer = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { id, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -60,8 +62,8 @@ const Answer = (props: PropsType): ReactElement => {
     MySwal.fire({
       text: '답변을 정말 삭제하시겠습니까?',
       icon: 'warning',
-      confirmButtonText: '삭제',
-      cancelButtonText: '취소',
+      confirmButtonText: t('yes'),
+      cancelButtonText: t('no'),
       showCancelButton: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -79,8 +81,8 @@ const Answer = (props: PropsType): ReactElement => {
     MySwal.fire({
       text: '이 답변을 채택하시겠습니까?',
       icon: 'question',
-      confirmButtonText: '네',
-      cancelButtonText: '아니오',
+      confirmButtonText: t('yes'),
+      cancelButtonText: t('no'),
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -99,7 +101,9 @@ const Answer = (props: PropsType): ReactElement => {
 
   return (
     <AnswerContainer key={answer.answerId}>
-      <WriteDate>작성일 {createdDate}</WriteDate>
+      <WriteDate>
+        {t('mate_date')} {createdDate}
+      </WriteDate>
 
       <ProfileContainer>
         {memberInfo?.memberProfileUrl === '' ? (
@@ -117,19 +121,19 @@ const Answer = (props: PropsType): ReactElement => {
 
       {answer.answerUrl !== null && (
         <FileButton href={answer.answerUrl} target="_blank" download>
-          첨부파일보기
+          {t('mate_file')}
         </FileButton>
       )}
 
       {id === answer.memberId && (
         <ButtonContainer>
-          <Button>수정</Button>
-          <Button onClick={handleDelete}>삭제</Button>
+          <Button>{t('update')}</Button>
+          <Button onClick={handleDelete}>{t('delete')}</Button>
         </ButtonContainer>
       )}
       {id !== answer.memberId && !isReviewed && (
         <ButtonContainer>
-          <ChooseButton onClick={handleChoose}>채택하기</ChooseButton>
+          <ChooseButton onClick={handleChoose}>{t('mate_choose')}</ChooseButton>
         </ButtonContainer>
       )}
 

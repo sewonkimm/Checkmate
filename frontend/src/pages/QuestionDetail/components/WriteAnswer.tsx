@@ -1,6 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { MemberType, AnswerType } from '../../../entity';
@@ -18,6 +19,7 @@ type Params = {
 };
 
 const WriteAnswer = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const params: Params = useParams();
   const { id, questionContents } = props;
 
@@ -100,34 +102,36 @@ const WriteAnswer = (props: PropsType): ReactElement => {
         <WriteContainer>
           <Form>
             <Label>
-              설명
+              {t('mate_explain')}
               <TextareaInput
                 rows={5}
                 value={explain}
                 onChange={handleExplainChange}
-                placeholder="답변에 대한 설명을 작성해주세요"
+                placeholder={t('mate_answer_explain_placeholder')}
               />
             </Label>
             <Label>
-              첨삭내용
+              {t('mate_content')}
               <TextareaInput
                 rows={10}
                 value={content}
                 onChange={handleContentChange}
-                placeholder="첨삭 내용을 1,000자 이내로 작성해주세요"
+                placeholder={t('mate_answer_content_placeholder')}
               />
             </Label>
           </Form>
-          <SubmitButton onClick={handleSubmitButton}>답변 등록</SubmitButton>
+          <SubmitButton onClick={handleSubmitButton}>{t('mate_answer')}</SubmitButton>
         </WriteContainer>
       ) : (
         <WriteButtonContainer>
           <MessageContainer>
-            <Message>{memberInfo?.memberNickname} 메이트님, 답변을 작성해주세요!</Message>
-            <SubMessage>답변을 작성해주시면 기본 10포인트를 드리고, 채택되면 추가 포인트가 지급됩니다.</SubMessage>
+            <Message>
+              {memberInfo?.memberNickname} {t('mate_message_answer')}
+            </Message>
+            <SubMessage>{t('mate_message_answer_sub')}</SubMessage>
           </MessageContainer>
 
-          <Button onClick={handleShowButton}>답변 작성하기</Button>
+          <Button onClick={handleShowButton}>{t('mate_answer')}</Button>
         </WriteButtonContainer>
       )}
     </>

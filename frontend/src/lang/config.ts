@@ -25,7 +25,7 @@ i18n.use(initReactI18next).init({
     ko: ['ko'],
     default: ['en'],
   },
-  debug: true,
+  debug: false,
   defaultNS: 'translation',
   ns: 'translation',
   keySeparator: false,

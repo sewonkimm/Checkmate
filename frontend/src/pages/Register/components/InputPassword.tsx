@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   putPassword: (password: string) => void;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => {
+  const { t } = useTranslation();
+
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
   const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
@@ -50,7 +53,7 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
 
   return (
     <>
-      <Question>비밀번호를 입력해주세요</Question>
+      <Question>{t('regeister_password_title')}</Question>
 
       <PasswordInput
         checkValid={isValidPassword}
@@ -58,11 +61,11 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChangeInput(e.target.value, 'password');
         }}
-        placeholder="비밀번호 입력"
+        placeholder={t('register_password_placeholder')}
         type="password"
       />
       <Warning isValid={isValidPassword}>
-        {passwordValue && (isValidPassword ? '' : '8~10자의 영문/숫자 조합을 사용하세요')}
+        {passwordValue && (isValidPassword ? '' : t('register_password_error_valid'))}
       </Warning>
 
       {/* 비밀번호 유효성을 통과했을 때에만 비밀번호 확인 표시 */}
@@ -73,12 +76,12 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             onChangeInput(e.target.value, 'passwordCheck');
           }}
-          placeholder="비밀번호 확인"
+          placeholder={t('register_password_confirm_placeholder')}
           type="password"
         />
       )}
       <WarningDuple isSame={isSamePassword}>
-        {isValidPassword && passwordCheck && (isSamePassword ? '' : '비밀번호가 일치하지 않습니다.')}
+        {isValidPassword && passwordCheck && (isSamePassword ? '' : t('register_password_error_same'))}
       </WarningDuple>
     </>
   );

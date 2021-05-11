@@ -6,9 +6,25 @@
   "ai": "AI check",
   "mate": "mate check",
   "chooseLang": "language",
+  "cancel": "cancel",
+  "yes": "yes",
+  "no": "no",
 
   "home_title": "Check Writing, Being Better.",
   "home_description": "Let us help to check your writing.",
   "home_button_ai": "Get Review with AI",
-  "home_button_mate": "Get Review with mate"
+  "home_button_mate": "Get Review with mate",
+
+  "register_welcome": "Welcom to checkmate!",
+  "register_next_button": "next",
+  "register_go_login": "go to login",
+  "regeister_language_title": "Choose your language",
+  "regeister_email_title": "Please enter your email",
+  "regeister_password_title": "Please enter your password",
+  "register_email_error_valid": "Is not valid email",
+  "register_email_error_duple": "This email is already in use",
+  "register_password_placeholder": "password",
+  "register_password_confirm_placeholder": "confirm password",
+  "register_password_error_valid": "Use 8 to 10 English/numeric combinations",
+  "register_password_error_same": "Password does not match"
 }

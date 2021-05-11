@@ -6,6 +6,7 @@ Register/Index.tsx
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { signupIconNormal } from '../../assets';
 import MotherLanguage from './components/MotherLanguage';
 import InputEmail from './components/InputEmail';
@@ -14,6 +15,9 @@ import InputPassword from './components/InputPassword';
 import register from '../../api/register';
 
 const Register: React.FC = () => {
+  const { t } = useTranslation();
+  const history = useHistory();
+
   const [step, setStep] = useState<number>(0); // 몇 번째 컴포넌트가 보여질지 정해주는 state
   const [selectedLanguage, setSelectedLanguage] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -21,9 +25,7 @@ const Register: React.FC = () => {
   const [nickname, setNickname] = useState<string>('');
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const [ableNextBtn, setAbleNextBtn] = useState<boolean>(false);
-  const [nextBtnText, setNextBtnText] = useState<string>('다음으로');
-
-  const history = useHistory();
+  const [nextBtnText, setNextBtnText] = useState<string>(t('register_next_button'));
 
   const handleNextBtn = async () => {
     if (step >= 0 && step < registerGroup.length) {
@@ -31,7 +33,7 @@ const Register: React.FC = () => {
       setAbleNextBtn(false); // NextBtn 비활성화
 
       if (step === 2) {
-        setNextBtnText('회원가입'); // 버튼 문구 변경
+        setNextBtnText(t('register')); // 버튼 문구 변경
       }
 
       // 조건을 다 만족하면 회원가입 api 호출
@@ -58,7 +60,7 @@ const Register: React.FC = () => {
           alert('회원가입에 실패했습니다.'); // 추후 토스트 메세지로 변경
         } else {
           setCanRegister(true);
-          setNextBtnText('로그인하러 가기');
+          setNextBtnText(t('register_go_login'));
         }
       } else if (step >= 3 && !(email && password && nickname)) {
         // 추후 토스트 메세지 추가
@@ -104,7 +106,7 @@ const Register: React.FC = () => {
 
       {canRegister ? (
         <>
-          <Message>가입을 축하합니다!</Message>
+          <Message>{t('register_welcome')}</Message>
           <ButtonWrap>
             <NextBtn onClick={handleLoginBtn}>{nextBtnText}</NextBtn>
           </ButtonWrap>

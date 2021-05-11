@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Switch from 'react-switch';
 
 type PropsType = {
@@ -9,7 +10,9 @@ type PropsType = {
 };
 
 const Filters = ({ handleMyQuestion, id }: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const [checked, setChecked] = useState<boolean>(false);
+
   const handleChange = () => {
     setChecked(!checked);
     handleMyQuestion();
@@ -17,11 +20,11 @@ const Filters = ({ handleMyQuestion, id }: PropsType): ReactElement => {
 
   return (
     <FilterWrap>
-      <WriteBtn to="/question/write">질문 작성</WriteBtn>
+      <WriteBtn to="/question/write">{t('mate_write')}</WriteBtn>
       {id > 0 && (
         <>
           <Label>
-            <span>내 질문만 보기</span>
+            <span>{t('mate_button_filter')}</span>
             <Switch onChange={handleChange} checked={checked} uncheckedIcon={false} checkedIcon={false} />
           </Label>
         </>

@@ -12,17 +12,23 @@ const SubHeader = (): ReactElement => {
   const [member, setMember] = useState<MemberType | null>(useSelector((state: RootState) => state.member.member));
   const [isMember, setIsMember] = useState<boolean>(false);
   const [profileLink, setProfileLink] = useState<string>('');
+
   const dispatch = useDispatch();
   const router = useHistory();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
+    const userLanguage = localStorage.getItem('language') || window.navigator.language || 'en';
+
     if (member === null) {
       setIsMember(false);
+      i18n.changeLanguage(userLanguage);
     } else if (member.memberId > 0) {
       setIsMember(true);
       setProfileLink(`/profile/${member.memberId}`);
+      i18n.changeLanguage(member.memberNativeLang);
     }
-  }, [member]);
+  }, [member, i18n]);
 
   // 로그아웃 액션 호출
   const onClickLogoutBtn = () => {
@@ -32,28 +38,32 @@ const SubHeader = (): ReactElement => {
   };
 
   // 언어 변경
-  const { i18n } = useTranslation();
   const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    i18n.changeLanguage(e.target.value);
+    const lang = e.target.value;
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
   };
 
   return (
     <SubHeaderContainer>
       <Select onChange={handleChangeLanguage}>
+        <option value="" selected disabled>
+          {t('chooseLang')}
+        </option>
         <option value="ko">한국어</option>
         <option value="en">English</option>
-        <option value="cn">中文</option>
+        <option value="zh">中文</option>
       </Select>
 
       {isMember ? (
         <>
-          <StyledLink to={profileLink}>마이페이지</StyledLink>
-          <LogoutBtn onClick={onClickLogoutBtn}>로그아웃</LogoutBtn>
+          <StyledLink to={profileLink}>{t('mypage')}</StyledLink>
+          <LogoutBtn onClick={onClickLogoutBtn}>{t('logout')}</LogoutBtn>
         </>
       ) : (
         <>
-          <StyledLink to="/login">로그인</StyledLink>
-          <StyledLink to="/register">회원가입</StyledLink>
+          <StyledLink to="/login">{t('login')}</StyledLink>
+          <StyledLink to="/register">{t('register')}</StyledLink>
         </>
       )}
     </SubHeaderContainer>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import register from '../../../api/register';
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
+  const { t } = useTranslation();
+
   const [emailValue, setEmailValue] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isDuple, setIsDuple] = useState<boolean>(false);
@@ -56,7 +59,7 @@ const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
 
   return (
     <>
-      <Question>이메일을 입력하세요</Question>
+      <Question>{t('regeister_email_title')}</Question>
       <EmailInput
         isValid={isValidEmail}
         isDuple={isDuple}
@@ -66,8 +69,8 @@ const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
         placeholder="ssafy123@ssafy.com"
       />
       <Warning isValid={isValidEmail} isDuple={isDuple}>
-        {emailValue && !isValidEmail && '유효하지 않은 이메일입니다'}
-        {isDuple && '이미 사용중인 이메일입니다'}
+        {emailValue && !isValidEmail && t('register_email_error_valid')}
+        {isDuple && t('register_email_error_duple')}
       </Warning>
     </>
   );
