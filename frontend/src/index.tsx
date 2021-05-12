@@ -14,6 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import { GlobalStyle } from './styles/global-styles';
 import rootReducer from './modules';
+import './lang/config';
 
 // composeWithDevTools 를 사용하여 리덕스 개발자 도구 활성화
 const store = createStore(rootReducer, composeWithDevTools());

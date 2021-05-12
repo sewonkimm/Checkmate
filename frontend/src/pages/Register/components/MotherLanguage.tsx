@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   putLang: (language: string) => void;
 }
 
 const MotherLanguage: React.FC<Props> = (props: Props) => {
+  const { t } = useTranslation();
+
   const selectItem = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     props.putLang(e.target.value);
   };
   const options: Array<{ label: string; value: string }> = [
     {
-      label: '언어를 선택해 주세요',
+      label: t('regeister_language_title'),
       value: '',
     },
     {
@@ -30,7 +33,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
   ];
   return (
     <>
-      <Question>모국어를 선택해주세요</Question>
+      <Question>{t('regeister_language_title')}</Question>
 
       <LanguageSelect defaultValue={0} onChange={selectItem}>
         {options.map((option, idx) => {

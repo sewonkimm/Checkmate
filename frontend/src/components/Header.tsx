@@ -1,9 +1,11 @@
 import React, { ReactElement } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { logo } from '../assets';
 
 const Header = (): ReactElement => {
+  const { t } = useTranslation();
   const router = useHistory();
 
   const handleLogoClick = () => {
@@ -14,9 +16,8 @@ const Header = (): ReactElement => {
     <HeaderContainer>
       <Logo src={logo} alt="logo" onClick={handleLogoClick} width="70" />
       <LinkContainer>
-        <StyledLink to="/store">스토어</StyledLink>
-        <StyledLink to="/check/ai">AI첨삭</StyledLink>
-        <StyledLink to="/check/mate">원어민첨삭</StyledLink>
+        <StyledLink to="/check/ai">{t('ai')}</StyledLink>
+        <StyledLink to="/check/mate">{t('mate')}</StyledLink>
       </LinkContainer>
     </HeaderContainer>
   );

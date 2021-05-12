@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../modules';
 import { getQuestionDetail } from '../../api/question';
 import { getAnswers } from '../../api/answer';
@@ -23,6 +24,7 @@ type Params = {
   id: string;
 };
 const QuestionDetail: React.FC = () => {
+  const { t } = useTranslation();
   const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
   const params: Params = useParams();
 
