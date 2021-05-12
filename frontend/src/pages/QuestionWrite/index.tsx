@@ -6,6 +6,7 @@ QuestionWrite/index.tsx
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import NumericInput from 'react-numeric-input';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -15,6 +16,7 @@ import Header from '../../components/Header';
 import SubmitButton from './components/SubmitButton';
 
 const QuestionWrite: React.FC = () => {
+  const { t } = useTranslation();
   const router = useHistory();
   const MySwal = withReactContent(Swal);
 
@@ -24,7 +26,7 @@ const QuestionWrite: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
   const [file, setFile] = useState<File | null>();
   const [explain, setExplain] = useState<string>('');
-  const [content, setContent] = useState<string>('// 첨삭 받을 내용을 1,000자 이내로 작성해주세요');
+  const [content, setContent] = useState<string>(t('mate_write_content_placeholder'));
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
   useEffect(() => {
@@ -83,8 +85,8 @@ const QuestionWrite: React.FC = () => {
     MySwal.fire({
       text: '정말 질문 작성을 취소하시겠습니까?',
       icon: 'question',
-      confirmButtonText: '네',
-      cancelButtonText: '계속 작성',
+      confirmButtonText: t('yes'),
+      cancelButtonText: t('no'),
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -113,20 +115,25 @@ const QuestionWrite: React.FC = () => {
       <Header />
 
       <WriteContainer>
-        <PageTitle>질문하기</PageTitle>
+        <PageTitle>{t('mate_write')}</PageTitle>
         <Form>
           <Label>
-            제목
-            <TextInput type="text" value={title} onChange={handleTitleChange} placeholder="제목을 작성해주세요" />
+            {t('mate_write_title')}
+            <TextInput
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+              placeholder={t('mate_write_title_placeholder')}
+            />
           </Label>
           <Label>
-            마감일
+            {t('mate_write_deadline')}
             <DateInput type="date" value={deadLine} onChange={handleDeadLineChange} />
           </Label>
 
           <PointFileDiv>
             <Label>
-              포인트
+              {t('mate_write_point')}
               <NumericInput
                 min={0}
                 step={100}
@@ -145,28 +152,28 @@ const QuestionWrite: React.FC = () => {
             </Label>
             {point > 0 ? (
               <FileLabel>
-                파일 추가
+                {t('mate_write_file')}
                 <FileInput type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" onChange={handleFileChange} />
               </FileLabel>
             ) : (
               <FileLabel style={{ color: '#D9D9D9', border: '2px solid #D9D9D9' }}>
-                파일 추가
+                {t('mate_write_file')}
                 <FileInput disabled />
               </FileLabel>
             )}
           </PointFileDiv>
 
           <Label>
-            내용
+            {t('mate_explain')}
             <TextareaInput
               rows={5}
               value={explain}
               onChange={handleExplainChange}
-              placeholder="질문하고 싶은 내용을 자세히 작성해주세요"
+              placeholder={t('mate_write_explain_placeholder')}
             />
           </Label>
           <Label>
-            첨삭내용
+            {t('mate_content')}
             <Editor
               width="85%"
               height="300px"
@@ -175,17 +182,11 @@ const QuestionWrite: React.FC = () => {
               options={options}
               onChange={handleEditorChange}
             />
-            {/* <TextareaInput
-              rows={10}
-              value={content}
-              onChange={handleContentChange}
-              placeholder="첨삭 받을 내용을 1,000자 이내로 작성해주세요"
-            /> */}
           </Label>
         </Form>
         <ButtonContainer>
           <CancelButton type="button" onClick={handleCancelButton}>
-            취소
+            {t('cancel')}
           </CancelButton>
           <SubmitButton data={{ title, explain, content, deadLine, point, file }} />
         </ButtonContainer>

@@ -7,6 +7,7 @@ import React, { ReactElement, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RootState } from '../../../modules';
@@ -25,6 +26,7 @@ type PropsType = {
 };
 
 const SubmitButton = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const router = useHistory();
   const MySwal = withReactContent(Swal);
 
@@ -90,7 +92,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
 
   return (
     <Button type="button" onClick={handleSubmitButton}>
-      등록
+      {t('mate_write')}
     </Button>
   );
 };

@@ -30,7 +30,7 @@ const initialState: MemberState = {
     memberEmail: '',
     memberId: 0,
     memberIntroduce: '',
-    memberNativeLang: '',
+    memberNativeLang: 'en',
     memberNickname: '',
     memberPoint: 0,
     memberProfileUrl: '',
@@ -42,6 +42,7 @@ const initialState: MemberState = {
 function memberReducer(state = initialState, action: MemberAction): MemberState {
   switch (action.type) {
     case LOGIN:
+      localStorage.setItem('language', action.payload.memberNativeLang); // 모국어 설정
       return { member: action.payload };
     case LOGOUT:
       return { member: initialState.member };

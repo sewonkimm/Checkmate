@@ -1,0 +1,17 @@
+{
+  "login": "登录",
+  "logout": "注销",
+  "register": "注册会员",
+  "mypage": "我的页面",
+  "ai": "AI修整",
+  "mate": "韩国人修整",
+  "chooseLang": "语言",
+  "cancel": "取消",
+  "yes": "是",
+  "no": "否",
+
+  "home_title": "没有人帮我确认韩文作业吗?",
+  "home_description": "checkmate帮你修改作业!",
+  "home_button_ai": "被修改为AI",
+  "home_button_mate": "被修改为韩国人"
+}

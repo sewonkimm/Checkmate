@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /*
 Login/index.tsx
 : 로그인 페이지
@@ -7,7 +8,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-// eslint-disable-next-line camelcase
+import { useTranslation } from 'react-i18next';
 import jwt_decode from 'jwt-decode';
 import { login } from '../../modules/member';
 import { signupIconNormal } from '../../assets';
@@ -15,6 +16,7 @@ import LoginAPI from '../../api/login';
 import { LoginReturnType } from '../../entity';
 
 const Login: React.FC = () => {
+  const { t } = useTranslation();
   const router = useHistory();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -44,7 +46,6 @@ const Login: React.FC = () => {
       // 에러 처리(추가)
     } else {
       const member: LoginReturnType = jwt_decode(response.accesstoken);
-      console.log(member.greeting);
       dispatch(login(member.member));
       router.push('/');
     }
@@ -60,7 +61,7 @@ const Login: React.FC = () => {
         <Input value={password} onChange={onChangePasswordInput} placeholder="Password" type="password" />
       </Form>
 
-      <LoginBtn onClick={handleLoginBtn}>Login</LoginBtn>
+      <LoginBtn onClick={handleLoginBtn}>{t('login')}</LoginBtn>
     </LoginContainer>
   );
 };
