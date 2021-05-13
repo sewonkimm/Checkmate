@@ -5,6 +5,7 @@ AI/index.tsx
 
 import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Banner from '../../components/Banner';
@@ -15,6 +16,7 @@ import { ResponseAIType } from '../../entity';
 import checkSpell from '../../api/ai';
 
 const AI = (): ReactElement => {
+  const { t } = useTranslation();
   const [analysed, setAnalysed] = useState<boolean>(false); // 분석결과 컴포넌트가 나오려면 true
   const [original, setOriginal] = useState<string>(''); // 첨삭 원본
   const [result, setResult] = useState<ResponseAIType | null>(null); // 첨삭 결과
@@ -35,8 +37,8 @@ const AI = (): ReactElement => {
 
   const bannerData = {
     img: bannerImageAI,
-    title: 'AI 첨삭',
-    description: '인공지능이 여러분의 글을 분석해 고칠 점들을 콕콕 찝어드려요 🤖',
+    title: t('ai'),
+    description: t('ai_description'),
   };
 
   const ResultComponent = (): JSX.Element => {

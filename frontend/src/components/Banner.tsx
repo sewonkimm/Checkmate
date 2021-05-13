@@ -48,5 +48,6 @@ const Description = styled.p`
   color: ${({ theme }) => theme.colors.white};
   line-height: 36px;
   white-space: pre-wrap;
+  text-align: center;
 `;
 export default Banner;
