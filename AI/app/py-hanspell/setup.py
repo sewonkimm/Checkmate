@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 
-
 def install():
     required = []
     with open('requirements.txt') as f:
@@ -37,7 +36,6 @@ def install():
         packages=find_packages(),
         install_requires=required,
     )
-
 
 if __name__ == "__main__":
     install()
