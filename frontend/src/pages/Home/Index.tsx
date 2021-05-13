@@ -3,8 +3,9 @@ Home/Index.tsx
 : 랜딩페이지
 */
 
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -13,20 +14,19 @@ import Video from './components/Video';
 import { mainImage1 } from '../../assets';
 
 const Home = (): ReactElement => {
-  const [title] = useState('레포트 체크해줄 사람 어디 없나?');
-  const [subTitle] = useState('체크메이트가 당신의 레포트를 체크해드립니다!');
+  const { t } = useTranslation();
 
   return (
     <HomeContainer>
       <SubHeader />
       <Header />
       <MainImage src={mainImage1} alt="mainIamge" />
-      <Title>{title}</Title>
-      <SubTitle>{subTitle}</SubTitle>
+      <Title>{t('home_title')}</Title>
+      <SubTitle>{t('home_description')} 끝!</SubTitle>
 
       <ButtonContainer>
-        <Button type="secondary" text="AI로 체크받기" />
-        <Button type="primary" text="메이트에게 체크받기" />
+        <Button type="secondary" text={t('home_button_ai')} />
+        <Button type="primary" text={t('home_button_mate')} />
       </ButtonContainer>
 
       <Video url="https://www.youtube.com/embed/G9Bmp6NuHSI?controls=0" />
@@ -54,6 +54,8 @@ const Title = styled.h1`
 `;
 const SubTitle = styled.p`
   margin-top: 20px;
+  white-space: pre-wrap;
+  line-height: 36px;
   font-size: ${({ theme }) => theme.fontSizes.title};
 `;
 

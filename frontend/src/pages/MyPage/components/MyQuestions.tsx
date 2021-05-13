@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
 import { MyQuestionAPI } from '../../../api/question';
 import { RootState } from '../../../modules';
 import { ResponseMyQuestionListType } from '../../../entity/index';
 
 const MyQuestions = (): ReactElement => {
+  const { t } = useTranslation();
+
   const userId: number = useSelector((state: RootState) => state.member).member.memberId;
   const [offset, setOffset] = useState<number>(0);
   const [limit, setLimit] = useState<number>(3);
@@ -15,7 +18,6 @@ const MyQuestions = (): ReactElement => {
   const [totalReply, setTotalReply] = useState<number>(0);
   const [questionList, setQuestionList] = useState<ResponseMyQuestionListType[]>([]);
   const [getMoreStatus, setGetMoreStatus] = useState<boolean>(true);
-  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     const fetchMyQuestion = async () => {
@@ -28,16 +30,17 @@ const MyQuestions = (): ReactElement => {
         setTotalReply(totalReply);
         setQuestionList(questionLists);
       } else {
-        MySwal.fire({
-          text: '내가 쓴 글 요청 실패 ',
-          icon: 'error',
-          cancelButtonText: '확인',
-          showCancelButton: true,
+        toast.error(t('my_msg_failed_post'), {
+          position: 'bottom-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
       }
     };
     fetchMyQuestion();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
   const dateSplit = (date: undefined | null | string) => {
@@ -61,13 +64,15 @@ const MyQuestions = (): ReactElement => {
       <HeaderTitle>My Questions</HeaderTitle>
       <HeaderCounts>
         <div>
-          질문: {totalAsk}개 | 답변: {totalReply}개
+          {totalAsk}
+          {t('my_count_question')} | {totalReply}
+          {t('my_count_answer')}
         </div>
       </HeaderCounts>
       <ListHeader>
-        <Title>제목</Title>
-        <AnswerCnt>답변 수</AnswerCnt>
-        <Created>작성일</Created>
+        <Title>{t('title')}</Title>
+        <AnswerCnt>{t('my_count_reply')}</AnswerCnt>
+        <Created>{t('date')}</Created>
       </ListHeader>
 
       {questionList.length > 0 ? (
@@ -84,13 +89,25 @@ const MyQuestions = (): ReactElement => {
           );
         })
       ) : (
-        <NoQuestionMsg>아직 글을 쓰신적이 없습니다 😥</NoQuestionMsg>
+        <NoQuestionMsg>{t('no_post')}</NoQuestionMsg>
       )}
       {getMoreStatus ? (
-        <ExtensionBtn onClick={handleGetMoreBtn}>내가 쓴 글 더보기</ExtensionBtn>
+        <ExtensionBtn onClick={handleGetMoreBtn}>{t('my_button_more_question')}</ExtensionBtn>
       ) : (
-        <FailExtensionBtn onClick={handleGetMoreBtn}>내가 쓴 글 더보기</FailExtensionBtn>
+        <FailExtensionBtn onClick={handleGetMoreBtn}>{t('my_button_more_question')}</FailExtensionBtn>
       )}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Questions>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { debounce } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import register from '../../../api/register';
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => {
+  const { t } = useTranslation();
+
   const [nicknameValue, setNicknameValue] = useState<string>('');
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
   const [isDuple, setIsDuple] = useState<boolean>(false);
@@ -51,7 +54,7 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
 
   return (
     <>
-      <Question>닉네임을 입력해주세요</Question>
+      <Question>{t('regeister_nickname_title')}</Question>
 
       <NicknameInput
         isValid={isValidNickname}
@@ -59,12 +62,12 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
         value={nicknameValue}
         onChange={onChangeInput}
         type="text"
-        placeholder="닉네임"
+        placeholder={t('register_nickname_placeholder')}
       />
 
       <Warning isValid={isValidNickname} isDuple={isDuple}>
-        {nicknameValue && (isValidNickname ? '' : '영어, 숫자로 4~12자리 닉네임으로 만들어주세요')}
-        {isDuple && '이미 사용중인 닉네임입니다'}
+        {nicknameValue && (isValidNickname ? '' : t('register_nickname_error_valid'))}
+        {isDuple && t('register_nickname_error_duple')}
       </Warning>
     </>
   );

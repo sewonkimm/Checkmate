@@ -2,6 +2,7 @@
 import React, { ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { ResponseQuestionType } from '../../../entity';
 import BadgeComponent from '../../../components/Badge';
 
@@ -10,6 +11,7 @@ type PropsType = {
 };
 
 const Review = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const history = useHistory();
 
   const { answerCount, question } = props.question;
@@ -31,8 +33,12 @@ const Review = (props: PropsType): ReactElement => {
       <Title>{question.questionTitle}</Title>
       <Body>{question.questionExplain}</Body>
       <Footer>
-        <FooterText>답변 {answerCount}</FooterText>
-        <FooterText>작성일 {createdDate}</FooterText>
+        <FooterText>
+          {t('mate_list_answer')} {answerCount}
+        </FooterText>
+        <FooterText>
+          {t('mate_date')} {createdDate}
+        </FooterText>
       </Footer>
     </QuestionContainer>
   );

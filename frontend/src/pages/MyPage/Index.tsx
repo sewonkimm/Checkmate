@@ -1,20 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import { ToastContainer, toast } from 'react-toastify';
 import { RootState } from '../../modules';
 import { getMemberInfo, getMemberReview, getAvgReview } from '../../api/member';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import MyInfo from './components/MyInfo';
-import MyAvatar from './components/MyAvatar';
 import FillupPoint from './components/FillupPoint';
 import { MemberType, ReviewType } from '../../entity/index';
 import MyQuestions from './components/MyQuestions';
 import MyReview from './components/MyReview';
+import { profileImage } from '../../assets/index';
 
 const Index = (): ReactElement => {
+  const { t } = useTranslation();
+
   const userId: number = useSelector((state: RootState) => state.member).member.memberId;
   const [myInfo, setMyInfo] = useState<MemberType>({
     memberEmail: '',
@@ -37,7 +40,14 @@ const Index = (): ReactElement => {
     const fetchMemberInfo = async () => {
       const response = await getMemberInfo(`members/${userId}`);
       if (response === null) {
-        alert('정보 조회 실패');
+        toast.error(t('my_msg_failed'), {
+          position: 'bottom-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       } else {
         setMyInfo(response);
       }
@@ -45,7 +55,6 @@ const Index = (): ReactElement => {
     fetchMemberInfo();
   }, [userId]);
 
-  const MySwal = withReactContent(Swal);
   // 사용자가 받은 리뷰 조회
   useEffect(() => {
     const fetchMemberReview = async () => {
@@ -56,11 +65,13 @@ const Index = (): ReactElement => {
         const reviewTotalSize = response.totalSize;
         setReviewTotalSize(reviewTotalSize);
       } else {
-        MySwal.fire({
-          text: '받은 리뷰 조회 실패',
-          icon: 'error',
-          cancelButtonText: '취소',
-          showCancelButton: true,
+        toast.error(t('my_msg_failed_review'), {
+          position: 'bottom-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
       }
     };
@@ -70,17 +81,18 @@ const Index = (): ReactElement => {
         const avgScore = res;
         setReviewScore(avgScore);
       } else {
-        MySwal.fire({
-          text: '리뷰 평점 조회 실패',
-          icon: 'error',
-          cancelButtonText: '취소',
-          showCancelButton: true,
+        toast.error(t('my_msg_failed_review_score'), {
+          position: 'bottom-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
       }
     };
     fetchMemberReview();
     fetchMyReviewScore();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
   // 회원 정보 변경
@@ -104,12 +116,12 @@ const Index = (): ReactElement => {
       <MyPageWrap>
         {/* 유저 정보 섹션 */}
         <MyInfoWrap>
-          <MyAvatar />
+          <Avatar src={profileImage} />
           <MyInfo memberInfo={myInfo} totalReview={reviewTotalSize} avgReviewScore={reviewScore} />
         </MyInfoWrap>
         {/* 충전 포인트 관련 섹션 */}
         <FillupPoint memberInfo={myInfo} />
-        <MyInfoEditBtn onClick={updateMyInfo}>수 정</MyInfoEditBtn>
+        <MyInfoEditBtn onClick={updateMyInfo}>{t('update')}</MyInfoEditBtn>
         <MyQuestions />
         <MyReview
           avgScore={reviewScore}
@@ -119,6 +131,18 @@ const Index = (): ReactElement => {
           getMoreStatus={getMoreReviewStatus}
         />
       </MyPageWrap>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };
@@ -144,6 +168,13 @@ const MyInfoEditBtn = styled.button`
   &: hover {
     cursor: pointer;
   }
+`;
+
+const Avatar = styled.img`
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-right: 2em;
 `;
 
 export default Index;
