@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { logo } from '../assets';
 
 // Sitemap 관련 type 설정
@@ -16,52 +17,54 @@ interface Sitemap {
 }
 
 const Footer = (): ReactElement => {
+  const { t } = useTranslation();
+
   // sitemap 데이터
   const sitemap: Sitemap[] = [
     {
       id: 1,
-      category: '체크메이트',
+      category: t('checkmate'),
       sites: [
         {
           id: 1,
-          name: '서비스 소개',
+          name: t('footer_service_intro'),
           link: '/service',
         },
         {
           id: 2,
-          name: '팀',
+          name: t('footer_team'),
           link: '/service/team',
         },
       ],
     },
     {
       id: 2,
-      category: '서비스',
+      category: t('footer_menu_service'),
       sites: [
         {
           id: 3,
-          name: 'AI 첨삭',
+          name: t('ai'),
           link: '/check/ai',
         },
         {
           id: 4,
-          name: '원어민 첨삭',
+          name: t('mate'),
           link: '/check/mate',
         },
       ],
     },
     {
       id: 3,
-      category: '회원정보',
+      category: t('footer_menu_user'),
       sites: [
         {
           id: 5,
-          name: '이용약관',
+          name: t('footer_policy'),
           link: '/service/policy',
         },
         {
           id: 6,
-          name: '개인정보처리방침',
+          name: t('footer_terms'),
           link: '/service/terms',
         },
       ],

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Rating from 'react-rating';
 import { star, starEmpty } from '../../../assets';
 import { MemberType } from '../../../entity/index';
@@ -11,6 +12,7 @@ type PropsType = {
 };
 
 const MyInfo = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { memberInfo, totalReview, avgReviewScore } = props;
 
   return (
@@ -24,11 +26,14 @@ const MyInfo = (props: PropsType): ReactElement => {
             emptySymbol={<img src={starEmpty} className="icon" alt="starEmpty" />}
             fullSymbol={<img src={star} className="icon" alt="star" />}
           />
-          <Reviews>{totalReview}개의 평가</Reviews>
+          <Reviews>
+            {totalReview}
+            {t('my_count_review')}
+          </Reviews>
         </LeftDescription>
       </InfoLeft>
       <InfoRight>
-        <Name>소개</Name>
+        <Name>{t('my_info')}</Name>
         <RightDescription>{memberInfo.memberIntroduce}</RightDescription>
       </InfoRight>
     </InfoWrap>
