@@ -8,8 +8,8 @@ type PropsType = {
 
 const Diff = ({ origin, input }: PropsType): ReactElement => {
   const options = {
-    acceptSuggestionOnCommitCharacter: true,
-    acceptSuggestionOnEnter: 'on',
+    acceptSuggestionOnCommitCharacter: false,
+    acceptSuggestionOnEnter: 'off',
     accessibilitySupport: 'auto',
     autoIndent: false,
     automaticLayout: true,
@@ -54,6 +54,7 @@ const Diff = ({ origin, input }: PropsType): ReactElement => {
     selectionHighlight: true,
     showFoldingControls: 'mouseover',
     smoothScrolling: true,
+    snippetSuggestions: 'none',
     suggestOnTriggerCharacters: true,
     wordBasedSuggestions: false,
     wordSeparators: '~!@#$%^&*()-=+[{]}|;:\'",.<>/?',
