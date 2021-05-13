@@ -12,7 +12,7 @@ import { AnswerType, MemberType, ReviewType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
 import { DeleteAPI, chooseAnswerAPI } from '../../../api/answer';
-import Diff from './Diff';
+import Diff from '../../../components/Diff';
 import ReviewModal from './ReviewModal';
 
 type PropsType = {
