@@ -7,6 +7,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import Diff from '../../../components/Diff';
 import { ResponseAIType } from '../../../entity';
+import Graph from './Graph';
 
 type PropsType = {
   data: ResponseAIType;
@@ -24,6 +25,8 @@ const Result = (props: PropsType): ReactElement => {
     <ResultContainer>
       <Diff origin={data.original} input={data.checked} />
       <Button onClick={handleRewriteButton}>다시쓰기</Button>
+
+      <Graph data={data} />
     </ResultContainer>
   );
 };

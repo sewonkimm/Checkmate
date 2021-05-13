@@ -67,5 +67,6 @@ const AI = (): ReactElement => {
 
 const AIContainer = styled.div`
   width: 100%;
+  padding: 0;
 `;
 export default AI;
