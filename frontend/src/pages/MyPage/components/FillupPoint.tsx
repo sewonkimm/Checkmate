@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { MemberType } from '../../../entity/index';
 
 type PropsType = {
@@ -7,13 +8,16 @@ type PropsType = {
 };
 
 const FillupPoint = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { memberInfo } = props;
 
   return (
     <PointWrap>
-      <Point>Point: {memberInfo.memberPoint}</Point>
+      <Point>
+        {t('point')}: {memberInfo.memberPoint}
+      </Point>
       <ChargeWrap>
-        <ChargeText>충전하기</ChargeText>
+        <ChargeText>{t('charge')}</ChargeText>
         <ChargeBtn5>+ 5,000</ChargeBtn5>
         <ChargeBtn10>+ 10,000</ChargeBtn10>
       </ChargeWrap>

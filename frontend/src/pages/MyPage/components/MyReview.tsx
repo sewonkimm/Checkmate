@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Rating from 'react-rating';
 import { ReviewType } from '../../../entity/index';
 import { star, starEmpty } from '../../../assets';
@@ -13,6 +14,7 @@ type PropsType = {
 };
 
 const MyReview = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { totalReviews, reviews, getMoreStatus, avgScore } = props;
 
   // 내려받은 함수 실행
@@ -33,10 +35,15 @@ const MyReview = (props: PropsType): ReactElement => {
               fullSymbol={<img src={star} className="icon" alt="star" />}
             />
           </TotalStars>
-          <TotalReviewNum>{totalReviews}개의 평가</TotalReviewNum>
+          <TotalReviewNum>
+            {totalReviews}
+            {t('my_count_review')}
+          </TotalReviewNum>
         </TotalRates>
       </ReviewHeader>
-      <Description>서비스 사용자들이 남긴 후기입니다.</Description>
+
+      <Description>{t('review_desc')}</Description>
+
       <ReviewCards>
         {reviews.length > 0 ? (
           reviews.map((item) => {
@@ -55,13 +62,13 @@ const MyReview = (props: PropsType): ReactElement => {
             );
           })
         ) : (
-          <NoReviewMsg>받으신 리뷰가 없습니다😅</NoReviewMsg>
+          <NoReviewMsg>{t('no_review')}</NoReviewMsg>
         )}
       </ReviewCards>
       {getMoreStatus ? (
-        <GetMoreReviewBtn onClick={handleGetMoreBtn}>후기 더 보기</GetMoreReviewBtn>
+        <GetMoreReviewBtn onClick={handleGetMoreBtn}>{t('button_more_review')}</GetMoreReviewBtn>
       ) : (
-        <NoGetMoreReviewBtn onClick={handleGetMoreBtn}>후기 더 보기</NoGetMoreReviewBtn>
+        <NoGetMoreReviewBtn onClick={handleGetMoreBtn}>{t('button_more_review')}</NoGetMoreReviewBtn>
       )}
     </ReviewWrap>
   );

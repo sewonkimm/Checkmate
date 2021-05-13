@@ -22,7 +22,7 @@ const Home = (): ReactElement => {
       <Header />
       <MainImage src={mainImage1} alt="mainIamge" />
       <Title>{t('home_title')}</Title>
-      <SubTitle>{t('home_description')}</SubTitle>
+      <SubTitle>{t('home_description')} 끝!</SubTitle>
 
       <ButtonContainer>
         <Button type="secondary" text={t('home_button_ai')} />
@@ -54,6 +54,8 @@ const Title = styled.h1`
 `;
 const SubTitle = styled.p`
   margin-top: 20px;
+  white-space: pre-wrap;
+  line-height: 36px;
   font-size: ${({ theme }) => theme.fontSizes.title};
 `;
 
