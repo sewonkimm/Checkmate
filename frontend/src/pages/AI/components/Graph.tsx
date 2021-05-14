@@ -3,7 +3,7 @@ AI/components/Graph.tsx
 : AI 첨삭 페이지 분석 결과 - 그래프 컴포넌트
 */
 
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Doughnut } from 'react-chartjs-2';
@@ -16,6 +16,12 @@ type PropsType = {
 const Graph = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
   const { data } = props;
+
+  const [showGraph, setShowGraph] = useState(false);
+
+  useEffect(() => {
+    if (data.errors > 0) setShowGraph(true);
+  }, [data]);
 
   const chartData = {
     labels: [t('ai_wrong_spelling'), t('ai_wrong_spacing'), t('ai_ambiguous'), t('ai_statistic')],
@@ -40,35 +46,39 @@ const Graph = (props: PropsType): ReactElement => {
 
   return (
     <Container>
-      <Title>분석결과</Title>
+      <Title>{t('ai_title_result')}</Title>
       <Divider />
 
-      <GraphContainer>
-        <Chart>
-          <Doughnut type="doughnut" data={chartData} options={options} />
-        </Chart>
-        <ResultContainer>
-          <P>
-            {t('ai_result_title_word')} : {data.errorRate}% <Span>({data.errors})</Span>
-          </P>
-          <ResultElement>
-            <Label color="#E25229" />
-            {t('ai_wrong_spelling')} : {data.wrongSpelling}
-          </ResultElement>
-          <ResultElement>
-            <Label color="#78E04E" />
-            {t('ai_wrong_spacing')} : {data.wrongSpacing}
-          </ResultElement>
-          <ResultElement>
-            <Label color="#F6DE4D" />
-            {t('ai_ambiguous')} : {data.ambiguous}
-          </ResultElement>
-          <ResultElement>
-            <Label color="#4D8CF4" />
-            {t('ai_statistic')} : {data.statisticalCorrection}
-          </ResultElement>
-        </ResultContainer>
-      </GraphContainer>
+      {showGraph ? (
+        <GraphContainer>
+          <Chart>
+            <Doughnut type="doughnut" data={chartData} options={options} />
+          </Chart>
+          <ResultContainer>
+            <P>
+              {t('ai_result_title_word')} : {data.errorRate}% <Span>({data.errors})</Span>
+            </P>
+            <ResultElement>
+              <Label color="#E25229" />
+              {t('ai_wrong_spelling')} : {data.wrongSpelling}
+            </ResultElement>
+            <ResultElement>
+              <Label color="#78E04E" />
+              {t('ai_wrong_spacing')} : {data.wrongSpacing}
+            </ResultElement>
+            <ResultElement>
+              <Label color="#F6DE4D" />
+              {t('ai_ambiguous')} : {data.ambiguous}
+            </ResultElement>
+            <ResultElement>
+              <Label color="#4D8CF4" />
+              {t('ai_statistic')} : {data.statisticalCorrection}
+            </ResultElement>
+          </ResultContainer>
+        </GraphContainer>
+      ) : (
+        <>수정할 부분이 없어요!</>
+      )}
     </Container>
   );
 };

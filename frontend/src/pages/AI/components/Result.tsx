@@ -6,16 +6,18 @@ AI/components/Result.tsx
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import Diff from '../../../components/Diff';
-import { ResponseAIType } from '../../../entity';
+import { ResponseAIType, ResponseAIFixType } from '../../../entity';
 import Graph from './Graph';
+import Fix from './Fix';
 
 type PropsType = {
-  data: ResponseAIType;
+  graphData: ResponseAIType;
+  recommendData: ResponseAIFixType;
   reset: () => void;
 };
 
 const Result = (props: PropsType): ReactElement => {
-  const { data } = props;
+  const { graphData, recommendData } = props;
 
   const handleRewriteButton = () => {
     props.reset();
@@ -23,10 +25,11 @@ const Result = (props: PropsType): ReactElement => {
 
   return (
     <ResultContainer>
-      <Diff origin={data.original} input={data.checked} />
+      <Diff origin={graphData.original} input={graphData.checked} />
       <Button onClick={handleRewriteButton}>다시쓰기</Button>
 
-      <Graph data={data} />
+      <Graph data={graphData} />
+      <Fix data={recommendData} />
     </ResultContainer>
   );
 };
