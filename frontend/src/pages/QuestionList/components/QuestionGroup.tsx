@@ -13,8 +13,10 @@ QuestionList/components/QuestionGroup.tsx
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import QuestionCard from './QuestionCard';
 import { getQuestions, getTotalSize } from '../../../api/question';
 import { ResponseQuestionType } from '../../../entity';
@@ -28,12 +30,10 @@ const QuestionGroup = (props: PropsType): ReactElement => {
   const [questions, setQuestions] = useState<ResponseQuestionType[]>([]);
   const [myQuestions, setMyQuestions] = useState<ResponseQuestionType[]>([]);
   const [listType] = useState<number>(1);
-  const [limit] = useState<number>(10);
+  const [limit] = useState<number>(5);
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const { isFiltered, id } = props;
-
-  const MySwal = withReactContent(Swal);
 
   // 내 질문만 보기 버튼이 클릭 되었을 때
   useEffect(() => {
@@ -41,9 +41,14 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     async function fetchQuestions() {
       const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
       if (response === []) {
-        MySwal.fire({
-          text: '질문을 받아오는데 실패했습니다.',
-          icon: 'error',
+        toast.error('🐳 질문 요청 응답 실패!', {
+          position: 'bottom-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       } else if (isFiltered === false) {
         const questionGroup = [...questions, ...response];
@@ -68,10 +73,36 @@ const QuestionGroup = (props: PropsType): ReactElement => {
       setOffset(offsets);
     } else {
       setHasMore(false);
+      toast.info('🐬 질문들을 모두 불러왔습니다', {
+        position: 'bottom-center',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (
-    <InfiniteScroll dataLength={offset} next={fetchData} hasMore={hasMore} loader={<h3>Loading . . .</h3>}>
+    <InfiniteScroll
+      dataLength={offset}
+      next={fetchData}
+      hasMore={hasMore}
+      // 로딩시 스피너
+      loader={<Loader type="Puff" color="#00BFFF" height={100} width={100} timeout={3000} />}
+    >
+      <StyledContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <QuestionsWrap>
         {isFiltered && id !== 0
           ? myQuestions.map((item: ResponseQuestionType) => (
@@ -84,6 +115,11 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     </InfiniteScroll>
   );
 };
+
+const StyledContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 24px;
+`;
 
 const QuestionsWrap = styled.div`
   margin: auto;

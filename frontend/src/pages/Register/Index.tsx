@@ -6,6 +6,8 @@ Register/Index.tsx
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import { signupIconNormal } from '../../assets';
 import MotherLanguage from './components/MotherLanguage';
@@ -57,13 +59,30 @@ const Register: React.FC = () => {
 
         // response
         if (response === -1) {
-          alert('회원가입에 실패했습니다.'); // 추후 토스트 메세지로 변경
+          // 추후 토스트 메세지로 변경
+          toast.error('회원가입 요청에 실패하였습니다. 개발자에게 문의하세요', {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
           setCanRegister(true);
           setNextBtnText(t('register_go_login'));
         }
       } else if (step >= 3 && !(email && password && nickname)) {
-        // 추후 토스트 메세지 추가
+        toast.error('이메일, 패스워드, 닉네임 입력이 제대로 이루어지지 않았습니다. 다시 시도해보세요!', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     }
   };
@@ -99,6 +118,17 @@ const Register: React.FC = () => {
 
   return (
     <RegisterWrap>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <section>
         <Title>Sign-Up</Title>
         <Icon src={signupIconNormal} alt="signup-logo" />
