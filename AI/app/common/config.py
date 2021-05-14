@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from os import path, environ
+import json
 
 base_dir = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
 
@@ -7,6 +8,14 @@ base_dir = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
 class Config:
     # 기본 Configuration
     BASE_DIR = base_dir
+
+    # DB 환경설정
+    DB_POOL_RECYCLE: int = 900
+    DB_ECHO: bool = True
+    SECRET_FILE = path.join(path.dirname(path.dirname(path.abspath(__file__)))+"/database", 'secrets.json')
+    secrets = json.loads(open(SECRET_FILE).read())
+    DB = secrets["DB"]
+    DB_URL: str = f"mysql+pymysql://{DB['user']}:{DB['password']}@{DB['host']}:{DB['port']}/{DB['database']}"
 
 @dataclass
 class LocalConfig(Config):
@@ -26,5 +35,5 @@ class ProdConfig(Config):
 
 def conf():
     # 환경 불러오기
-    config = dict(prod = ProdConfig(), local = LocalConfig())
+    config = dict(prod=ProdConfig(), local=LocalConfig())
     return config.get(environ.get("API_ENV", "local"))

@@ -1,8 +1,11 @@
 # create table
 CREATE TABLE `correction` (
-    `before` varchar(255) NOT NULL,
-    `after` varchar(255) NOT NULL,
-    `category` int(11) DEFAULT 0
+    `correction_id` int(11) NOT NULL AUTO_INCREMENT,
+    `correction_before` varchar(255) NOT NULL,
+    `correction_after` varchar(255) NOT NULL,
+    `correction_category` int(11) DEFAULT 0,
+    PRIMARY KEY (`correction_id`),
+    UNIQUE KEY `correction_id_UNIQUE` (`correction_id`)
 );
 
 # insert data
