@@ -22,6 +22,7 @@ def recommendWords(Sentences: Data, session: Session = Depends(db.session)):
     arr4 = []
     arr5 = []
     arr6 = []
+    arr7 = []
 
     for w in correction_words:
         if w.correction_before in checked_sent.checked:
@@ -37,5 +38,7 @@ def recommendWords(Sentences: Data, session: Session = Depends(db.session)):
                 arr5.append((w.correction_before, w.correction_after))
             elif w.correction_category == 6:
                 arr6.append((w.correction_before, w.correction_after))
+            elif w.correction_category == 7:
+                arr7.append((w.correction_before, w.correction_after))
 
-    return {1: arr1, 2: arr2, 3: arr3, 4: arr4, 5: arr5, 6: arr6}
+    return {1: arr1, 2: arr2, 3: arr3, 4: arr4, 5: arr5, 6: arr6, 7: arr7}
