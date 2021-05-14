@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Python용 한글 맞춤법 검사 모듈
-"""
-
 import requests
 import json
 import time
@@ -18,7 +14,6 @@ from .constants import CheckResult
 _agent = requests.Session()
 PY3 = sys.version_info[0] == 3
 
-
 def _remove_tags(text):
     text = u'<content>{}</content>'.format(text).replace('<br>','')
     if not PY3:
@@ -28,11 +23,8 @@ def _remove_tags(text):
 
     return result
 
-
 def check(text):
-    """
-    매개변수로 입력받은 한글 문장의 맞춤법을 체크합니다.
-    """
+    # 매개변수로 입력받은 한글 문장의 맞춤법을 체크
     if isinstance(text, list):
         result = []
         for item in text:
@@ -71,9 +63,6 @@ def check(text):
         'words': OrderedDict(),
     }
 
-    # 띄어쓰기로 구분하기 위해 태그는 일단 보기 쉽게 바꿔둠.
-    # ElementTree의 iter()를 써서 더 좋게 할 수 있는 방법이 있지만
-    # 이 짧은 코드에 굳이 그렇게 할 필요성이 없으므로 일단 문자열을 치환하는 방법으로 작성.
     html = html.replace('<span class=\'green_text\'>', '<green>') \
                .replace('<span class=\'red_text\'>', '<red>') \
                .replace('<span class=\'purple_text\'>', '<purple>') \

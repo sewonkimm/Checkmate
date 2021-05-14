@@ -1,10 +1,31 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from app.routers import checkSpell
+from dataclasses import asdict
+from starlette.middleware.cors import CORSMiddleware
+from app.common.config import conf
+from app.database.conn import db
+from app.routers import checkSpell, recommendWords
 
+c = conf()
 app = FastAPI()
+
+# DataBase Initialization
+conf_dict = asdict(c)
+db.init_app(app, **conf_dict)
+
+# Middleware Definition
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=conf().ALLOW_SITE,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Router Definition
 app.include_router(checkSpell.router)
+app.include_router(recommendWords.router)
 
 origins = [
     "http://localhost",
