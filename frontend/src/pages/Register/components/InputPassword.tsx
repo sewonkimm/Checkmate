@@ -53,7 +53,7 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
 
   return (
     <>
-      <Question>{t('regeister_password_title')}</Question>
+      <Question>{t('regeister_title_password')}</Question>
 
       <PasswordInput
         checkValid={isValidPassword}
@@ -61,11 +61,11 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChangeInput(e.target.value, 'password');
         }}
-        placeholder={t('register_password_placeholder')}
+        placeholder={t('register_placeholder_password')}
         type="password"
       />
       <Warning isValid={isValidPassword}>
-        {passwordValue && (isValidPassword ? '' : t('register_password_error_valid'))}
+        {passwordValue && (isValidPassword ? '' : t('register_placeholder_password'))}
       </Warning>
 
       {/* 비밀번호 유효성을 통과했을 때에만 비밀번호 확인 표시 */}
@@ -81,7 +81,7 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
         />
       )}
       <WarningDuple isSame={isSamePassword}>
-        {isValidPassword && passwordCheck && (isSamePassword ? '' : t('register_password_error_same'))}
+        {isValidPassword && passwordCheck && (isSamePassword ? '' : t('register_msg_incorrect_password'))}
       </WarningDuple>
     </>
   );

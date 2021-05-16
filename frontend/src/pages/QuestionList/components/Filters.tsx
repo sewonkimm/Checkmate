@@ -20,11 +20,11 @@ const Filters = ({ handleMyQuestion, id }: PropsType): ReactElement => {
 
   return (
     <FilterWrap>
-      <WriteBtn to="/question/write">{t('mate_write')}</WriteBtn>
+      <WriteBtn to="/question/write">{t('list_button_write')}</WriteBtn>
       {id > 0 && (
         <>
           <Label>
-            <span>{t('mate_button_filter')}</span>
+            <span>{t('list_button_filter')}</span>
             <Switch onChange={handleChange} checked={checked} uncheckedIcon={false} checkedIcon={false} />
           </Label>
         </>
