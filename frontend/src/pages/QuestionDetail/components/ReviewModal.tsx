@@ -5,6 +5,7 @@ QuestionDetail/components/Answer.tsx
 
 import React, { ReactElement, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Rating from 'react-rating';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +20,7 @@ type PropsType = {
 };
 
 const ReviewModal = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { answerId } = props;
   const [score, setScore] = useState<number>(0);
   const [content, setContent] = useState<string>('');
@@ -33,7 +35,7 @@ const ReviewModal = (props: PropsType): ReactElement => {
   // 유효성 검사
   const validate = (data: ReviewType): boolean => {
     if (data.reviewContents.length === 0) {
-      toast.warn('✍️ 리뷰를 작성해주세요!', {
+      toast.warn(t('answer_msg_review'), {
         position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
@@ -78,14 +80,9 @@ const ReviewModal = (props: PropsType): ReactElement => {
           fullSymbol={<img src={star} className="icon" alt="star" />}
           onChange={handleRating}
         />
-        <Textarea
-          rows={3}
-          value={content}
-          onChange={handleContent}
-          placeholder="이 답변을 채택하는 이유가 무엇인가요?"
-        />
+        <Textarea rows={3} value={content} onChange={handleContent} placeholder={t('review_msg_placeholder')} />
         <SubmitButton onClick={submitReview} type="submit">
-          리뷰달기
+          {t('answer_button_review')}
         </SubmitButton>
       </Modal>
 

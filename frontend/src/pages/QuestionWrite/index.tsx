@@ -26,7 +26,7 @@ const QuestionWrite: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
   const [file, setFile] = useState<File | null>();
   const [explain, setExplain] = useState<string>('');
-  const [content, setContent] = useState<string>(t('mate_write_content_placeholder'));
+  const [content, setContent] = useState<string>(t('write_placeholder_content'));
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const QuestionWrite: React.FC = () => {
 
   const handleCancelButton = () => {
     MySwal.fire({
-      text: '정말 질문 작성을 취소하시겠습니까?',
+      text: t('write_msg_cancel'),
       icon: 'question',
       confirmButtonText: t('yes'),
       cancelButtonText: t('no'),
@@ -116,25 +116,25 @@ const QuestionWrite: React.FC = () => {
       <Header />
 
       <WriteContainer>
-        <PageTitle>{t('mate_write')}</PageTitle>
+        <PageTitle>{t('write_title')}</PageTitle>
         <Form>
           <Label>
-            {t('mate_write_title')}
+            {t('title')}
             <TextInput
               type="text"
               value={title}
               onChange={handleTitleChange}
-              placeholder={t('mate_write_title_placeholder')}
+              placeholder={t('write_placeholder_title')}
             />
           </Label>
           <Label>
-            {t('mate_write_deadline')}
+            {t('deadline')}
             <DateInput type="date" value={deadLine} onChange={handleDeadLineChange} />
           </Label>
 
           <PointFileDiv>
             <Label>
-              {t('mate_write_point')}
+              {t('point')}
               <NumericInput
                 min={0}
                 step={100}
@@ -153,28 +153,28 @@ const QuestionWrite: React.FC = () => {
             </Label>
             {point > 0 ? (
               <FileLabel>
-                {t('mate_write_file')}
+                {t('write_button_add_file')}
                 <FileInput type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" onChange={handleFileChange} />
               </FileLabel>
             ) : (
               <FileLabel style={{ color: '#D9D9D9', border: '2px solid #D9D9D9' }}>
-                {t('mate_write_file')}
+                {t('write_button_add_file')}
                 <FileInput disabled />
               </FileLabel>
             )}
           </PointFileDiv>
 
           <Label>
-            {t('mate_explain')}
+            {t('write_label_explain')}
             <TextareaInput
               rows={5}
               value={explain}
               onChange={handleExplainChange}
-              placeholder={t('mate_write_explain_placeholder')}
+              placeholder={t('write_placeholder_explain')}
             />
           </Label>
           <Label>
-            {t('mate_content')}
+            {t('content')}
             <Editor
               width="85%"
               height="300px"

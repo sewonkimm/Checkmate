@@ -78,13 +78,13 @@ const WriteAnswer = (props: PropsType): ReactElement => {
       } else {
         // 제출 실패
         MySwal.fire({
-          text: '업로드에 실패했습니다.',
+          text: t('write_msg_error'),
           icon: 'error',
         });
       }
     } else {
       MySwal.fire({
-        text: '첨삭 내용을 입력해주세요!',
+        text: t('answer_msg_warning'),
         icon: 'warning',
       });
     }
@@ -102,36 +102,37 @@ const WriteAnswer = (props: PropsType): ReactElement => {
         <WriteContainer>
           <Form>
             <Label>
-              {t('mate_explain')}
+              {t('write_label_explain')}
               <TextareaInput
                 rows={5}
                 value={explain}
                 onChange={handleExplainChange}
-                placeholder={t('mate_answer_explain_placeholder')}
+                placeholder={t('answer_placeholder_explain')}
               />
             </Label>
             <Label>
-              {t('mate_content')}
+              {t('content')}
               <TextareaInput
                 rows={10}
                 value={content}
                 onChange={handleContentChange}
-                placeholder={t('mate_answer_content_placeholder')}
+                placeholder={t('answer_placeholder_content')}
               />
             </Label>
           </Form>
-          <SubmitButton onClick={handleSubmitButton}>{t('mate_answer')}</SubmitButton>
+          <SubmitButton onClick={handleSubmitButton}>{t('detail_button_answer')}</SubmitButton>
         </WriteContainer>
       ) : (
         <WriteButtonContainer>
           <MessageContainer>
             <Message>
-              {memberInfo?.memberNickname} {t('mate_message_answer')}
+              {memberInfo?.memberNickname}
+              {t('detail_msg_answer')}
             </Message>
-            <SubMessage>{t('mate_message_answer_sub')}</SubMessage>
+            <SubMessage>{t('detail_msg_answer_desc')}</SubMessage>
           </MessageContainer>
 
-          <Button onClick={handleShowButton}>{t('mate_answer')}</Button>
+          <Button onClick={handleShowButton}>{t('detail_button_answer')}</Button>
         </WriteButtonContainer>
       )}
     </>
