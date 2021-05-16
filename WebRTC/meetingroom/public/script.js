@@ -128,24 +128,30 @@ const muteUnmute = () => {
 };
 
 const setPlayVideo = () => {
-  const html = `<i class="unmute fa fa-pause-circle"></i>
-  <span class="unmute">Resume Video</span>`;
+  const html = `<i class="unmute fa fa-pause-circle"></i>`;
   document.getElementById("playPauseVideo").innerHTML = html;
 };
 
 const setStopVideo = () => {
-  const html = `<i class=" fa fa-video-camera"></i>
-  <span class="">Pause Video</span>`;
+  const html = `<i class=" fa fa-video-camera"></i>`;
   document.getElementById("playPauseVideo").innerHTML = html;
 };
 
 const setUnmuteButton = () => {
-  const html = `<i class="unmute fa fa-microphone-slash"></i>
-  <span class="unmute">Unmute</span>`;
+  const html = `<i class="unmute fa fa-microphone-slash"></i>`;
   document.getElementById("muteButton").innerHTML = html;
 };
 const setMuteButton = () => {
-  const html = `<i class="fa fa-microphone"></i>
-  <span>Mute</span>`;
+  const html = `<i class="fa fa-microphone"></i>`;
   document.getElementById("muteButton").innerHTML = html;
+};
+
+const setClosedDoorButton = () => {
+  const html = `<i class="fas fa-door-closed"></i>`;
+  document.getElementById("exitMeeting").innerHTML = html;
+};
+
+const setOpenedDoorButton = () => {
+  const html = `<i class="fas fa-door-open"></i>`;
+  document.getElementById("exitMeeting").innerHTML = html;
 };
