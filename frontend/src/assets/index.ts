@@ -3,8 +3,10 @@ import signupIconNormal from './signup_icon_normal.svg';
 import signupIconError from './signup_icon_error.svg';
 import signupIconSuccess from './signup_icon_success.svg';
 import noAnswer from './no_answer_icon.svg';
+import mainShape1 from './main_shape1.svg';
+import mainShape2 from './main_shape2.svg';
 
-import mainImage1 from './mainImage1.png';
+import mainImage from './main1.png';
 import bannerImageMate from './bannerImage.jpg';
 import bannerImageAI from './bannerImage_ai.jpg';
 
@@ -14,7 +16,7 @@ import star from './star.png';
 
 export {
   logo,
-  mainImage1,
+  mainImage,
   bannerImageMate,
   bannerImageAI,
   profileImage,
@@ -22,6 +24,8 @@ export {
   signupIconError,
   signupIconSuccess,
   noAnswer,
+  mainShape1,
+  mainShape2,
   star,
   starEmpty,
 };
