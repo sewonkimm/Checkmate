@@ -59,7 +59,7 @@ const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
 
   return (
     <>
-      <Question>{t('regeister_email_title')}</Question>
+      <Question>{t('regeister_title_email')}</Question>
       <EmailInput
         isValid={isValidEmail}
         isDuple={isDuple}
@@ -69,8 +69,8 @@ const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
         placeholder="ssafy123@ssafy.com"
       />
       <Warning isValid={isValidEmail} isDuple={isDuple}>
-        {emailValue && !isValidEmail && t('register_email_error_valid')}
-        {isDuple && t('register_email_error_duple')}
+        {emailValue && !isValidEmail && t('register_msg_invalid_email')}
+        {isDuple && t('register_msg_used_email')}
       </Warning>
     </>
   );

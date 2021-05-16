@@ -5,6 +5,7 @@ QuestionDetail/components/Answers.tsx
 
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { AnswerType, ResponseAnswerType } from '../../../entity';
 import { noAnswer } from '../../../assets';
 import Answer from './Answer';
@@ -19,7 +20,9 @@ type PropsType = {
 };
 
 const Answers = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { id, answer, questionStatus, questionContents } = props;
+
   let answerComponents;
   if (answer.list !== null) {
     answerComponents = answer.list.map((item: AnswerType) => {
@@ -42,7 +45,7 @@ const Answers = (props: PropsType): ReactElement => {
       {answer.totalSize === 0 ? (
         <NoAnswer>
           <NoAnswerImage src={noAnswer} alt="no answer" />
-          아직 달린 답변이 없어요...
+          {t('detail_no_answer')}
         </NoAnswer>
       ) : (
         <>{answerComponents}</>

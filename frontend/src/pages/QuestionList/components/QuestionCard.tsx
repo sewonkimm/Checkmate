@@ -34,10 +34,11 @@ const Review = (props: PropsType): ReactElement => {
       <Body>{question.questionExplain}</Body>
       <Footer>
         <FooterText>
-          {t('mate_list_answer')} {answerCount}
+          {answerCount}
+          {t('my_count_answer')}
         </FooterText>
         <FooterText>
-          {t('mate_date')} {createdDate}
+          {t('date')} {createdDate}
         </FooterText>
       </Footer>
     </QuestionContainer>

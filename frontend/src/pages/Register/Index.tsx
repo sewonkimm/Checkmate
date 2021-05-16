@@ -25,7 +25,7 @@ const Register: React.FC = () => {
   const [nickname, setNickname] = useState<string>('');
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const [ableNextBtn, setAbleNextBtn] = useState<boolean>(false);
-  const [nextBtnText, setNextBtnText] = useState<string>(t('register_next_button'));
+  const [nextBtnText, setNextBtnText] = useState<string>(t('register_button_next'));
 
   const handleNextBtn = async () => {
     if (step >= 0 && step < registerGroup.length) {
@@ -33,7 +33,7 @@ const Register: React.FC = () => {
       setAbleNextBtn(false); // NextBtn 비활성화
 
       if (step === 2) {
-        setNextBtnText(t('register')); // 버튼 문구 변경
+        setNextBtnText(t('register_button_login')); // 버튼 문구 변경
       }
 
       // 조건을 다 만족하면 회원가입 api 호출
@@ -57,10 +57,10 @@ const Register: React.FC = () => {
 
         // response
         if (response === -1) {
-          alert('회원가입에 실패했습니다.'); // 추후 토스트 메세지로 변경
+          alert(t('register_msg_error')); // 추후 토스트 메세지로 변경
         } else {
           setCanRegister(true);
-          setNextBtnText(t('register_go_login'));
+          setNextBtnText(t('register_button_login'));
         }
       } else if (step >= 3 && !(email && password && nickname)) {
         // 추후 토스트 메세지 추가
@@ -100,13 +100,13 @@ const Register: React.FC = () => {
   return (
     <RegisterWrap>
       <section>
-        <Title>Sign-Up</Title>
+        <Title>Sign Up</Title>
         <Icon src={signupIconNormal} alt="signup-logo" />
       </section>
 
       {canRegister ? (
         <>
-          <Message>{t('register_welcome')}</Message>
+          <Message>{t('register_msg_welcome')}</Message>
           <ButtonWrap>
             <NextBtn onClick={handleLoginBtn}>{nextBtnText}</NextBtn>
           </ButtonWrap>

@@ -60,7 +60,7 @@ const Answer = (props: PropsType): ReactElement => {
   // 답변 삭제
   const handleDelete = () => {
     MySwal.fire({
-      text: '답변을 정말 삭제하시겠습니까?',
+      text: t('answer_msg_delete'),
       icon: 'warning',
       confirmButtonText: t('yes'),
       cancelButtonText: t('no'),
@@ -79,7 +79,7 @@ const Answer = (props: PropsType): ReactElement => {
   // 답변 채택
   const handleChoose = () => {
     MySwal.fire({
-      text: '이 답변을 채택하시겠습니까?',
+      text: t('answer_msg_pick'),
       icon: 'question',
       confirmButtonText: t('yes'),
       cancelButtonText: t('no'),
@@ -102,7 +102,7 @@ const Answer = (props: PropsType): ReactElement => {
   return (
     <AnswerContainer key={answer.answerId}>
       <WriteDate>
-        {t('mate_date')} {createdDate}
+        {t('date')} {createdDate}
       </WriteDate>
 
       <ProfileContainer>
@@ -119,21 +119,25 @@ const Answer = (props: PropsType): ReactElement => {
 
       <Diff origin={questionContents} input={answer.answerContents} />
 
+      {/* 첨부파일 보기 */}
       {answer.answerUrl !== null && (
         <FileButton href={answer.answerUrl} target="_blank" download>
-          {t('mate_file')}
+          {t('detail_button_file')}
         </FileButton>
       )}
 
+      {/* 답변 작성자가 보는 경우 삭제 버튼 */}
       {id === answer.memberId && (
         <ButtonContainer>
           <Button>{t('update')}</Button>
           <Button onClick={handleDelete}>{t('delete')}</Button>
         </ButtonContainer>
       )}
+
+      {/* 질문 작성자가 보는 경우 채택 버튼 */}
       {id !== answer.memberId && !isReviewed && (
         <ButtonContainer>
-          <ChooseButton onClick={handleChoose}>{t('mate_choose')}</ChooseButton>
+          <ChooseButton onClick={handleChoose}>{t('detail_button_pick')}</ChooseButton>
         </ButtonContainer>
       )}
 

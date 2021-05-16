@@ -54,7 +54,7 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
 
   return (
     <>
-      <Question>{t('regeister_nickname_title')}</Question>
+      <Question>{t('regeister_title_nickname')}</Question>
 
       <NicknameInput
         isValid={isValidNickname}
@@ -62,12 +62,12 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
         value={nicknameValue}
         onChange={onChangeInput}
         type="text"
-        placeholder={t('register_nickname_placeholder')}
+        placeholder={t('register_placeholder_nickname')}
       />
 
       <Warning isValid={isValidNickname} isDuple={isDuple}>
-        {nicknameValue && (isValidNickname ? '' : t('register_nickname_error_valid'))}
-        {isDuple && t('register_nickname_error_duple')}
+        {nicknameValue && (isValidNickname ? '' : t('register_placeholder_nickname'))}
+        {isDuple && t('register_msg_used_nickname')}
       </Warning>
     </>
   );
