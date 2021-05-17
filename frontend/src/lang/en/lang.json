@@ -73,6 +73,8 @@
   "list_description3": "Make question in anytime for your natural expression!",
   "list_button_write": "New question",
   "list_button_filter": "See my questions only",
+  "list_msg_error": "Failed to get questions",
+  "list_msg_empty": "Don't have any questions...!",
 
   "detail_button_file": "See attached files",
   "detail_button_pick": "Select answer",

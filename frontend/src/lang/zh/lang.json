@@ -73,6 +73,8 @@
   "list_description3": "如果想用自然的韩语表达, 请随时提问！",
   "list_button_write": "制定问题",
   "list_button_filter": "只看到我的问题",
+  "list_msg_error": "接收提问失败",
+  "list_msg_empty": "没有提问...!",
 
   "detail_button_file": "查看附件",
   "detail_button_pick": "采用",

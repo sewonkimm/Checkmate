@@ -73,6 +73,8 @@
   "list_description3": "자연스러운 한국어 표현을 원한다면 언제든 질문하세요!",
   "list_button_write": "질문 작성",
   "list_button_filter": "내 질문만 보기",
+  "list_msg_error": "질문 받아오기에 실패했습니다",
+  "list_msg_empty": "질문이 없어요...!",
 
   "detail_button_file": "첨부파일 보기",
   "detail_button_pick": "채택하기",
