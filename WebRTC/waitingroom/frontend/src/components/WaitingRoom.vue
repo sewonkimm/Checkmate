@@ -71,7 +71,7 @@ export default {
   methods: {
     getRoomList: function() {
       axios({
-        url: "http://localhost:9000/chat/rooms",
+        url: "https://k4a1061.p.ssafy.io/api/chat/rooms",
         method: "GET",
       })
         .then((response) => {
@@ -87,23 +87,6 @@ export default {
     },
     close: function() {
       location.reload(true);
-    },
-    createRoom: function() {
-      axios({
-        url: "http://localhost:9000/chat/room",
-        method: "POST",
-        data: {
-          roomName: this.roomName,
-          roomType: this.roomType,
-          roomContent: this.roomContent,
-        },
-      })
-        .then(() => {
-          history.go(0);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
   },
 };

@@ -87,7 +87,7 @@ export default {
     },
     createRoom: function() {
       axios({
-        url: "http://localhost:9000/chat/room",
+        url: "https://k4a1061.p.ssafy.io/api/chat/room",
         method: "POST",
         data: {
           roomName: this.roomName,
