@@ -19,8 +19,10 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext, isAngry }: P
 
   // 닉네임 유효성 검사
   const validateNickname = (nickname: string) => {
-    const regExp = /^[A-Za-z0-9]{4,12}$/; // 4~12자리 닉네임을 만들수 있습니다. 한글은 안된다
-    return regExp.test(nickname);
+    if (nickname.length >= 4 && nickname.length <= 12) {
+      return true;
+    }
+    return false;
   };
 
   // 닉네임 중복 검사

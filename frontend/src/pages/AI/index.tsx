@@ -5,6 +5,7 @@ AI/index.tsx
 
 import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
@@ -48,7 +49,12 @@ const AI = (): ReactElement => {
     if (result !== null && recommendResult !== null) {
       return <Result reset={reset} graphData={result} recommendData={recommendResult} />;
     }
-    return <>loading...</>;
+    return (
+      <LoaderWrapper>
+        <StyledLoader type="Hearts" color="#F016DE" height={100} width={100} />
+        <LoadingText>Loading . . .</LoadingText>
+      </LoaderWrapper>
+    );
   };
 
   const reset = () => {
@@ -72,4 +78,21 @@ const AIContainer = styled.div`
   width: 100%;
   padding: 0;
 `;
+
+const LoaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledLoader = styled(Loader)`
+  margin: 5em auto 0 auto;
+`;
+const LoadingText = styled.h2`
+  font-size: 24px;
+  margin-top: 1em;
+`;
+
 export default AI;

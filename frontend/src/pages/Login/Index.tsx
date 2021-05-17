@@ -148,7 +148,6 @@ const GohomeMsg = styled.img<{ show: boolean }>`
   position: absolute;
   top: 5px;
   left: 250px;
-  display: block;
   opacity: ${(props) => (props.show ? '1' : '0')};
   transition: all 300ms ease-in;
 `;

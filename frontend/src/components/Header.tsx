@@ -16,6 +16,9 @@ const Header = (): ReactElement => {
     <HeaderContainer>
       <Logo src={logo} alt="logo" onClick={handleLogoClick} width="70" />
       <LinkContainer>
+        <ToMeetingRoom href="https://K4a1061.p.ssafy.io" target="_blank">
+          {t('community')}
+        </ToMeetingRoom>
         <StyledLink to="/check/ai">{t('ai')}</StyledLink>
         <StyledLink to="/check/mate">{t('mate')}</StyledLink>
       </LinkContainer>
@@ -55,6 +58,43 @@ const StyledLink = styled(Link)`
   font-size: ${({ theme }) => theme.fontSizes.title};
   font-weight: bold;
   cursor: pointer;
+  &::after {
+    display: block;
+    width: 100%;
+    content: '';
+    border-bottom: 4px solid ${({ theme }) => theme.colors.secondary};
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+    padding-bottom: 0.2em;
+  }
+  &:hover {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+`;
+
+const ToMeetingRoom = styled.a`
+  text-decoration: none;
+  margin-left: 40px;
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.title};
+  font-weight: bold;
+  cursor: pointer;
+  &::after {
+    display: block;
+    width: 100%;
+    content: '';
+    border-bottom: 4px solid ${({ theme }) => theme.colors.secondary};
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+    padding-bottom: 0.2em;
+  }
+  &:hover {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
 `;
 
 export default Header;
