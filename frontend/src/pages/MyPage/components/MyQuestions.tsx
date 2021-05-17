@@ -80,7 +80,7 @@ const MyQuestions = (): ReactElement => {
           return (
             <QuestionLists>
               <MyTitle>
-                <PointSpan>{item.question.questionPoint}</PointSpan>
+                {item.question.questionPoint > 0 && <PointSpan>{item.question.questionPoint}</PointSpan>}
                 {item.question.questionTitle}
               </MyTitle>
               <AnswerCnt>{item.answerCount}</AnswerCnt>
