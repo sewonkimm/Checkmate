@@ -14,6 +14,12 @@ import profileImage from './profile.png';
 import starEmpty from './star_empty.png';
 import star from './star.png';
 
+import blueAngryMan from './blueAngryMan.png';
+import blueSmileMan from './blueSmileMan.png';
+import pinkCuriousMan from './pinkCuriousMan.png';
+import pinkSmileMan from './pinkSmileMan.png';
+import everyone from './everyone.png';
+
 export {
   logo,
   mainImage,
@@ -28,4 +34,9 @@ export {
   mainShape2,
   star,
   starEmpty,
+  blueAngryMan,
+  blueSmileMan,
+  pinkCuriousMan,
+  pinkSmileMan,
+  everyone,
 };

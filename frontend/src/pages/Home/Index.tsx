@@ -12,6 +12,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Button from './components/Button';
 import Video from './components/Video';
+import IntroMessenger from './components/IntroMessenger';
 import { mainImage, mainShape1, mainShape2 } from '../../assets';
 
 const Home = (): ReactElement => {
@@ -100,7 +101,7 @@ const Home = (): ReactElement => {
           </Motion>
         </ImageWrapper>
       </TopContainer>
-
+      <IntroMessenger />
       <Video url="https://www.youtube.com/embed/G9Bmp6NuHSI?controls=0" />
 
       <Footer />
