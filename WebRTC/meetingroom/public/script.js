@@ -26,7 +26,7 @@ navigator.mediaDevices
   })
   .then((stream) => {
     myVideoStream = stream;
-    addVideoStream(myVideo, stream);
+    addVideoStream(myVideo, stream, "me");
 
     peer.on("call", (call) => {
       call.answer(stream);
@@ -43,15 +43,34 @@ navigator.mediaDevices
 
     document.addEventListener("keydown", (e) => {
       if (e.which === 13 && chatInputBox.value != "") {
-        socket.emit("message", chatInputBox.value);
+        socket.emit("message", {
+          msg: chatInputBox.value,
+          user: currentUserId,
+          uname: nickName,
+        });
+        chatInputBox.value = "";
+      }
+    });
+
+    document.getElementById("sendMsg").addEventListener("click", (e) => {
+      if (chatInputBox.value != "") {
+        socket.emit("message", {
+          msg: chatInputBox.value,
+          user: currentUserId,
+        });
         chatInputBox.value = "";
       }
     });
 
     socket.on("createMessage", (msg) => {
-      console.log(msg);
       let li = document.createElement("li");
-      li.innerHTML = msg;
+      if (msg.user != currentUserId) {
+        li.classList.add("otherUser");
+        li.innerHTML = `<div style="color:black;"><b style="color:gray;">${msg.uname}: </b>${msg.msg}</div>`;
+      } else {
+        li.innerHTML = `<div  style="color:black;"><b style="color:skyblue;">${nickName}: </b>${msg.msg}</div>`;
+      }
+
       all_messages.append(li);
       main__chat__window.scrollTop = main__chat__window.scrollHeight;
     });
@@ -74,6 +93,7 @@ peer.on("call", function (call) {
 });
 
 peer.on("open", (id) => {
+  currentUserId = id;
   socket.emit("join-room", ROOM_ID, id);
 });
 
@@ -89,8 +109,9 @@ const connectToNewUser = (userId, streams) => {
   });
 };
 
-const addVideoStream = (videoEl, stream) => {
+const addVideoStream = (videoEl, stream, uId = "") => {
   videoEl.srcObject = stream;
+  videoEl.id = uId;
   videoEl.addEventListener("loadedmetadata", () => {
     videoEl.play();
   });
@@ -155,3 +176,30 @@ const setOpenedDoorButton = () => {
   const html = `<i class="fas fa-door-open"></i>`;
   document.getElementById("exitMeeting").innerHTML = html;
 };
+
+const closeWindow = () => {
+  window.open("", "_self").close();
+};
+
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+let nickName;
+function putNickName() {
+  nickName = document.getElementById("nickName").value;
+  document.getElementById("result").innerText = nickName;
+}
+
+function modalDown() {
+  modal.style.display = "none";
+}
