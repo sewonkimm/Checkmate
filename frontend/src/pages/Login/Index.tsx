@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import jwt_decode from 'jwt-decode';
 import { login } from '../../modules/member';
-import { signupIconNormal } from '../../assets';
+import { signupIconNormal, goHome } from '../../assets';
 import LoginAPI from '../../api/login';
 import { LoginReturnType } from '../../entity';
 
@@ -23,6 +23,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
+  const [isMouseEnter, setisMouseEnter] = useState<boolean>(false);
 
   // input event 핸들러
   const onChangeEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +70,18 @@ const Login: React.FC = () => {
       router.push('/');
     }
   };
+  // 마우스 아이콘에서 들어올때
+  const handlemouseEnter = () => {
+    setisMouseEnter(true);
+  };
+  // 마우스 아이콘에서 나갈 때
+  const handlemouseLeave = () => {
+    setisMouseEnter(false);
+  };
+  // 아이콘 클릭시 뒤로가기
+  const handleClickIcon = () => {
+    router.push('/');
+  };
 
   return (
     <LoginContainer>
@@ -84,7 +97,16 @@ const Login: React.FC = () => {
         pauseOnHover
       />
       <Title>Login</Title>
-      <Icon src={signupIconNormal} alt="logo" />
+      <IconWrapper>
+        <Icon
+          src={signupIconNormal}
+          alt="logo"
+          onClick={handleClickIcon}
+          onMouseEnter={handlemouseEnter}
+          onMouseLeave={handlemouseLeave}
+        />
+        <GohomeMsg src={goHome} alt="go back to main image with text" show={isMouseEnter} />
+      </IconWrapper>
 
       <Form>
         <Input value={email} onChange={onChangeEmailInput} type="text" placeholder="ID" />
@@ -118,6 +140,19 @@ const StyledToastContainer = styled(ToastContainer)`
   font-size: 20px;
 `;
 
+const IconWrapper = styled.div`
+  position: relative;
+`;
+
+const GohomeMsg = styled.img<{ show: boolean }>`
+  position: absolute;
+  top: 5px;
+  left: 250px;
+  display: block;
+  opacity: ${(props) => (props.show ? '1' : '0')};
+  transition: all 300ms ease-in;
+`;
+
 const Title = styled.h1`
   margin: 0 0 20px 0;
   font-family: 'Kirang Haerang', cursive;
@@ -126,6 +161,11 @@ const Title = styled.h1`
 `;
 const Icon = styled.img`
   width: 218px;
+  transition: all 300ms ease-out;
+  &: hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+  }
 `;
 
 const Form = styled.form`

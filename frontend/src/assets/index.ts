@@ -12,6 +12,8 @@ import profileImage from './profile.png';
 import starEmpty from './star_empty.png';
 import star from './star.png';
 
+import goHome from './goHome.png';
+
 export {
   logo,
   mainImage1,
@@ -24,4 +26,5 @@ export {
   noAnswer,
   star,
   starEmpty,
+  goHome,
 };
