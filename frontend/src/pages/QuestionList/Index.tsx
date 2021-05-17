@@ -79,7 +79,7 @@ const QuestionList: React.FC = () => {
           dataLength={offset}
           next={fetchQuestions}
           hasMore={hasMore}
-          loader={<Loader type="Puff" color="#00BFFF" height={100} width={100} timeout={3000} />}
+          loader={<Loader type="TailSpin" color="#038EFC" height={50} width={50} />}
         >
           <QuestionGroup questions={questions} isFiltered={isFiltered} id={loginUserId} />
         </InfiniteScroll>

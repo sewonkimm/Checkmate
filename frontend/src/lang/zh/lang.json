@@ -17,6 +17,7 @@
   "point": "点",
   "content": "增删内容",
   "checkmate": "Checkmate",
+  "back": "回去",
 
   "footer_service_intro": "介绍服务",
   "footer_team": "介绍组员",
@@ -85,8 +86,7 @@
   "detail_button_answer": "回复",
   "detail_no_answer": "还没有回复...",
   "detail_msg_answer": " Mate 请回答！",
-  "detail_msg_answer_desc1": "答辩时基本支付10分, 采用时",
-  "detail_msg_answer_desc2": "提供积分",
+  "detail_msg_answer_desc": "答辩时基本支付10分",
   "detail_msg_waiting": "等待提问者的采纳",
   "detail_msg_picked": " 恭喜你! 答复已通过！",
   "detail_msg_warning": " 请在截止期限内通过答复！",

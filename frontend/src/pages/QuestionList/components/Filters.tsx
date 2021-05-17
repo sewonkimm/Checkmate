@@ -42,11 +42,11 @@ const FilterWrap = styled.div`
 `;
 
 const WriteBtn = styled(Link)`
-  hegith: 3rem;
-  font-size: 1rem;
+  hegith: 56px;
   text-decoration: none;
   padding: 10px 35px;
   border-radius: 10px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary};
   transition: all 0.3s ease;

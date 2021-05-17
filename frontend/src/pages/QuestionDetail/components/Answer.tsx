@@ -129,7 +129,7 @@ const Answer = (props: PropsType): ReactElement => {
       {/* 답변 작성자가 보는 경우 삭제 버튼 */}
       {id === answer.memberId && (
         <ButtonContainer>
-          <Button>{t('update')}</Button>
+          {/* <Button>{t('update')}</Button> */}
           <Button onClick={handleDelete}>{t('delete')}</Button>
         </ButtonContainer>
       )}
