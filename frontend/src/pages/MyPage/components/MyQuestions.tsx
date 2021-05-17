@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +14,7 @@ const MyQuestions = (): ReactElement => {
 
   const userId: number = useSelector((state: RootState) => state.member).member.memberId;
   const [offset, setOffset] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(3);
+  const [limit] = useState<number>(3);
   const [totalAsk, setTotalAsk] = useState<number>(0);
   const [totalReply, setTotalReply] = useState<number>(0);
   const [questionList, setQuestionList] = useState<ResponseMyQuestionListType[]>([]);
@@ -78,7 +79,7 @@ const MyQuestions = (): ReactElement => {
       {questionList.length > 0 ? (
         questionList.map((item) => {
           return (
-            <QuestionLists>
+            <QuestionLists to={`/question/${item.question.questionId}`}>
               <MyTitle>
                 {item.question.questionPoint > 0 && <PointSpan>{item.question.questionPoint}</PointSpan>}
                 {item.question.questionTitle}
@@ -170,10 +171,13 @@ const Created = styled.div`
   flex-basis: 10%;
   text-align: center;
 `;
-const QuestionLists = styled.div`
+const QuestionLists = styled(Link)`
   display: flex;
   padding: 0.4em;
   font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const ExtensionBtn = styled.button`

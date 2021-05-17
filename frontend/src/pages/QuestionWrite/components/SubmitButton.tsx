@@ -8,6 +8,8 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RootState } from '../../../modules';
@@ -77,9 +79,14 @@ const SubmitButton = (props: PropsType): ReactElement => {
         });
       } else {
         // 제출 실패
-        MySwal.fire({
-          text: t('write_msg_error'),
-          icon: 'error',
+        toast.error(t('write_msg_error'), {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       }
     } else {
@@ -91,9 +98,23 @@ const SubmitButton = (props: PropsType): ReactElement => {
   };
 
   return (
-    <Button type="button" onClick={handleSubmitButton}>
-      {t('list_button_write')}
-    </Button>
+    <>
+      <Button type="button" onClick={handleSubmitButton}>
+        {t('list_button_write')}
+      </Button>
+
+      <StyledToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 };
 
@@ -108,6 +129,11 @@ const Button = styled.button`
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+`;
+
+const StyledToastContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 20px;
 `;
 
 export default SubmitButton;

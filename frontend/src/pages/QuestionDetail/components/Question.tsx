@@ -88,7 +88,7 @@ const Question = (props: PropsType): ReactElement => {
 // 질문 컴포넌트 style
 const QuestionContainer = styled.div`
   max-width: 985px;
-  margin: 100px auto 50px;
+  margin: 20px auto 50px;
   padding: 30px;
   display: flex;
   flex-direction: column;

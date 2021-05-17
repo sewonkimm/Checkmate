@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/destructuring-assignment */
 import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 type PropsType = {
   content: string | number;
   date: string;
+  color?: string;
 };
 
 const BadgeComponent = (props: PropsType): ReactElement => {
@@ -32,6 +34,12 @@ const BadgeComponent = (props: PropsType): ReactElement => {
     return day;
   };
 
+  if (props.color !== null && props.color !== undefined) {
+    const style = {
+      backgroundColor: props.color,
+    };
+    return <Badge style={style}>{content}</Badge>;
+  }
   return <>{day >= 0 && <Badge>{content}</Badge>}</>;
 };
 

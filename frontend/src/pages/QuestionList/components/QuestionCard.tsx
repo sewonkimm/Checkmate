@@ -50,6 +50,12 @@ const QuestionContainer = styled.div`
   padding: 0.4em;
   margin: 0.5em 0;
   cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 2px 5px 1px rgba(48, 70, 89, 0.15);
+  }
 `;
 const Header = styled.div`
   display: flex;

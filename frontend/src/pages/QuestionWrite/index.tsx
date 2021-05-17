@@ -77,6 +77,7 @@ const QuestionWrite: React.FC = () => {
       setContent(value.slice(0, 1000)); // 1,000자 제한
       setReadOnly(true); // 입력이 1,000자가 넘어가면 더이상 작성이 불가능하도록 함
     } else {
+      setContent(value);
       setReadOnly(false);
     }
   };

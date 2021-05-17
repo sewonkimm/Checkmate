@@ -10,18 +10,19 @@ import Rating from 'react-rating';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReviewType } from '../../../entity';
-import { WriteReviewAPI } from '../../../api/answer';
+import { WriteReviewAPI, chooseAnswerAPI } from '../../../api/answer';
 import { star, starEmpty } from '../../../assets';
 
 type PropsType = {
   answerId: number;
+  questionId: number;
   setShowModal: (value: boolean) => void;
-  chooseAnswer: (data: ReviewType) => void;
+  setIsChecked: (value: boolean) => void;
 };
 
 const ReviewModal = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
-  const { answerId } = props;
+  const { answerId, questionId } = props;
   const [score, setScore] = useState<number>(0);
   const [content, setContent] = useState<string>('');
 
@@ -48,6 +49,13 @@ const ReviewModal = (props: PropsType): ReactElement => {
     return true;
   };
 
+  const chooseAnswer = async (data: ReviewType) => {
+    const response = await chooseAnswerAPI(`choose/${questionId}/${answerId}`, data);
+    if (response === 200) {
+      props.setIsChecked(true);
+    }
+  };
+
   const submitReview = async () => {
     const data: ReviewType = {
       answerId,
@@ -60,7 +68,8 @@ const ReviewModal = (props: PropsType): ReactElement => {
       const response = await WriteReviewAPI(data);
       if (response === 200) {
         props.setShowModal(false);
-        props.chooseAnswer(data);
+
+        chooseAnswer(data);
       }
     }
   };
