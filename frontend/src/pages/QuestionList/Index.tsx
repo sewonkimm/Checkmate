@@ -29,7 +29,7 @@ const QuestionList: React.FC = () => {
   // 질문 로드
   useEffect(() => {
     fetchQuestionNumber();
-  }, [offset, isFiltered]);
+  });
 
   // 질문 불러오기
   const fetchQuestionNumber = async () => {
