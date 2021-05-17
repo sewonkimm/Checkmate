@@ -7,11 +7,11 @@ import register from '../../../api/register';
 interface Props {
   putEmail: (emailValue: string) => void;
   preventNext: (value: React.SetStateAction<boolean>) => void;
+  isAngry: (value: React.SetStateAction<boolean>) => void;
 }
 
-const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
+const InputEmail: React.FC<Props> = ({ putEmail, preventNext, isAngry }: Props) => {
   const { t } = useTranslation();
-
   const [emailValue, setEmailValue] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isDuple, setIsDuple] = useState<boolean>(false);
@@ -37,9 +37,11 @@ const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
       if (response === 0) {
         setIsDuple(false);
         putEmail(email); // 중복이 안되면 부모 컴포넌트에 email 전달
+        isAngry(false); // 웃는 표정
       } else {
         setIsDuple(true);
         preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+        isAngry(true); // 찡글이 표정
       }
     }
   };
@@ -50,9 +52,11 @@ const InputEmail: React.FC<Props> = ({ putEmail, preventNext }: Props) => {
     setEmailValue(value);
     if (validateEmail(value)) {
       setIsValidEmail(true);
+      isAngry(false); // 온화한 표정
     } else {
       setIsValidEmail(false);
       preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+      isAngry(true); // 찡글이 표정
     }
     await checkValidEmail(value);
   };

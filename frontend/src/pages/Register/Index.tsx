@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import { signupIconNormal } from '../../assets';
+import { signupIconNormal, signupIconError, goHome } from '../../assets';
 import MotherLanguage from './components/MotherLanguage';
 import InputEmail from './components/InputEmail';
 import InputNickname from './components/InputNickname';
@@ -28,6 +28,8 @@ const Register: React.FC = () => {
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const [ableNextBtn, setAbleNextBtn] = useState<boolean>(false);
   const [nextBtnText, setNextBtnText] = useState<string>(t('register_button_next'));
+  const [angryFace, setAngryFace] = useState<boolean>(false);
+  const [isMouseEnter, setisMouseEnter] = useState<boolean>(false);
 
   const handleNextBtn = async () => {
     if (step >= 0 && step < registerGroup.length) {
@@ -111,10 +113,22 @@ const Register: React.FC = () => {
   // 단계별로 보여질 컴포넌트 배열
   const registerGroup: Array<JSX.Element> = [
     <MotherLanguage putLang={putLang} />,
-    <InputEmail putEmail={putEmail} preventNext={setAbleNextBtn} />,
-    <InputPassword putPassword={putPassword} preventNext={setAbleNextBtn} />,
-    <InputNickname putNickname={putNickname} preventNext={setAbleNextBtn} />,
+    <InputEmail putEmail={putEmail} preventNext={setAbleNextBtn} isAngry={setAngryFace} />,
+    <InputPassword putPassword={putPassword} preventNext={setAbleNextBtn} isAngry={setAngryFace} />,
+    <InputNickname putNickname={putNickname} preventNext={setAbleNextBtn} isAngry={setAngryFace} />,
   ];
+  // 마우스 아이콘에서 들어올때
+  const handlemouseEnter = () => {
+    setisMouseEnter(true);
+  };
+  // 마우스 아이콘에서 나갈 때
+  const handlemouseLeave = () => {
+    setisMouseEnter(false);
+  };
+  // 아이콘 클릭시 뒤로가기
+  const handleClickIcon = () => {
+    history.push('/');
+  };
 
   return (
     <RegisterWrap>
@@ -131,7 +145,24 @@ const Register: React.FC = () => {
       />
       <section>
         <Title>Sign Up</Title>
-        <Icon src={signupIconNormal} alt="signup-logo" />
+        {angryFace ? (
+          <Icon
+            src={signupIconError}
+            alt="signup-logo"
+            onClick={handleClickIcon}
+            onMouseEnter={handlemouseEnter}
+            onMouseLeave={handlemouseLeave}
+          />
+        ) : (
+          <Icon
+            src={signupIconNormal}
+            alt="signup-logo"
+            onClick={handleClickIcon}
+            onMouseEnter={handlemouseEnter}
+            onMouseLeave={handlemouseLeave}
+          />
+        )}
+        <GohomeMsg src={goHome} alt="go back to main image with text" show={isMouseEnter} />
       </section>
 
       {canRegister ? (
@@ -189,6 +220,17 @@ const Title = styled.h1`
 const Icon = styled.img`
   width: 14.875rem;
   height: auto;
+  transition: all 300ms ease-out;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+  }
+`;
+const GohomeMsg = styled.img<{ show: boolean }>`
+  position: absolute;
+  opacity: ${(props) => (props.show ? '1' : '0')};
+  transition: all 250ms ease-in;
+  margin-left: 1em;
 `;
 
 const SignupBody = styled.section`
