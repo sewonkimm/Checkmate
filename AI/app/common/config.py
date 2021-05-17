@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from os import path, environ
 import json
+from app.common import cryption
 
 base_dir = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
 
@@ -15,7 +16,7 @@ class Config:
     SECRET_FILE = path.join(path.dirname(path.dirname(path.abspath(__file__)))+"/database", 'secrets.json')
     secrets = json.loads(open(SECRET_FILE).read())
     DB = secrets["DB"]
-    DB_URL: str = f"mysql+pymysql://{DB['user']}:{DB['password']}@{DB['host']}:{DB['port']}/{DB['database']}"
+    DB_URL: str = f"mysql+pymysql://{cryption.Cipher().decrypt_str(DB['user'])}:{cryption.Cipher().decrypt_str(DB['password'])}@{cryption.Cipher().decrypt_str(DB['host'])}:{cryption.Cipher().decrypt_str(DB['port'])}/{cryption.Cipher().decrypt_str(DB['database'])}"
 
 @dataclass
 class LocalConfig(Config):
