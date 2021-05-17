@@ -166,7 +166,7 @@ const Label = styled.label`
 `;
 
 const TextareaInput = styled.textarea`
-  width: 85%;
+  width: 705px;
   padding: 15px 20px;
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
@@ -217,12 +217,12 @@ const SubMessage = styled.p`
 `;
 
 const Button = styled.button`
-  height: 47px;
-  padding: 0 20px;
+  hegith: 56px;
+  padding: 10px 35px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 15px;
   font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: bold;
   cursor: pointer;
@@ -232,15 +232,21 @@ const Button = styled.button`
 `;
 
 const SubmitButton = styled.button`
-  width: 20%;
-  height: 65px;
+  hegith: 60px;
   margin-left: 10px;
+  padding: 15px 35px;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   font-size: 20px;
   font-weight: bold;
-  border-radius: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
   cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 export default WriteAnswer;
