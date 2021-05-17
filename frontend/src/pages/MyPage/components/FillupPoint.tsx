@@ -12,18 +12,14 @@ const FillupPoint = (props: PropsType): ReactElement => {
   const { memberInfo } = props;
 
   // 포인트 3자리수 마다 ' , ' 넣는 함수
-  const pointDecorator = (point: number) => {
-    const points = point.toString().split('');
-    if (points.length >= 4) {
-      points.splice(2, 0, ',');
-    }
-    return points.join('');
-  };
+  function numberWithCommas(point: number) {
+    return point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
 
   return (
     <PointWrap>
       <Point>
-        {t('point')}: {pointDecorator(memberInfo.memberPoint)}
+        {t('point')}: {numberWithCommas(memberInfo.memberPoint)}
       </Point>
       <ChargeWrap>
         <ChargeText>{t('charge')}</ChargeText>

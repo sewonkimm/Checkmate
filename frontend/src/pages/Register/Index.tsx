@@ -61,7 +61,7 @@ const Register: React.FC = () => {
         if (response === -1) {
           // 추후 토스트 메세지로 변경
           toast.error(t('register_msg_error'), {
-            position: 'top-center',
+            position: 'bottom-right',
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -75,7 +75,7 @@ const Register: React.FC = () => {
         }
       } else if (step >= 3 && !(email && password && nickname)) {
         toast.error('이메일, 패스워드, 닉네임 입력이 제대로 이루어지지 않았습니다. 다시 시도해보세요!', {
-          position: 'top-center',
+          position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -118,8 +118,8 @@ const Register: React.FC = () => {
 
   return (
     <RegisterWrap>
-      <ToastContainer
-        position="top-center"
+      <StyledContainer
+        position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -173,6 +173,11 @@ const RegisterWrap = styled.section`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const StyledContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 20px;
 `;
 
 const Title = styled.h1`

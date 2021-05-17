@@ -42,7 +42,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
       const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
       if (response === []) {
         toast.error('🐳 질문 요청 응답 실패!', {
-          position: 'bottom-center',
+          position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -74,7 +74,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     } else {
       setHasMore(false);
       toast.info('🐬 질문들을 모두 불러왔습니다', {
-        position: 'bottom-center',
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -118,7 +118,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
 
 const StyledContainer = styled(ToastContainer)`
   width: 25vw;
-  font-size: 24px;
+  font-size: 20px;
 `;
 
 const QuestionsWrap = styled.div`

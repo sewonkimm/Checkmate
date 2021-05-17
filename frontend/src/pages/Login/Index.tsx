@@ -55,7 +55,7 @@ const Login: React.FC = () => {
       // 에러 처리(추가)
       // 비밀번호랑 아이디가 정확하지 않으면 catch로 바로 빠지는데?
       toast.error('아이디 혹은 비밀번호가 일치하지 않습니다 😣', {
-        position: 'top-center',
+        position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -72,8 +72,8 @@ const Login: React.FC = () => {
 
   return (
     <LoginContainer>
-      <ToastContainer
-        position="top-center"
+      <StyledToastContainer
+        position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -111,6 +111,11 @@ const LoginContainer = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const StyledToastContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 20px;
 `;
 
 const Title = styled.h1`
