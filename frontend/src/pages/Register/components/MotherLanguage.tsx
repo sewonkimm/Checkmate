@@ -15,7 +15,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
   };
   const options: Array<{ label: string; value: string }> = [
     {
-      label: t('regeister_language_title'),
+      label: t('regeister_title_language'),
       value: '',
     },
     {
@@ -33,7 +33,7 @@ const MotherLanguage: React.FC<Props> = (props: Props) => {
   ];
   return (
     <>
-      <Question>{t('regeister_language_title')}</Question>
+      <Question>{t('regeister_title_language')}</Question>
 
       <LanguageSelect defaultValue={0} onChange={selectItem}>
         {options.map((option, idx) => {

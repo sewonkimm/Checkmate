@@ -68,7 +68,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
       if (response === 200) {
         // 제출 성공 시, 질문 목록 조회 페이지로 분기
         MySwal.fire({
-          text: '질문 작성에 성공했습니다!',
+          text: t('write_msg_success'),
           icon: 'success',
         }).then((result: any) => {
           if (result.isConfirmed) {
@@ -78,13 +78,13 @@ const SubmitButton = (props: PropsType): ReactElement => {
       } else {
         // 제출 실패
         MySwal.fire({
-          text: '업로드에 실패했습니다.',
+          text: t('write_msg_error'),
           icon: 'error',
         });
       }
     } else {
       MySwal.fire({
-        text: '항목을 모두 입력해주세요!',
+        text: t('write_msg_warning'),
         icon: 'warning',
       });
     }
@@ -92,7 +92,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
 
   return (
     <Button type="button" onClick={handleSubmitButton}>
-      {t('mate_write')}
+      {t('list_button_write')}
     </Button>
   );
 };

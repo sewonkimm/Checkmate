@@ -27,7 +27,7 @@ const Register: React.FC = () => {
   const [nickname, setNickname] = useState<string>('');
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const [ableNextBtn, setAbleNextBtn] = useState<boolean>(false);
-  const [nextBtnText, setNextBtnText] = useState<string>(t('register_next_button'));
+  const [nextBtnText, setNextBtnText] = useState<string>(t('register_button_next'));
 
   const handleNextBtn = async () => {
     if (step >= 0 && step < registerGroup.length) {
@@ -35,7 +35,7 @@ const Register: React.FC = () => {
       setAbleNextBtn(false); // NextBtn 비활성화
 
       if (step === 2) {
-        setNextBtnText(t('register')); // 버튼 문구 변경
+        setNextBtnText(t('register_button_login')); // 버튼 문구 변경
       }
 
       // 조건을 다 만족하면 회원가입 api 호출
@@ -60,7 +60,7 @@ const Register: React.FC = () => {
         // response
         if (response === -1) {
           // 추후 토스트 메세지로 변경
-          toast.error('회원가입 요청에 실패하였습니다. 개발자에게 문의하세요', {
+          toast.error(t('register_msg_error'), {
             position: 'top-center',
             autoClose: 3000,
             hideProgressBar: false,
@@ -71,7 +71,7 @@ const Register: React.FC = () => {
           });
         } else {
           setCanRegister(true);
-          setNextBtnText(t('register_go_login'));
+          setNextBtnText(t('register_button_login'));
         }
       } else if (step >= 3 && !(email && password && nickname)) {
         toast.error('이메일, 패스워드, 닉네임 입력이 제대로 이루어지지 않았습니다. 다시 시도해보세요!', {
@@ -130,13 +130,13 @@ const Register: React.FC = () => {
         pauseOnHover
       />
       <section>
-        <Title>Sign-Up</Title>
+        <Title>Sign Up</Title>
         <Icon src={signupIconNormal} alt="signup-logo" />
       </section>
 
       {canRegister ? (
         <>
-          <Message>{t('register_welcome')}</Message>
+          <Message>{t('register_msg_welcome')}</Message>
           <ButtonWrap>
             <NextBtn onClick={handleLoginBtn}>{nextBtnText}</NextBtn>
           </ButtonWrap>

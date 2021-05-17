@@ -52,7 +52,7 @@ const SubHeader = (): ReactElement => {
         </SelectOption>
         <SelectOption value="ko">한국어</SelectOption>
         <SelectOption value="en">English</SelectOption>
-        <SelectOption value="zh">中文</SelectOption>
+        <SelectOption value="zh">中文(简体)</SelectOption>
       </Select>
 
       {isMember ? (

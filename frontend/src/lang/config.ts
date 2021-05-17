@@ -38,5 +38,5 @@ i18n.use(initReactI18next).init({
 });
 
 export default i18n;
-export const languages = ['English', '한국어', '中文'] as const;
+export const languages = ['English', '한국어', '中文(简体)'] as const;
 export type Languages = typeof languages[number]; // 'en' | 'ko'

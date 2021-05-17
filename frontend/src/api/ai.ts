@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ResponseAIType } from '../entity';
+import { ResponseAIType, ResponseAIFixType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_AI_API_URL;
@@ -12,6 +12,7 @@ const axiosInstance = axios.create({
 });
 
 // API
+// 분석
 const checkSpell = async (data: { sentence: string }): Promise<ResponseAIType> => {
   const url = 'checkSpell';
   const response = await axiosInstance
@@ -26,4 +27,19 @@ const checkSpell = async (data: { sentence: string }): Promise<ResponseAIType> =
   return response;
 };
 
-export default checkSpell;
+// 추천교정
+const recommendWords = async (data: { sentence: string }): Promise<ResponseAIFixType> => {
+  const url = 'recommendWords';
+  const response = await axiosInstance
+    .post(url, data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(err);
+      return null;
+    });
+  return response;
+};
+
+export { checkSpell, recommendWords };

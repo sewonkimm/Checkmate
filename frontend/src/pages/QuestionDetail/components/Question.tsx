@@ -5,6 +5,7 @@ QuestionDetail/components/Question.tsx
 
 import React, { ReactElement, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { QuestionType, MemberType } from '../../../entity';
 import { getMemberInfo } from '../../../api/member';
 import { profileImage } from '../../../assets';
@@ -17,6 +18,7 @@ type PropsType = {
 };
 
 const Question = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { id, question } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
 
@@ -43,7 +45,9 @@ const Question = (props: PropsType): ReactElement => {
           {question.questionPoint > 0 && <BadgeComponent content={question.questionPoint} date="" />}
           <BadgeComponent content="" date={question.questionEndDate} />
         </BadgeContainer>
-        <div>작성일 {createdDate}</div>
+        <div>
+          {t('date')} {createdDate}
+        </div>
       </Infomation>
 
       <ProfileContainer>
@@ -61,12 +65,14 @@ const Question = (props: PropsType): ReactElement => {
 
       {question.questionContents !== '' ? (
         <Contents>
-          <Length>첨삭내용 ( {contentLength}자 )</Length>
+          <Length>
+            {t('content')} ( {contentLength}자 )
+          </Length>
           {question.questionContents}
         </Contents>
       ) : (
         <FileButton href={question.questionUrl} target="_blank" download>
-          첨부파일보기
+          {t('detail_button_file')}
         </FileButton>
       )}
 
