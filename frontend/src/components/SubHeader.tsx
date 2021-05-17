@@ -37,7 +37,7 @@ const SubHeader = (): ReactElement => {
     router.push('/');
   };
 
-  // 언어 변경
+  // 언어 변경 함수
   const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value;
     i18n.changeLanguage(lang);
