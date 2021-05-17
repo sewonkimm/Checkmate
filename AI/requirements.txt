@@ -10,3 +10,4 @@ requests
 gensim==3.8.3
 konlpy
 nltk
+pycryptodomex
