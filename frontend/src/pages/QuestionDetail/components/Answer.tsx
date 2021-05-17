@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /*
 QuestionDetail/components/Answer.tsx
 : 질문 상세 조회 페이지의 답변 컴포넌트
@@ -8,11 +9,12 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { AnswerType, MemberType, ReviewType } from '../../../entity';
+import { AnswerType, MemberType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
-import { DeleteAPI, chooseAnswerAPI } from '../../../api/answer';
+import { DeleteAPI } from '../../../api/answer';
 import Diff from '../../../components/Diff';
+import BadgeComponent from '../../../components/Badge';
 import ReviewModal from './ReviewModal';
 
 type PropsType = {
@@ -29,7 +31,6 @@ const Answer = (props: PropsType): ReactElement => {
   const { id, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [isReviewed, setIsReviewd] = useState<boolean>(false);
 
   // 작성일 문자열 다듬기
   let createdDate;
@@ -46,12 +47,7 @@ const Answer = (props: PropsType): ReactElement => {
       }
     };
     fetchMemberInfo();
-
-    // 리뷰 채택 여부
-    if (questionStatus !== 0) {
-      setIsReviewd(true);
-    }
-  }, [answer, questionStatus]);
+  }, [answer]);
 
   const MySwal = withReactContent(Swal);
 
@@ -92,18 +88,22 @@ const Answer = (props: PropsType): ReactElement => {
     });
   };
 
-  const chooseAnswer = async (data: ReviewType) => {
-    const response = await chooseAnswerAPI(`choose/${answer.questionId}/${answer.answerId}`, data);
-    if (response === 200) {
-      props.setIsChecked(true);
-    }
-  };
-
   return (
     <AnswerContainer key={answer.answerId}>
-      <WriteDate>
-        {t('date')} {createdDate}
-      </WriteDate>
+      {answer.answerSelect === 1 ? (
+        <Infomation>
+          <BadgeContainer>
+            <BadgeComponent content="채택됨" date="" color="#F016DE" />
+          </BadgeContainer>
+          <div>
+            {t('date')} {createdDate}
+          </div>
+        </Infomation>
+      ) : (
+        <WriteDate>
+          {t('date')} {createdDate}
+        </WriteDate>
+      )}
 
       <ProfileContainer>
         {memberInfo?.memberProfileUrl === '' ? (
@@ -135,7 +135,7 @@ const Answer = (props: PropsType): ReactElement => {
       )}
 
       {/* 질문 작성자가 보는 경우 채택 버튼 */}
-      {id !== answer.memberId && !isReviewed && (
+      {id !== answer.memberId && questionStatus === 0 && (
         <ButtonContainer>
           <ChooseButton onClick={handleChoose}>{t('detail_button_pick')}</ChooseButton>
         </ButtonContainer>
@@ -143,7 +143,12 @@ const Answer = (props: PropsType): ReactElement => {
 
       {/* 리뷰 Modal */}
       {showModal && answer.answerId !== undefined && (
-        <ReviewModal answerId={answer.answerId} setShowModal={setShowModal} chooseAnswer={chooseAnswer} />
+        <ReviewModal
+          answerId={answer.answerId}
+          questionId={answer.questionId}
+          setShowModal={setShowModal}
+          setIsChecked={props.setIsChecked}
+        />
       )}
     </AnswerContainer>
   );
@@ -152,6 +157,7 @@ const Answer = (props: PropsType): ReactElement => {
 // 답변 컴포넌트 style
 const AnswerContainer = styled.div`
   max-width: 985px;
+  width: 100%;
   margin: 50px auto 0;
   padding: 30px;
   display: flex;
@@ -163,6 +169,15 @@ const AnswerContainer = styled.div`
   box-shadow: 0px 5px 20px 2px rgba(48, 70, 89, 0.15);
 `;
 
+const Infomation = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const BadgeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 const WriteDate = styled.div`
   position: absolute;
   top: 30px;

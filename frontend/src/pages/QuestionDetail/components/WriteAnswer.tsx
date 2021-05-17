@@ -92,7 +92,6 @@ const WriteAnswer = (props: PropsType): ReactElement => {
 
   // Form 제출 유효성 검사
   const validateSubmit = (): boolean => {
-    console.log(content);
     if (content === '') return false;
     return true;
   };
