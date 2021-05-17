@@ -129,13 +129,13 @@ public class QuestionService {
 
         switch (listType) {
             case 1: // 등록날짜순(내림차순)
-                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(currentDate, 0, pageable);
+                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionDateDesc(currentDate, pageable);
                 break;
             case 2: // 마감날짜순(오름차순)
-                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionEndDate(currentDate, 0, pageable);
+                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionEndDate(currentDate, pageable);
                 break;
             case 3: // 포인트순(내림차순)
-                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionPointDesc(currentDate, 0, pageable);
+                list = questionRepository.findQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionPointDesc(currentDate, pageable);
                 break;
         }
 
@@ -148,11 +148,11 @@ public class QuestionService {
 
         switch (listType) {
             case 1: // 등록날짜순(내림차순)
-                return questionRepository.countQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(currentDate, 0);
+                return questionRepository.countQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionDateDesc(currentDate);
             case 2: // 마감날짜순(오름차순)
-                return questionRepository.countQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionEndDate(currentDate, 0);
+                return questionRepository.countQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionEndDate(currentDate);
             case 3: // 포인트순(내림차순)
-                return questionRepository.countQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionPointDesc(currentDate, 0);
+                return questionRepository.countQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionPointDesc(currentDate);
         }
 
         return 0;
