@@ -54,7 +54,7 @@ const Login: React.FC = () => {
     if (response.message === 'error') {
       // 에러 처리(추가)
       // 비밀번호랑 아이디가 정확하지 않으면 catch로 바로 빠지는데?
-      toast.error('아이디 혹은 비밀번호가 일치하지 않습니다 😣', {
+      toast.error(t('login_unvalid_msg'), {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,

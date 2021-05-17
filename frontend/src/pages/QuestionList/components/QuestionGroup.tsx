@@ -12,6 +12,7 @@ QuestionList/components/QuestionGroup.tsx
 
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +35,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const { isFiltered, id } = props;
+  const { t } = useTranslation();
 
   // 내 질문만 보기 버튼이 클릭 되었을 때
   useEffect(() => {
@@ -41,7 +43,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     async function fetchQuestions() {
       const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
       if (response === []) {
-        toast.error('🐳 질문 요청 응답 실패!', {
+        toast.error(t('list_request_fail'), {
           position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: false,
@@ -73,7 +75,7 @@ const QuestionGroup = (props: PropsType): ReactElement => {
       setOffset(offsets);
     } else {
       setHasMore(false);
-      toast.info('🐬 질문들을 모두 불러왔습니다', {
+      toast.info(t('list_upload_finish'), {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,

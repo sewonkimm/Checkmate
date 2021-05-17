@@ -74,9 +74,9 @@ const Register: React.FC = () => {
           setNextBtnText(t('register_button_login'));
         }
       } else if (step >= 3 && !(email && password && nickname)) {
-        toast.error('이메일, 패스워드, 닉네임 입력이 제대로 이루어지지 않았습니다. 다시 시도해보세요!', {
+        toast.error(t('register_msg_error'), {
           position: 'bottom-right',
-          autoClose: 3000,
+          autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
