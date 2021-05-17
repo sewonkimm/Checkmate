@@ -8,6 +8,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import jwt_decode from 'jwt-decode';
 import { login } from '../../modules/member';
@@ -33,7 +35,14 @@ const Login: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  // Login api 호출
+  // login api enter 키로 호출
+  const handleKeydownLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleLoginBtn();
+    }
+  };
+
+  // Login api 호출 (click으로 호출)
   const handleLoginBtn = async () => {
     const data = {
       memberEmail: email,
@@ -44,6 +53,16 @@ const Login: React.FC = () => {
 
     if (response.message === 'error') {
       // 에러 처리(추가)
+      // 비밀번호랑 아이디가 정확하지 않으면 catch로 바로 빠지는데?
+      toast.error(t('login_unvalid_msg'), {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
       const member: LoginReturnType = jwt_decode(response.accesstoken);
       dispatch(login(member.member));
@@ -53,14 +72,30 @@ const Login: React.FC = () => {
 
   return (
     <LoginContainer>
+      <StyledToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Title>Login</Title>
       <Icon src={signupIconNormal} alt="logo" />
 
       <Form>
         <Input value={email} onChange={onChangeEmailInput} type="text" placeholder="ID" />
-        <Input value={password} onChange={onChangePasswordInput} placeholder="Password" type="password" />
+        <Input
+          value={password}
+          onChange={onChangePasswordInput}
+          placeholder="Password"
+          type="password"
+          onKeyPress={handleKeydownLogin}
+        />
       </Form>
-
       <LoginBtn onClick={handleLoginBtn}>{t('login')}</LoginBtn>
     </LoginContainer>
   );
@@ -76,6 +111,11 @@ const LoginContainer = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const StyledToastContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 20px;
 `;
 
 const Title = styled.h1`

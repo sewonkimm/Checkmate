@@ -37,7 +37,7 @@ const SubHeader = (): ReactElement => {
     router.push('/');
   };
 
-  // 언어 변경
+  // 언어 변경 함수
   const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value;
     i18n.changeLanguage(lang);
@@ -47,12 +47,12 @@ const SubHeader = (): ReactElement => {
   return (
     <SubHeaderContainer>
       <Select onChange={handleChangeLanguage}>
-        <option value="" selected disabled>
+        <SelectOption value="" selected disabled>
           {t('language')}
-        </option>
-        <option value="ko">한국어</option>
-        <option value="en">English</option>
-        <option value="zh">中文(简体)</option>
+        </SelectOption>
+        <SelectOption value="ko">한국어</SelectOption>
+        <SelectOption value="en">English</SelectOption>
+        <SelectOption value="zh">中文(简体)</SelectOption>
       </Select>
 
       {isMember ? (
@@ -78,7 +78,7 @@ const SubHeaderContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: 16px 20px;
+  padding: 16px 48px;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -90,6 +90,11 @@ const Select = styled.select`
   border: none;
   background-color: transparent;
   outline: none;
+`;
+
+const SelectOption = styled.option`
+  color: ${({ theme }) => theme.colors.black};
+  font-size: 22px;
 `;
 
 const StyledLink = styled(Link)`

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -74,7 +75,12 @@ const QuestionList: React.FC = () => {
 
       {/* question group */}
       {totalNum > 0 ? (
-        <InfiniteScroll dataLength={offset} next={fetchQuestions} hasMore={hasMore} loader={<h3>Loading . . .</h3>}>
+        <InfiniteScroll
+          dataLength={offset}
+          next={fetchQuestions}
+          hasMore={hasMore}
+          loader={<Loader type="Puff" color="#00BFFF" height={100} width={100} timeout={3000} />}
+        >
           <QuestionGroup questions={questions} isFiltered={isFiltered} id={loginUserId} />
         </InfiniteScroll>
       ) : (

@@ -6,6 +6,8 @@ Register/Index.tsx
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import { signupIconNormal } from '../../assets';
 import MotherLanguage from './components/MotherLanguage';
@@ -57,13 +59,30 @@ const Register: React.FC = () => {
 
         // response
         if (response === -1) {
-          alert(t('register_msg_error')); // 추후 토스트 메세지로 변경
+          // 추후 토스트 메세지로 변경
+          toast.error(t('register_msg_error'), {
+            position: 'bottom-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
           setCanRegister(true);
           setNextBtnText(t('register_button_login'));
         }
       } else if (step >= 3 && !(email && password && nickname)) {
-        // 추후 토스트 메세지 추가
+        toast.error(t('register_msg_error'), {
+          position: 'bottom-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     }
   };
@@ -99,6 +118,17 @@ const Register: React.FC = () => {
 
   return (
     <RegisterWrap>
+      <StyledContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <section>
         <Title>Sign Up</Title>
         <Icon src={signupIconNormal} alt="signup-logo" />
@@ -143,6 +173,11 @@ const RegisterWrap = styled.section`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const StyledContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 20px;
 `;
 
 const Title = styled.h1`

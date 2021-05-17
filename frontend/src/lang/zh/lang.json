@@ -52,6 +52,8 @@
   "register_password_confirm_placeholder": "确认密码",
   "register_msg_error": "失败注册",
 
+  "login_unvalid_msg": "请检查您的电子邮件或密码😣",
+
   "my_count_review": "个评价",
   "my_count_question": "个问题",
   "my_count_answer": " 个答复",
@@ -73,8 +75,9 @@
   "list_description3": "如果想用自然的韩语表达, 请随时提问！",
   "list_button_write": "制定问题",
   "list_button_filter": "只看到我的问题",
-  "list_msg_error": "接收提问失败",
   "list_msg_empty": "没有提问...!",
+  "list_upload_finish": "🐬 没有更多的问题",
+  "list_request_fail": "🐳 无法请求问题列表",
 
   "detail_button_file": "查看附件",
   "detail_button_pick": "采用",

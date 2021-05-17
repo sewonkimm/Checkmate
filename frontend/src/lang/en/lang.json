@@ -52,6 +52,8 @@
   "register_password_confirm_placeholder": "confirm password",
   "register_msg_error": "Failed to register",
 
+  "login_unvalid_msg": "Please check your Email or Password 😣",
+
   "my_count_review": "Reviews",
   "my_count_question": "Questions",
   "my_count_answer": " Answers",
@@ -68,13 +70,14 @@
   "my_msg_failed_review_score": "Can't get average review score",
   "my_msg_failed_post": "Can't get my revision",
 
-  "list_description1": "현재 ",
-  "list_description2": "개의 질문에 ",
+  "list_description1": "currently ",
+  "list_description2": "questions ",
   "list_description3": "Make question in anytime for your natural expression!",
   "list_button_write": "New question",
   "list_button_filter": "See my questions only",
-  "list_msg_error": "Failed to get questions",
   "list_msg_empty": "Don't have any questions...!",
+  "list_upload_finish": "🐬 There'no more questions",
+  "list_request_fail": "🐳 Failed to request questions",
 
   "detail_button_file": "See attached files",
   "detail_button_pick": "Select answer",
