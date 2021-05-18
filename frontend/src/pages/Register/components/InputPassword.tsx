@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next';
 interface Props {
   putPassword: (password: string) => void;
   preventNext: (value: React.SetStateAction<boolean>) => void;
+  isAngry: (value: React.SetStateAction<boolean>) => void;
 }
 
-const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => {
+const InputPassword: React.FC<Props> = ({ putPassword, preventNext, isAngry }: Props) => {
   const { t } = useTranslation();
 
   const [passwordValue, setPasswordValue] = useState<string>('');
@@ -24,9 +25,11 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
   const checkValidPassword = (value: string) => {
     if (validatePassword(value)) {
       setIsValidPassword(true);
+      isAngry(false);
     } else {
       setIsValidPassword(false);
       preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+      isAngry(true);
     }
   };
 
@@ -35,9 +38,11 @@ const InputPassword: React.FC<Props> = ({ putPassword, preventNext }: Props) => 
     if (passwordValue === passwordCheck) {
       setIsSamePassword(true);
       putPassword(passwordValue);
+      isAngry(false); // 온화한 표정
     } else {
       setIsSamePassword(false);
       preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+      isAngry(true); // 찡글이 표정
     }
   };
 

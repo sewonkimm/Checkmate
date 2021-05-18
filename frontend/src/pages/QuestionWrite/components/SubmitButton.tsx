@@ -7,7 +7,10 @@ import React, { ReactElement, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RootState } from '../../../modules';
@@ -28,24 +31,28 @@ type PropsType = {
 const SubmitButton = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
   const router = useHistory();
+  const member = useSelector((state: RootState) => state.member.member);
+  const [waiting, setWaiting] = useState<boolean>(false);
+
   const MySwal = withReactContent(Swal);
 
-  const [memberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
-
   // Form 제출 유효성 검사 : 하나라도 안 쓴 것이 있으면 제출이 안됨
-  const validateSubmit = (): boolean => {
-    if (props.data.title === '') return false;
-    if (props.data.point === 0 && props.data.content === '') return false;
-    if (props.data.point > 0 && props.data.file === undefined && props.data.content === '') return false;
-    return true;
+  const validateSubmit = (): number => {
+    if (props.data.title === '') return 1;
+    if (props.data.point === 0 && props.data.content === '') return 1;
+    if (props.data.point > 0 && props.data.file === undefined && props.data.content === '') return 1;
+    if (member.memberPoint - props.data.point < 0) return 2;
+
+    return 0;
   };
 
   // 질문 작성 API 호출
   const handleSubmitButton = async () => {
-    if (validateSubmit()) {
+    const valid = validateSubmit();
+    if (valid === 0) {
       let data: RequestQuestionType = {
         // 파일첨부 X
-        memberId,
+        memberId: member.memberId,
         questionContents: props.data.content,
         questionEndDate: props.data.deadLine,
         questionExplain: props.data.explain,
@@ -72,28 +79,57 @@ const SubmitButton = (props: PropsType): ReactElement => {
           icon: 'success',
         }).then((result: any) => {
           if (result.isConfirmed) {
-            router.push('/check/mate');
+            setTimeout(() => {
+              router.push('/check/mate');
+              setWaiting(false);
+            }, 500);
+            setWaiting(true);
           }
         });
       } else {
         // 제출 실패
-        MySwal.fire({
-          text: t('write_msg_error'),
-          icon: 'error',
+        toast.error(t('write_msg_error'), {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       }
-    } else {
+    } else if (valid === 1) {
       MySwal.fire({
         text: t('write_msg_warning'),
+        icon: 'warning',
+      });
+    } else if (valid === 2) {
+      MySwal.fire({
+        text: t('write_msg_warning_point'),
         icon: 'warning',
       });
     }
   };
 
   return (
-    <Button type="button" onClick={handleSubmitButton}>
-      {t('list_button_write')}
-    </Button>
+    <>
+      <Button type="button" onClick={handleSubmitButton}>
+        {t('list_button_write')}
+      </Button>
+
+      <StyledToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {waiting && <StyleLoader type="Bars" color="#0F16F8" height={100} width={100} />}
+    </>
   );
 };
 
@@ -108,6 +144,20 @@ const Button = styled.button`
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+`;
+
+const StyledToastContainer = styled(ToastContainer)`
+  width: 25vw;
+  font-size: 20px;
+`;
+
+const StyleLoader = styled(Loader)`
+  display: block;
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  width: 40%;
+  height: 40%;
 `;
 
 export default SubmitButton;

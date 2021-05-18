@@ -7,11 +7,14 @@ interface Props {
 }
 
 const MotherLanguage: React.FC<Props> = (props: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const selectItem = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    props.putLang(e.target.value);
+    const lang = e.target.value;
+
+    props.putLang(lang);
+    i18n.changeLanguage(lang);
   };
   const options: Array<{ label: string; value: string }> = [
     {

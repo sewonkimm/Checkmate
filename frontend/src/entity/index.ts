@@ -105,6 +105,7 @@ export type ResponseMyReview = {
 export type ResponseAIType = {
   original: string; // 원본
   checked: string; // 교정본
+  total: number; // 전체 단어 수
   errors: number; // 틀린 개수
   errorRate: number; // 에러율
   wrongSpelling: number; // 맞춤법

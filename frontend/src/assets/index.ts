@@ -19,6 +19,7 @@ import blueSmileMan from './blueSmileMan.png';
 import pinkCuriousMan from './pinkCuriousMan.png';
 import pinkSmileMan from './pinkSmileMan.png';
 import everyone from './everyone.png';
+import goHome from './goHome.png';
 
 export {
   logo,
@@ -39,4 +40,5 @@ export {
   pinkCuriousMan,
   pinkSmileMan,
   everyone,
+  goHome,
 };

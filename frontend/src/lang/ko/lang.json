@@ -6,6 +6,7 @@
   "language": "언어선택",
   "ai": "AI분석",
   "mate": "원어민첨삭",
+  "community": "온라인 커뮤니티",
   "yes": "네",
   "no": "아니오",
   "cancel": "취소",
@@ -17,6 +18,9 @@
   "point": "포인트",
   "content": "첨삭내용",
   "checkmate": "체크메이트",
+  "back": "뒤로가기",
+  "forbidden": "로그인이 필요합니다",
+  "word": "단어",
 
   "footer_service_intro": "서비스 소개",
   "footer_team": "팀원 소개",
@@ -41,16 +45,18 @@
   "register_msg_invalid_email": "유효하지 않은 이메일입니다",
   "register_msg_used_email": "이미 사용중인 이메일입니다",
   "regeister_title_password": "비밀번호를 입력해주세요",
-  "register_placeholder_password": "8~10자의 영문/숫자 조합을 사용하세요",
+  "register_placeholder_password": "8~10자의 영문 또는 숫자를 사용하세요",
   "register_msg_incorrect_password": "비밀번호가 일치하지 않습니다",
   "regeister_title_nickname": "닉네임을 입력하세요",
-  "register_placeholder_nickname": "4~12자의 영문/숫자 조합을 사용하세요",
+  "register_placeholder_nickname": "4~12자 이내로 사용하세요",
   "register_msg_used_nickname": "이미 사용중인 닉네임입니다",
   "register_msg_welcome": "가입을 축하합니다!",
   "register_button_next": "다음으로",
   "register_button_login": "로그인하러 가기",
   "register_password_confirm_placeholder": "비밀번호 확인",
   "register_msg_error": "회원가입에 실패했습니다",
+
+  "login_unvalid_msg": "아이디 혹은 비밀번호가 일치하지 않습니다 😣",
 
   "my_count_review": "개의 평가",
   "my_count_question": "개의 질문",
@@ -73,6 +79,9 @@
   "list_description3": "자연스러운 한국어 표현을 원한다면 언제든 질문하세요!",
   "list_button_write": "질문 작성",
   "list_button_filter": "내 질문만 보기",
+  "list_msg_empty": "질문이 없어요...!",
+  "list_upload_finish": "🐬 질문들을 모두 불러왔습니다",
+  "list_request_fail": "🐳 질문 받아오기에 실패했습니다",
 
   "detail_button_file": "첨부파일 보기",
   "detail_button_pick": "채택하기",
@@ -94,6 +103,7 @@
   "write_msg_error": "업로드에 실패했습니다",
   "write_msg_success": "질문 작성에 성공했습니다!",
   "write_msg_warning": "항목을 모두 입력해주세요",
+  "write_msg_warning_point": "포인트가 부족합니다",
   "write_msg_cancel": "정말 질문 작성을 취소하시겠습니까?",
   "answer_placeholder_content": "첨삭 내용을 1,000자 이내로 작성해주세요",
   "answer_placeholder_explain": "답변에 대한 설명을 작성해주세요",
@@ -126,5 +136,6 @@
   "ai_msg_warning_long": "너무 긴 문장은 읽기가 어렵습니다",
   "ai_msg_warning_japan": "일본식 표현은 삼가세요",
   "ai_msg_warning_english": "영문식 표현은 한국식으로 바꿔주세요",
-  "ai_msg_warning_chinese": "되도록이면 한자말 사용을 줄이세요"
+  "ai_msg_warning_chinese": "되도록이면 한자말 사용을 줄이세요",
+  "ai_msg_perfect": "수정할 부분이 없어요!"
 }

@@ -7,9 +7,10 @@ import register from '../../../api/register';
 interface Props {
   putNickname: (name: string) => void;
   preventNext: (value: React.SetStateAction<boolean>) => void;
+  isAngry: (value: React.SetStateAction<boolean>) => void;
 }
 
-const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => {
+const InputNickname: React.FC<Props> = ({ putNickname, preventNext, isAngry }: Props) => {
   const { t } = useTranslation();
 
   const [nicknameValue, setNicknameValue] = useState<string>('');
@@ -18,8 +19,10 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
 
   // 닉네임 유효성 검사
   const validateNickname = (nickname: string) => {
-    const regExp = /^[a-z0-9]{4,12}$/; // 4~12자리 닉네임을 만들수 있습니다. 한글은 안된다
-    return regExp.test(nickname);
+    if (nickname.length >= 4 && nickname.length <= 12) {
+      return true;
+    }
+    return false;
   };
 
   // 닉네임 중복 검사
@@ -33,9 +36,11 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
     if (response === 0) {
       setIsDuple(false);
       putNickname(value); // 중복이 안되면 부모 컴포넌트에 닉네임 전달
+      isAngry(false);
     } else {
       setIsDuple(false);
       preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+      isAngry(true);
     }
   };
 
@@ -47,8 +52,10 @@ const InputNickname: React.FC<Props> = ({ putNickname, preventNext }: Props) => 
 
     if (validateNickname(value)) {
       checkValidNickname(value);
+      isAngry(false); // 온화한 표정
     } else {
       preventNext(false); // 조건을 만족하지 않으면 다음 버튼 비활성화
+      isAngry(true); // 찡글이 표정
     }
   };
 

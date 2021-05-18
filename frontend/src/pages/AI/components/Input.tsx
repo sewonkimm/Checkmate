@@ -5,6 +5,7 @@ AI/components/Input.tsx
 
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Editor from '@monaco-editor/react';
@@ -15,6 +16,7 @@ type PropsType = {
 };
 
 const Input = ({ setOriginal, setAnalysed }: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const MySwal = withReactContent(Swal);
 
   const [content, setContent] = useState<string>('');
@@ -57,7 +59,7 @@ const Input = ({ setOriginal, setAnalysed }: PropsType): ReactElement => {
       MySwal.fire({
         text: '500자 이내의 글만 분석 가능합니다.',
         icon: 'warning',
-        confirmButtonText: '닫기',
+        confirmButtonText: t('cancel'),
         showCancelButton: false,
       });
       return false;
@@ -67,7 +69,7 @@ const Input = ({ setOriginal, setAnalysed }: PropsType): ReactElement => {
       MySwal.fire({
         text: '내용을 작성해주세요!',
         icon: 'warning',
-        confirmButtonText: '닫기',
+        confirmButtonText: t('cancel'),
         showCancelButton: false,
       });
       return false;
@@ -89,8 +91,10 @@ const Input = ({ setOriginal, setAnalysed }: PropsType): ReactElement => {
           onChange={handleEditorChange}
         />
       </EditorContainer>
-      <P>공백 포함 500자까지 분석합니다. ( {contentLength} / 500 )</P>
-      <Button onClick={handleSubmitButton}>분석하기</Button>
+      <P>
+        {t('ai_msg_input')} ( {contentLength} / 500 )
+      </P>
+      <Button onClick={handleSubmitButton}>{t('ai_button_analyze')}</Button>
     </InputContainer>
   );
 };
@@ -127,6 +131,10 @@ const Button = styled.button`
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 200ms ease-in;
+  &: hover {
+    transform: scale(1.03, 1.03);
+  }
 `;
 
 export default Input;

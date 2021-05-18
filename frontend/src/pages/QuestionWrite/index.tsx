@@ -77,6 +77,7 @@ const QuestionWrite: React.FC = () => {
       setContent(value.slice(0, 1000)); // 1,000자 제한
       setReadOnly(true); // 입력이 1,000자가 넘어가면 더이상 작성이 불가능하도록 함
     } else {
+      setContent(value);
       setReadOnly(false);
     }
   };
@@ -200,7 +201,6 @@ const QuestionWrite: React.FC = () => {
 // 질문 작성 페이지 style
 const WriteContainer = styled.div`
   width: 100%;
-  max-width: 1600px;
   margin: auto;
   padding: 80px 133px;
 `;

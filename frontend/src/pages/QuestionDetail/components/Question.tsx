@@ -63,19 +63,23 @@ const Question = (props: PropsType): ReactElement => {
       <Title>{question.questionTitle}</Title>
       <Explain>{question.questionExplain}</Explain>
 
-      {question.questionContents !== '' ? (
+      {question.questionContents !== '' && (
         <Contents>
           <Length>
-            {t('content')} ( {contentLength}자 )
+            {t('content')} ( {contentLength} )
           </Length>
           {question.questionContents}
         </Contents>
-      ) : (
+      )}
+
+      {/* 첨부파일 보기 */}
+      {question.questionUrl !== null && (
         <FileButton href={question.questionUrl} target="_blank" download>
           {t('detail_button_file')}
         </FileButton>
       )}
 
+      {/* 글 작성자만 수정 버튼 보기 */}
       {id === question.memberId && (
         <ButtonContainer>
           <UpdateButton id={question.questionId} />
@@ -87,8 +91,8 @@ const Question = (props: PropsType): ReactElement => {
 
 // 질문 컴포넌트 style
 const QuestionContainer = styled.div`
-  max-width: 985px;
-  margin: 100px auto 50px;
+  width: 100%;
+  margin: 20px auto 50px;
   padding: 30px;
   display: flex;
   flex-direction: column;

@@ -9,53 +9,47 @@ import { MemberType } from '../entity';
 import { logout } from '../modules/member';
 
 const SubHeader = (): ReactElement => {
-  const [member, setMember] = useState<MemberType | null>(useSelector((state: RootState) => state.member.member));
-  const [isMember, setIsMember] = useState<boolean>(false);
-  const [profileLink, setProfileLink] = useState<string>('');
-
   const dispatch = useDispatch();
   const router = useHistory();
   const { t, i18n } = useTranslation();
 
-  useEffect(() => {
-    const userLanguage = localStorage.getItem('language') || window.navigator.language || 'en';
+  const isLogin = useSelector((state: RootState) => state.member.isLogin);
+  const [member] = useState<MemberType>(useSelector((state: RootState) => state.member.member));
+  const [profileLink, setProfileLink] = useState<string>('');
+  const [lang, setLang] = useState<string>(i18n.languages[0]);
 
-    if (member === null) {
-      setIsMember(false);
-      i18n.changeLanguage(userLanguage);
-    } else if (member.memberId > 0) {
-      setIsMember(true);
+  useEffect(() => {
+    if (isLogin) {
       setProfileLink(`/profile/${member.memberId}`);
-      i18n.changeLanguage(member.memberNativeLang);
     }
-  }, [member, i18n]);
+  }, [isLogin, member]);
 
   // 로그아웃 액션 호출
   const onClickLogoutBtn = () => {
     dispatch(logout());
-    setMember(null);
     router.push('/');
   };
 
-  // 언어 변경
+  // 언어 변경 함수
   const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value;
     i18n.changeLanguage(lang);
+    setLang(lang);
     localStorage.setItem('language', lang);
   };
 
   return (
     <SubHeaderContainer>
-      <Select onChange={handleChangeLanguage}>
-        <option value="" selected disabled>
+      <Select value={lang} onChange={handleChangeLanguage}>
+        <SelectOption value="DEFAULT" disabled>
           {t('language')}
-        </option>
-        <option value="ko">한국어</option>
-        <option value="en">English</option>
-        <option value="zh">中文(简体)</option>
+        </SelectOption>
+        <SelectOption value="ko">한국어</SelectOption>
+        <SelectOption value="en">English</SelectOption>
+        <SelectOption value="zh">中文(简体)</SelectOption>
       </Select>
 
-      {isMember ? (
+      {isLogin ? (
         <>
           <StyledLink to={profileLink}>{t('mypage')}</StyledLink>
           <LogoutBtn onClick={onClickLogoutBtn}>{t('logout')}</LogoutBtn>
@@ -78,7 +72,7 @@ const SubHeaderContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: 16px 20px;
+  padding: 16px 48px;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -90,6 +84,11 @@ const Select = styled.select`
   border: none;
   background-color: transparent;
   outline: none;
+`;
+
+const SelectOption = styled.option`
+  color: ${({ theme }) => theme.colors.black};
+  font-size: 22px;
 `;
 
 const StyledLink = styled(Link)`
