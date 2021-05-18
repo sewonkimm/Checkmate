@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
@@ -11,8 +11,6 @@ import { WriteAPI } from '../../../api/answer';
 type PropsType = {
   id: number;
   questionContents: string;
-  setIsAnswerd: (value: boolean) => void;
-  writedAnswer: (value: boolean) => void;
 };
 
 type Params = {
@@ -21,6 +19,7 @@ type Params = {
 
 const WriteAnswer = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
+  const router = useHistory();
   const params: Params = useParams();
   const { id, questionContents } = props;
 
@@ -73,9 +72,7 @@ const WriteAnswer = (props: PropsType): ReactElement => {
         }).then((result) => {
           if (result.isConfirmed) {
             setShowWriteInput(false);
-            props.setIsAnswerd(true);
-            props.writedAnswer(true);
-            window.location.replace(`/question/${parseInt(params.id, 10)}`);
+            router.go(0);
           }
         });
       } else {

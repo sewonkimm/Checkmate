@@ -17,7 +17,6 @@ const getAnswers = async (url: string): Promise<AnswerType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
-      console.log(response);
       return response.data.list;
     })
     .catch((err) => {
@@ -26,12 +25,12 @@ const getAnswers = async (url: string): Promise<AnswerType[]> => {
     });
   return response;
 };
+
 // 답변 목록  총 갯수 조회
 const getAnswersNumber = async (url: string): Promise<number> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
-      console.log(response);
       return response.data.totalSize;
     })
     .catch((err) => {
