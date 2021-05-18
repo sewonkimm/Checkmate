@@ -122,7 +122,7 @@ const Answer = (props: PropsType): ReactElement => {
         </FileButton>
       )}
       {/* 답변 작성자가 보는 경우 삭제 버튼 */}
-      {id === answer.memberId && (
+      {id === answer.memberId && answer.answerSelect === 0 && (
         <ButtonContainer>
           {/* <Button>{t('update')}</Button> */}
           <Button onClick={handleDelete}>{t('delete')}</Button>

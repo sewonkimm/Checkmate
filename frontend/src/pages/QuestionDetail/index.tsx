@@ -73,7 +73,7 @@ const QuestionDetail: React.FC = () => {
     fetchAnswers();
   });
 
-  // 이미 답변을 작성했으면 isChecked를 true로 변경하여 또 작성하지 못하도록 함
+  // 이미 답변을 작성했으면 isAnswerd를 true로 변경하여 또 작성하지 못하도록 함
   useEffect(() => {
     if (answers.list !== null) {
       answers.list.map((answer: AnswerType) => {
@@ -101,16 +101,17 @@ const QuestionDetail: React.FC = () => {
           <BackButton onClick={handleBackButton}>{t('back')}</BackButton>
           <Question question={{ ...question }} id={myId} />
 
-          {myId !== question.memberId && !isAnswerd && (
+          {/* 질문 작성자가 아니고, 아직 채택되지 않았고, 답변을 작성하지 않았다면 질문 작성 컴포넌트 표시 */}
+          {myId !== question.memberId && !isAnswerd && !isChecked && (
             <WriteAnswer id={myId} questionContents={question.questionContents} setIsAnswerd={setIsAnswerd} />
           )}
 
-          {/* 아직 답변이 안달린 상태 */}
+          {/* 질문 작성자가 아니고, 답변 달았으나 채택이 안된 상태 */}
           {myId !== question.memberId && isAnswerd && !isChecked && (
             <Message type={1} id={myId} message={t('detail_msg_waiting')} />
           )}
 
-          {/* 답변이 달렸으나 채택을 하지 않은 상태 */}
+          {/* 질문 작성자, 답변이 달렸으나 채택을 하지 않은 상태 */}
           {myId === question.memberId && !isChecked && <Message type={3} id={myId} message={t('detail_msg_warning')} />}
 
           {/* 답변 채택된 상태 */}
