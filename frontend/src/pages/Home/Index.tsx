@@ -25,7 +25,7 @@ const Home = (): ReactElement => {
   const [MX, setMX] = useState<number>(0);
   const [MY, setMY] = useState<number>(0);
 
-  const handleMousemove = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMousemove = (e: React.MouseEvent<HTMLElement>): void => {
     x = e.clientX - window.innerWidth / 2;
     y = e.clientY - window.innerHeight / 2;
     setMX(MX + (x - MX) * speed);
@@ -101,7 +101,9 @@ const Home = (): ReactElement => {
           </Motion>
         </ImageWrapper>
       </TopContainer>
+
       <IntroMessenger />
+
       <Video url="https://www.youtube.com/embed/G9Bmp6NuHSI?controls=0" />
 
       <Footer />
@@ -110,7 +112,7 @@ const Home = (): ReactElement => {
 };
 
 const HomeContainer = styled.div`
-  overflow: hidden;
+  overflow: scroll;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};
