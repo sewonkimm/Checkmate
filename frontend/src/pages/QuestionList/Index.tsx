@@ -38,20 +38,27 @@ const QuestionList: React.FC = () => {
     const fetchQuestions = async () => {
       if (!isFiltered) {
         const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
-        const questionList = [...questions, ...response];
+        const questionList = [...response];
         setQuestions(questionList);
       }
     };
-    fetchQuestionNumber();
     fetchQuestions();
+    fetchQuestionNumber();
+  }, []);
+  // offset 변경 감지
+  useEffect(() => {
+    const getMoreQuestions = async () => {
+      const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
+      const newList = [...questions, ...response];
+      setQuestions(newList);
+    };
+    getMoreQuestions();
   }, [offset]);
 
   const handleLoader = () => {
-    if (totalNum === 0) {
-      setHasMore(false);
-    }
-    if (limit * (offset + 1) <= totalNum) {
+    if (limit * offset <= totalNum) {
       setOffset(offset + 1);
+      console.log(offset);
     } else {
       setHasMore(false); // 더이상 불러올 데이터가 없을 때
       toast.success(t('list_upload_finish'), {

@@ -7,6 +7,7 @@ import React, { ReactElement, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,6 +32,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
   const router = useHistory();
   const MySwal = withReactContent(Swal);
+  const [waiting, setWaiting] = useState<boolean>(false);
 
   const [memberId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
 
@@ -74,7 +76,11 @@ const SubmitButton = (props: PropsType): ReactElement => {
           icon: 'success',
         }).then((result: any) => {
           if (result.isConfirmed) {
-            router.push('/check/mate');
+            setTimeout(() => {
+              router.push('/check/mate');
+              setWaiting(false);
+            }, 500);
+            setWaiting(true);
           }
         });
       } else {
@@ -114,6 +120,7 @@ const SubmitButton = (props: PropsType): ReactElement => {
         draggable
         pauseOnHover
       />
+      {waiting && <StyleLoader type="Bars" color="#0F16F8" height={100} width={100} />}
     </>
   );
 };
@@ -134,6 +141,15 @@ const Button = styled.button`
 const StyledToastContainer = styled(ToastContainer)`
   width: 25vw;
   font-size: 20px;
+`;
+
+const StyleLoader = styled(Loader)`
+  display: block;
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  width: 40%;
+  height: 40%;
 `;
 
 export default SubmitButton;

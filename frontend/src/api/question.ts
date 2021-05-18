@@ -16,6 +16,7 @@ const getQuestions = async (url: string): Promise<ResponseQuestionType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
+      console.log(response);
       const resList = response.data.list;
       return resList;
     })
