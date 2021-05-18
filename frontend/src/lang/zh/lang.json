@@ -103,6 +103,7 @@
   "write_msg_error": "失败上传",
   "write_msg_success": "问题填写成功！",
   "write_msg_warning": "请输入全部项目",
+  "write_msg_warning_point": "缺少亮点",
   "write_msg_cancel": "您真的要取消提问吗 ？",
   "answer_placeholder_content": "请将添加内容写在1,000字以内",
   "answer_placeholder_explain": "请填写答复的说明",
