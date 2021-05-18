@@ -19,6 +19,7 @@ import ReviewModal from './ReviewModal';
 
 type PropsType = {
   id: number; // memberID
+  questionMemberId: number; // 질문자ID
   answer: AnswerType;
   questionStatus: number;
   questionContents: string;
@@ -28,7 +29,7 @@ type PropsType = {
 
 const Answer = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
-  const { id, answer, questionStatus, questionContents } = props;
+  const { id, questionMemberId, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -129,7 +130,7 @@ const Answer = (props: PropsType): ReactElement => {
         </ButtonContainer>
       )}
       {/* 질문 작성자가 보는 경우 채택 버튼 */}
-      {id === answer.questionId && questionStatus === 0 && (
+      {id === questionMemberId && questionStatus === 0 && (
         <ButtonContainer>
           <ChooseButton onClick={handleChoose}>{t('detail_button_pick')}</ChooseButton>
         </ButtonContainer>

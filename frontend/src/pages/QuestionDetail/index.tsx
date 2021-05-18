@@ -121,6 +121,7 @@ const QuestionDetail: React.FC = () => {
             questionStatus={question.questionStatus}
             questionContents={question.questionContents}
             id={myId}
+            questionMemberId={question.memberId}
             offset={offset}
             hasMore={hasMore}
             fetchAnswer={fetchAnswers}
