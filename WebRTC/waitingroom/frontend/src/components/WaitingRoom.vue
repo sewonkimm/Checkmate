@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin:80px">
     <v-row>
       <v-col
         cols="3"
@@ -12,7 +12,7 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            :src="'http://k4a106.p.ssafy.io:8888/' + item.roomType + '.png'"
+            :src="'https://k4a1061.p.ssafy.io/' + item.roomType + '.png'"
             style="opacity:0.8"
           >
           </v-img>

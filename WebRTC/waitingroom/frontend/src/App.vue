@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="#0F16F8" dark style="height:58px"> </v-app-bar>
-    <div style="max-height:200px">
+    <div style="max-height:200px">  
       <a href="https://k4a106.p.ssafy.io" style="cursor:default">
         <v-img
           alt="CheckMate Logo"
@@ -59,9 +59,11 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+  
+   
     </div>
 
-    <v-main>
+    <v-main style="padding:0px">
       <WaitingRoom />
     </v-main>
   </v-app>
