@@ -9,13 +9,14 @@ import { MemberType } from '../entity';
 import { logout } from '../modules/member';
 
 const SubHeader = (): ReactElement => {
-  const isLogin = useSelector((state: RootState) => state.member.isLogin);
-  const [member] = useState<MemberType>(useSelector((state: RootState) => state.member.member));
-  const [profileLink, setProfileLink] = useState<string>('');
-
   const dispatch = useDispatch();
   const router = useHistory();
   const { t, i18n } = useTranslation();
+
+  const isLogin = useSelector((state: RootState) => state.member.isLogin);
+  const [member] = useState<MemberType>(useSelector((state: RootState) => state.member.member));
+  const [profileLink, setProfileLink] = useState<string>('');
+  const [lang, setLang] = useState<string>(i18n.languages[0]);
 
   useEffect(() => {
     if (isLogin) {
@@ -33,12 +34,13 @@ const SubHeader = (): ReactElement => {
   const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value;
     i18n.changeLanguage(lang);
+    setLang(lang);
     localStorage.setItem('language', lang);
   };
 
   return (
     <SubHeaderContainer>
-      <Select onChange={handleChangeLanguage}>
+      <Select value={lang} onChange={handleChangeLanguage}>
         <SelectOption value="DEFAULT" disabled>
           {t('language')}
         </SelectOption>
