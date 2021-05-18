@@ -48,7 +48,7 @@
   "register_placeholder_password": "请使用8~10字的英文/数字组合",
   "register_msg_incorrect_password": "密码不一致",
   "regeister_title_nickname": "请输入昵称",
-  "register_placeholder_nickname": "请使用4~12字的英文/数字组合",
+  "register_placeholder_nickname": "请使用4~12字",
   "register_msg_used_nickname": "已经在使用的昵称",
   "register_msg_welcome": "恭喜你加入！",
   "register_button_next": "下一个",
