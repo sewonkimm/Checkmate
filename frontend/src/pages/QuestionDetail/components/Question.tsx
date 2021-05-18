@@ -66,7 +66,7 @@ const Question = (props: PropsType): ReactElement => {
       {question.questionContents !== '' ? (
         <Contents>
           <Length>
-            {t('content')} ( {contentLength}자 )
+            {t('content')} ( {contentLength} )
           </Length>
           {question.questionContents}
         </Contents>

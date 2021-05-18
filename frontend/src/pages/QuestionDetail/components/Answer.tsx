@@ -18,7 +18,7 @@ import BadgeComponent from '../../../components/Badge';
 import ReviewModal from './ReviewModal';
 
 type PropsType = {
-  id: number;
+  id: number; // memberID
   answer: AnswerType;
   questionStatus: number;
   questionContents: string;
@@ -104,7 +104,6 @@ const Answer = (props: PropsType): ReactElement => {
           {t('date')} {createdDate}
         </WriteDate>
       )}
-
       <ProfileContainer>
         {memberInfo?.memberProfileUrl === '' ? (
           <ProfileImage src={profileImage} alt="profile" />
@@ -114,18 +113,14 @@ const Answer = (props: PropsType): ReactElement => {
 
         <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
-
       {answer.answerExplain !== '' && <Explain>{answer.answerExplain}</Explain>}
-
       <Diff origin={questionContents} input={answer.answerContents} />
-
       {/* 첨부파일 보기 */}
       {answer.answerUrl !== null && (
         <FileButton href={answer.answerUrl} target="_blank" download>
           {t('detail_button_file')}
         </FileButton>
       )}
-
       {/* 답변 작성자가 보는 경우 삭제 버튼 */}
       {id === answer.memberId && (
         <ButtonContainer>
@@ -133,14 +128,12 @@ const Answer = (props: PropsType): ReactElement => {
           <Button onClick={handleDelete}>{t('delete')}</Button>
         </ButtonContainer>
       )}
-
       {/* 질문 작성자가 보는 경우 채택 버튼 */}
-      {id !== answer.memberId && questionStatus === 0 && (
+      {id === answer.questionId && questionStatus === 0 && (
         <ButtonContainer>
           <ChooseButton onClick={handleChoose}>{t('detail_button_pick')}</ChooseButton>
         </ButtonContainer>
       )}
-
       {/* 리뷰 Modal */}
       {showModal && answer.answerId !== undefined && (
         <ReviewModal
