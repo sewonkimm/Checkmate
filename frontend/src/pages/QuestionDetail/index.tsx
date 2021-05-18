@@ -14,8 +14,8 @@ import Loader from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../modules';
 import { getQuestionDetail } from '../../api/question';
-import { getAnswers } from '../../api/answer';
-import { ResponseAnswerType, AnswerType, QuestionType } from '../../entity';
+import { getAnswers, getAnswersNumber } from '../../api/answer';
+import { AnswerType, QuestionType } from '../../entity';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Question from './components/Question';
@@ -38,26 +38,23 @@ const QuestionDetail: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false); // 채택된 답변인지 구분
   const [isAnswerd, setIsAnswerd] = useState<boolean>(false); // 내가 답변을 작성한 게시글인지 구분
   const [question, setQuestion] = useState<QuestionType>();
-  const [answers, setAnswers] = useState<ResponseAnswerType>({ totalSize: 0, list: [] });
+  const [answers, setAnswers] = useState<AnswerType[]>([]);
   const [totalSize, setTotalSize] = useState<number>(0);
+  const [madeAnswer, setMadeAnswer] = useState<boolean>(false);
 
   // 답변들 불러오기
   const fetchAnswers = async () => {
-    if (hasMore) {
-      const answers = await getAnswers(`answers/list/${params.id}/0/${limit}`);
-      if (answers.totalSize === 0) {
-        setHasMore(false);
-      } else if (limit * offset < answers.totalSize) {
-        setOffset(offset + 1);
-        setHasMore(false);
-      } else {
-        setAnswers(answers);
-      }
-    }
+    const response = await getAnswers(`answers/list/${params.id}/${offset}/${limit}`);
+    setAnswers(response);
+  };
+  // 답변 총갯수 불러오기
+  const fetchNumberAnswers = async () => {
+    const response = await getAnswersNumber(`answers/list/${params.id}/${offset}/${limit}`);
+    setTotalSize(response);
   };
 
   useEffect(() => {
-    // 질문 내용 불러오기
+    // 질문 내용 불러오기 && 한번만 실행되는 useEffect
     const fetchQuestionDetail = async () => {
       const questionDetail = await getQuestionDetail(`questions/${params.id}`);
       if (questionDetail.questionStatus === 1) {
@@ -66,18 +63,25 @@ const QuestionDetail: React.FC = () => {
       setQuestion(questionDetail);
     };
 
-    fetchQuestionDetail();
     fetchAnswers();
+    fetchQuestionDetail();
+    fetchNumberAnswers();
   }, []);
 
   useEffect(() => {
-    fetchAnswers();
-  });
+    const fetchMoreAnswers = async () => {
+      const response = await getAnswers(`answers/list/${params.id}/${offset}/${limit}`);
+      const newAnswers = [...answers, ...response];
+      setAnswers(newAnswers);
+    };
+
+    fetchMoreAnswers();
+  }, [offset]);
 
   // 이미 답변을 작성했으면 isAnswerd를 true로 변경하여 또 작성하지 못하도록 함
   useEffect(() => {
-    if (answers.list !== null) {
-      answers.list.map((answer: AnswerType) => {
+    if (answers !== null) {
+      answers.map((answer: AnswerType) => {
         if (answer.memberId === myId) {
           setIsAnswerd(true);
         }
@@ -87,6 +91,18 @@ const QuestionDetail: React.FC = () => {
 
   const handleBackButton = () => {
     router.goBack();
+  };
+
+  // infinite handle loader func
+  const handleLoader = () => {
+    if (totalSize === 0) {
+      setHasMore(false);
+    } else if (limit * offset < totalSize) {
+      setOffset(offset + 1);
+      setHasMore(false);
+    } else {
+      setAnswers(answers);
+    }
   };
 
   return (
@@ -104,7 +120,12 @@ const QuestionDetail: React.FC = () => {
 
           {/* 질문 작성자가 아니고, 아직 채택되지 않았고, 답변을 작성하지 않았다면 질문 작성 컴포넌트 표시 */}
           {myId !== question.memberId && !isAnswerd && !isChecked && (
-            <WriteAnswer id={myId} questionContents={question.questionContents} setIsAnswerd={setIsAnswerd} />
+            <WriteAnswer
+              id={myId}
+              questionContents={question.questionContents}
+              setIsAnswerd={setIsAnswerd}
+              writedAnswer={setMadeAnswer}
+            />
           )}
 
           {/* 질문 작성자가 아니고, 답변 달았으나 채택이 안된 상태 */}
@@ -119,13 +140,14 @@ const QuestionDetail: React.FC = () => {
           {isChecked && <Message type={2} id={myId} message={t('detail_msg_picked')} />}
           <Answers
             answer={answers}
+            totalSize={totalSize}
             questionStatus={question.questionStatus}
             questionContents={question.questionContents}
             id={myId}
             questionMemberId={question.memberId}
             offset={offset}
             hasMore={hasMore}
-            fetchAnswer={fetchAnswers}
+            handleLoader={handleLoader}
             setIsAnswerd={setIsAnswerd}
             setIsChecked={setIsChecked}
           />

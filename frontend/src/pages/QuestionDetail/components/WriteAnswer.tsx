@@ -12,7 +12,7 @@ type PropsType = {
   id: number;
   questionContents: string;
   setIsAnswerd: (value: boolean) => void;
-  isAnswered: (value: boolean) => void;
+  writedAnswer: (value: boolean) => void;
 };
 
 type Params = {
@@ -74,7 +74,8 @@ const WriteAnswer = (props: PropsType): ReactElement => {
           if (result.isConfirmed) {
             setShowWriteInput(false);
             props.setIsAnswerd(true);
-            props.isAnswered(true);
+            props.writedAnswer(true);
+            window.location.replace(`/question/${parseInt(params.id, 10)}`);
           }
         });
       } else {

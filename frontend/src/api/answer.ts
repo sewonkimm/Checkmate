@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnswerType, ResponseAnswerType, ReviewType } from '../entity';
+import { AnswerType, ReviewType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;

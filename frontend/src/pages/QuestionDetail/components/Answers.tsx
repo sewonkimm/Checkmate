@@ -9,19 +9,20 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Loader from 'react-loader-spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { AnswerType, ResponseAnswerType } from '../../../entity';
+import { AnswerType } from '../../../entity';
 import { noAnswer } from '../../../assets';
 import Answer from './Answer';
 
 type PropsType = {
+  totalSize: number;
   id: number;
   questionMemberId: number;
-  answer: ResponseAnswerType;
+  answer: AnswerType[];
   questionStatus: number;
   questionContents: string;
   offset: number;
   hasMore: boolean;
-  fetchAnswer: () => void;
+  handleLoader: () => void;
   setIsAnswerd: (value: boolean) => void;
   setIsChecked: (value: boolean) => void;
 };
@@ -31,8 +32,8 @@ const Answers = (props: PropsType): ReactElement => {
   const { id, questionMemberId, answer, questionStatus, questionContents, offset, hasMore } = props;
 
   let answerComponents;
-  if (answer.list !== null) {
-    answerComponents = answer.list.map((item: AnswerType) => {
+  if (answer.length !== 0) {
+    answerComponents = answer.map((item: AnswerType) => {
       return (
         <Answer
           key={item.answerId}
@@ -50,7 +51,7 @@ const Answers = (props: PropsType): ReactElement => {
 
   return (
     <AnswerContainer>
-      {answer.totalSize === 0 ? (
+      {props.totalSize === 0 ? (
         <NoAnswer>
           <NoAnswerImage src={noAnswer} alt="no answer" />
           {t('detail_no_answer')}
@@ -58,7 +59,7 @@ const Answers = (props: PropsType): ReactElement => {
       ) : (
         <InfiniteScroll
           dataLength={offset}
-          next={props.fetchAnswer}
+          next={props.handleLoader}
           hasMore={hasMore}
           loader={
             <LoaderWrapper>

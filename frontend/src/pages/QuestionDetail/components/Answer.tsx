@@ -5,6 +5,7 @@ QuestionDetail/components/Answer.tsx
 */
 
 import React, { ReactElement, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
@@ -26,8 +27,11 @@ type PropsType = {
   setIsAnswerd: (value: boolean) => void;
   setIsChecked: (value: boolean) => void;
 };
-
+type Params = {
+  id: string;
+};
 const Answer = (props: PropsType): ReactElement => {
+  const params: Params = useParams();
   const { t } = useTranslation();
   const { id, questionMemberId, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
@@ -68,6 +72,7 @@ const Answer = (props: PropsType): ReactElement => {
 
         if (response === 200) {
           props.setIsAnswerd(false);
+          window.location.replace(`/question/${parseInt(params.id, 10)}`);
         }
       }
     });
