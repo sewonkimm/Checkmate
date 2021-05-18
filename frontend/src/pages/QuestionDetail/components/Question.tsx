@@ -63,19 +63,23 @@ const Question = (props: PropsType): ReactElement => {
       <Title>{question.questionTitle}</Title>
       <Explain>{question.questionExplain}</Explain>
 
-      {question.questionContents !== '' ? (
+      {question.questionContents !== '' && (
         <Contents>
           <Length>
             {t('content')} ( {contentLength} )
           </Length>
           {question.questionContents}
         </Contents>
-      ) : (
+      )}
+
+      {/* 첨부파일 보기 */}
+      {question.questionUrl !== null && (
         <FileButton href={question.questionUrl} target="_blank" download>
           {t('detail_button_file')}
         </FileButton>
       )}
 
+      {/* 글 작성자만 수정 버튼 보기 */}
       {id === question.memberId && (
         <ButtonContainer>
           <UpdateButton id={question.questionId} />
