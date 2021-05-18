@@ -5,6 +5,7 @@ AI/components/Result.tsx
 
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import Diff from '../../../components/Diff';
 import { ResponseAIType, ResponseAIFixType } from '../../../entity';
 import Graph from './Graph';
@@ -17,6 +18,7 @@ type PropsType = {
 };
 
 const Result = (props: PropsType): ReactElement => {
+  const { t } = useTranslation();
   const { graphData, recommendData } = props;
 
   const handleRewriteButton = () => {
@@ -26,7 +28,7 @@ const Result = (props: PropsType): ReactElement => {
   return (
     <ResultContainer>
       <Diff origin={graphData.original} input={graphData.checked} />
-      <Button onClick={handleRewriteButton}>다시쓰기</Button>
+      <Button onClick={handleRewriteButton}>{t('ai_button_rewrite')}</Button>
 
       <Graph data={graphData} />
       <Fix data={recommendData} />

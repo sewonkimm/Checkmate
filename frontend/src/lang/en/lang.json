@@ -19,6 +19,8 @@
   "content": "Revision content",
   "checkmate": "Checkmate",
   "back": "Back",
+  "forbidden": "Login is required",
+  "word": "words",
 
   "footer_service_intro": "About our Service",
   "footer_team": "About our Team",
@@ -133,5 +135,6 @@
   "ai_msg_warning_long": "Long sentence is better be shorter",
   "ai_msg_warning_japan": "Avoid the use of Japanism expression",
   "ai_msg_warning_english": "Better change anglicism expression to Korea expression style",
-  "ai_msg_warning_chinese": "Avoid the use of Chinese-Korean word"
+  "ai_msg_warning_chinese": "Avoid the use of Chinese-Korean word",
+  "ai_msg_perfect": "There's nothing to modify!"
 }

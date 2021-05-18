@@ -66,6 +66,7 @@ const Login: React.FC = () => {
       });
     } else {
       const member: LoginReturnType = jwt_decode(response.accesstoken);
+      localStorage.setItem('token', response.accesstoken);
       dispatch(login(member.member));
       router.push('/');
     }
