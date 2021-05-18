@@ -187,7 +187,7 @@ const TextareaInput = styled.textarea`
 `;
 
 const WriteButtonContainer = styled.div`
-  max-width: 985px;
+  width: 100%;
   margin: auto;
   padding: 30px;
   display: flex;
