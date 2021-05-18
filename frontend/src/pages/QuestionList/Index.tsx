@@ -34,8 +34,6 @@ const QuestionList: React.FC = () => {
     const fetchQuestionNumber = async () => {
       const totalNum = await getTotalSize(`questions/${listType}/${offset}/${limit}`);
       setTotalNum(totalNum);
-      // eslint-disable-next-line no-console
-      console.log(totalNum);
     };
     const fetchQuestions = async () => {
       if (!isFiltered) {
