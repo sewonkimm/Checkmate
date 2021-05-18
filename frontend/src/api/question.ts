@@ -16,6 +16,8 @@ const getQuestions = async (url: string): Promise<ResponseQuestionType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response);
       const resList = response.data.list;
       return resList;
     })

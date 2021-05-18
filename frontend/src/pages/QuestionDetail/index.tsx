@@ -85,7 +85,7 @@ const QuestionDetail: React.FC = () => {
   }, [answers, myId]);
 
   const handleBackButton = () => {
-    router.goBack();
+    router.push('/check/mate');
   };
 
   return (

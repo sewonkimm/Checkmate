@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loader from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -28,31 +30,41 @@ const QuestionList: React.FC = () => {
 
   // 질문 로드
   useEffect(() => {
+    // 질문 불러오기
+    const fetchQuestionNumber = async () => {
+      const totalNum = await getTotalSize(`questions/${listType}/${offset}/${limit}`);
+      setTotalNum(totalNum);
+      // eslint-disable-next-line no-console
+      console.log(totalNum);
+    };
+    const fetchQuestions = async () => {
+      if (!isFiltered) {
+        const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
+        const questionList = [...questions, ...response];
+        setQuestions(questionList);
+      }
+    };
     fetchQuestionNumber();
-  });
+    fetchQuestions();
+  }, [offset]);
 
-  // 질문 불러오기
-  const fetchQuestionNumber = async () => {
-    const totalNum = await getTotalSize(`questions/${listType}/${offset}/${limit}`);
-    setTotalNum(totalNum);
-
+  const handleLoader = () => {
     if (totalNum === 0) {
       setHasMore(false);
     }
-
-    if (limit * offset < totalNum) {
+    if (limit * (offset + 1) <= totalNum) {
       setOffset(offset + 1);
-      fetchQuestions();
     } else {
       setHasMore(false); // 더이상 불러올 데이터가 없을 때
-    }
-  };
-
-  const fetchQuestions = async () => {
-    if (hasMore && !isFiltered) {
-      const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
-      const questionList = [...questions, ...response];
-      setQuestions(questionList);
+      toast.success(t('list_upload_finish'), {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -77,7 +89,7 @@ const QuestionList: React.FC = () => {
       {totalNum > 0 ? (
         <InfiniteScroll
           dataLength={offset}
-          next={fetchQuestions}
+          next={handleLoader}
           hasMore={hasMore}
           loader={<Loader type="TailSpin" color="#038EFC" height={50} width={50} />}
         >
@@ -89,6 +101,17 @@ const QuestionList: React.FC = () => {
           {t('list_msg_empty')}
         </NoAnswer>
       )}
+      <StyledToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </HomeContainer>
   );
 };
@@ -115,5 +138,9 @@ const NoAnswerImage = styled.img`
   width: 388px;
   height: 388px;
   margin-bottom: 10px;
+`;
+const StyledToastContainer = styled(ToastContainer)`
+  font-size: 19px;
+  width: 17em;
 `;
 export default QuestionList;
