@@ -55,7 +55,6 @@ const Message = ({ id, type, message }: PropsType): ReactElement => {
 };
 
 const Container = styled.div`
-  max-width: 985px;
   width: 100%;
   margin: auto;
   padding: 30px;
