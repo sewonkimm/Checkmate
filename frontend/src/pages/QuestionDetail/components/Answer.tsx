@@ -18,7 +18,8 @@ import BadgeComponent from '../../../components/Badge';
 import ReviewModal from './ReviewModal';
 
 type PropsType = {
-  id: number;
+  id: number; // memberID
+  questionMemberId: number; // 질문자ID
   answer: AnswerType;
   questionStatus: number;
   questionContents: string;
@@ -28,7 +29,7 @@ type PropsType = {
 
 const Answer = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
-  const { id, answer, questionStatus, questionContents } = props;
+  const { id, questionMemberId, answer, questionStatus, questionContents } = props;
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -104,7 +105,6 @@ const Answer = (props: PropsType): ReactElement => {
           {t('date')} {createdDate}
         </WriteDate>
       )}
-
       <ProfileContainer>
         {memberInfo?.memberProfileUrl === '' ? (
           <ProfileImage src={profileImage} alt="profile" />
@@ -114,33 +114,27 @@ const Answer = (props: PropsType): ReactElement => {
 
         <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
-
       {answer.answerExplain !== '' && <Explain>{answer.answerExplain}</Explain>}
-
       <Diff origin={questionContents} input={answer.answerContents} />
-
       {/* 첨부파일 보기 */}
       {answer.answerUrl !== null && (
         <FileButton href={answer.answerUrl} target="_blank" download>
           {t('detail_button_file')}
         </FileButton>
       )}
-
       {/* 답변 작성자가 보는 경우 삭제 버튼 */}
-      {id === answer.memberId && (
+      {id === answer.memberId && answer.answerSelect === 0 && (
         <ButtonContainer>
           {/* <Button>{t('update')}</Button> */}
           <Button onClick={handleDelete}>{t('delete')}</Button>
         </ButtonContainer>
       )}
-
       {/* 질문 작성자가 보는 경우 채택 버튼 */}
-      {id !== answer.memberId && questionStatus === 0 && (
+      {id === questionMemberId && questionStatus === 0 && (
         <ButtonContainer>
           <ChooseButton onClick={handleChoose}>{t('detail_button_pick')}</ChooseButton>
         </ButtonContainer>
       )}
-
       {/* 리뷰 Modal */}
       {showModal && answer.answerId !== undefined && (
         <ReviewModal

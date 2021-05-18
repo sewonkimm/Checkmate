@@ -15,6 +15,7 @@ import Answer from './Answer';
 
 type PropsType = {
   id: number;
+  questionMemberId: number;
   answer: ResponseAnswerType;
   questionStatus: number;
   questionContents: string;
@@ -27,7 +28,7 @@ type PropsType = {
 
 const Answers = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
-  const { id, answer, questionStatus, questionContents, offset, hasMore } = props;
+  const { id, questionMemberId, answer, questionStatus, questionContents, offset, hasMore } = props;
 
   let answerComponents;
   if (answer.list !== null) {
@@ -36,6 +37,7 @@ const Answers = (props: PropsType): ReactElement => {
         <Answer
           key={item.answerId}
           id={id}
+          questionMemberId={questionMemberId}
           answer={item}
           questionStatus={questionStatus}
           questionContents={questionContents}
