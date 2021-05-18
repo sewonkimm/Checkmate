@@ -9,8 +9,8 @@ import { MemberType } from '../entity';
 import { logout } from '../modules/member';
 
 const SubHeader = (): ReactElement => {
-  const [member, setMember] = useState<MemberType | null>(useSelector((state: RootState) => state.member.member));
-  const [isMember, setIsMember] = useState<boolean>(false);
+  const isLogin = useSelector((state: RootState) => state.member.isLogin);
+  const [member] = useState<MemberType>(useSelector((state: RootState) => state.member.member));
   const [profileLink, setProfileLink] = useState<string>('');
 
   const dispatch = useDispatch();
@@ -18,22 +18,14 @@ const SubHeader = (): ReactElement => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const userLanguage = localStorage.getItem('language') || window.navigator.language || 'en';
-
-    if (member === null) {
-      setIsMember(false);
-      i18n.changeLanguage(userLanguage);
-    } else if (member.memberId > 0) {
-      setIsMember(true);
+    if (isLogin) {
       setProfileLink(`/profile/${member.memberId}`);
-      i18n.changeLanguage(member.memberNativeLang);
     }
-  }, [member, i18n]);
+  }, [isLogin, member]);
 
   // 로그아웃 액션 호출
   const onClickLogoutBtn = () => {
     dispatch(logout());
-    setMember(null);
     router.push('/');
   };
 
@@ -55,7 +47,7 @@ const SubHeader = (): ReactElement => {
         <SelectOption value="zh">中文(简体)</SelectOption>
       </Select>
 
-      {isMember ? (
+      {isLogin ? (
         <>
           <StyledLink to={profileLink}>{t('mypage')}</StyledLink>
           <LogoutBtn onClick={onClickLogoutBtn}>{t('logout')}</LogoutBtn>

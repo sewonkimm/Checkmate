@@ -8,6 +8,7 @@ import { MemberType } from '../entity';
 // action types
 const LOGIN = 'member/LOGIN' as const; // action type 선언시 as const(const assertions 문법)라는 키워드를 붙어야 합니다
 const LOGOUT = 'member/LOGOUT' as const;
+const LOGINCHECK = 'member/LOGINCHECK' as const;
 
 // action creators
 export const login = (member: MemberType) => ({
@@ -17,12 +18,16 @@ export const login = (member: MemberType) => ({
 export const logout = () => ({
   type: LOGOUT,
 });
+export const logincheck = () => ({
+  type: LOGINCHECK,
+});
 
-type MemberAction = ReturnType<typeof login> | ReturnType<typeof logout>;
+type MemberAction = ReturnType<typeof login> | ReturnType<typeof logout> | ReturnType<typeof logincheck>;
 
 // state
 type MemberState = {
   member: MemberType;
+  isLogin: boolean;
 };
 
 const initialState: MemberState = {
@@ -36,6 +41,7 @@ const initialState: MemberState = {
     memberProfileUrl: '',
     memberTypeId: 0,
   },
+  isLogin: false,
 };
 
 // reducers
@@ -43,9 +49,13 @@ function memberReducer(state = initialState, action: MemberAction): MemberState 
   switch (action.type) {
     case LOGIN:
       localStorage.setItem('language', action.payload.memberNativeLang); // 모국어 설정
-      return { member: action.payload };
+      return { member: action.payload, isLogin: true };
     case LOGOUT:
-      return { member: initialState.member };
+      localStorage.removeItem('language');
+      localStorage.removeItem('token');
+      return { member: initialState.member, isLogin: false };
+    case LOGINCHECK:
+      return { member: state.member, isLogin: true };
     default:
       return state;
   }
