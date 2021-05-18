@@ -56,7 +56,10 @@ const Graph = (props: PropsType): ReactElement => {
           </Chart>
           <ResultContainer>
             <P>
-              {t('ai_result_title_word')} : {data.errorRate}% <Span>({data.errors})</Span>
+              {t('ai_result_title_word')} : {data.errorRate}%{' '}
+              <Span>
+                ({data.errors} / {data.total} {t('word')})
+              </Span>
             </P>
             <ResultElement>
               <Label color="#E25229" />
@@ -123,7 +126,7 @@ const P = styled.p`
   margin-bottom: 20px;
 `;
 const Span = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.title};
+  font-size: ${({ theme }) => theme.fontSizes.body};
   font-weight: normal;
 `;
 const ResultElement = styled.p`
