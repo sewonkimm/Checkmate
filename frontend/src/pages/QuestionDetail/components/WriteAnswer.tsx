@@ -12,6 +12,7 @@ type PropsType = {
   id: number;
   questionContents: string;
   setIsAnswerd: (value: boolean) => void;
+  isAnswered: (value: boolean) => void;
 };
 
 type Params = {
@@ -73,6 +74,7 @@ const WriteAnswer = (props: PropsType): ReactElement => {
           if (result.isConfirmed) {
             setShowWriteInput(false);
             props.setIsAnswerd(true);
+            props.isAnswered(true);
           }
         });
       } else {

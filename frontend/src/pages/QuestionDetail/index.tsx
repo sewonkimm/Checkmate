@@ -39,6 +39,7 @@ const QuestionDetail: React.FC = () => {
   const [isAnswerd, setIsAnswerd] = useState<boolean>(false); // 내가 답변을 작성한 게시글인지 구분
   const [question, setQuestion] = useState<QuestionType>();
   const [answers, setAnswers] = useState<ResponseAnswerType>({ totalSize: 0, list: [] });
+  const [totalSize, setTotalSize] = useState<number>(0);
 
   // 답변들 불러오기
   const fetchAnswers = async () => {
@@ -85,7 +86,7 @@ const QuestionDetail: React.FC = () => {
   }, [answers, myId]);
 
   const handleBackButton = () => {
-    router.push('/check/mate');
+    router.goBack();
   };
 
   return (
