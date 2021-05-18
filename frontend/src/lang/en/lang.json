@@ -103,6 +103,7 @@
   "write_msg_error": "Failed to upload",
   "write_msg_success": "You have successfully created the question!",
   "write_msg_warning": "Please fill in all the items",
+  "write_msg_warning_point": "Not enough points",
   "write_msg_cancel": "Are you sure you want to cancel writing the question?",
   "answer_placeholder_content": "Write correction in 1,000 words",
   "answer_placeholder_explain": "Write explanation  for your answer",

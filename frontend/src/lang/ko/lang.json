@@ -103,6 +103,7 @@
   "write_msg_error": "업로드에 실패했습니다",
   "write_msg_success": "질문 작성에 성공했습니다!",
   "write_msg_warning": "항목을 모두 입력해주세요",
+  "write_msg_warning_point": "포인트가 부족합니다",
   "write_msg_cancel": "정말 질문 작성을 취소하시겠습니까?",
   "answer_placeholder_content": "첨삭 내용을 1,000자 이내로 작성해주세요",
   "answer_placeholder_explain": "답변에 대한 설명을 작성해주세요",
