@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactElement, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -17,6 +18,7 @@ import { profileImage } from '../../assets/index';
 
 const Index = (): ReactElement => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   const userId: number = useSelector((state: RootState) => state.member).member.memberId;
   const [myInfo, setMyInfo] = useState<MemberType>({
@@ -33,21 +35,15 @@ const Index = (): ReactElement => {
   const [reviewTotalSize, setReviewTotalSize] = useState<number>(0);
   const [myReview, setMyReview] = useState<ReviewType[]>([]);
   const [getMoreReviewStatus, setGetMoreReviewStatus] = useState<boolean>(true);
-  const [reviewLimit, setReviewLimit] = useState<number>(6);
+  const [reviewLimit] = useState<number>(6);
   const [reviewScore, setReviewScore] = useState<number>(0);
+
   // 사용자 기본 정보 조회
   useEffect(() => {
     const fetchMemberInfo = async () => {
       const response = await getMemberInfo(`members/${userId}`);
       if (response === null) {
-        toast.error(t('my_msg_failed'), {
-          position: 'bottom-right',
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        history.push('/'); // 메인으로 분기
       } else {
         setMyInfo(response);
       }
@@ -95,10 +91,10 @@ const Index = (): ReactElement => {
     fetchMyReviewScore();
   }, [offset]);
 
-  // 회원 정보 변경
   const updateMyInfo = () => {
-    console.log(`clicked btn`);
+    // 회원 정보 변경
   };
+
   // 후기 더보기 버튼
   const getMoreReviews = () => {
     if (reviewTotalSize > offset) {
@@ -121,7 +117,7 @@ const Index = (): ReactElement => {
         </MyInfoWrap>
         {/* 충전 포인트 관련 섹션 */}
         <FillupPoint memberInfo={myInfo} />
-        <MyInfoEditBtn onClick={updateMyInfo}>{t('update')}</MyInfoEditBtn>
+        {/* <MyInfoEditBtn onClick={updateMyInfo}>{t('update')}</MyInfoEditBtn> */}
         <MyQuestions />
         <MyReview
           avgScore={reviewScore}

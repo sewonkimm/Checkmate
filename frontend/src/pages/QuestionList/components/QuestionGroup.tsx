@@ -33,10 +33,10 @@ const QuestionGroup = (props: PropsType): ReactElement => {
     <QuestionsWrap>
       {isFiltered && id !== 0
         ? myQuestions.map((item: ResponseQuestionType) => (
-            <QuestionCard key={item.question.questionId + Date.now()} question={item} />
+            <QuestionCard id={id} key={item.question.questionId + Date.now()} question={item} />
           ))
         : questions.map((item: ResponseQuestionType) => (
-            <QuestionCard key={item.question.questionId + Date.now()} question={item} />
+            <QuestionCard id={id} key={item.question.questionId + Date.now()} question={item} />
           ))}
     </QuestionsWrap>
   );

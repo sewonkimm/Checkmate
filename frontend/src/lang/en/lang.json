@@ -19,6 +19,7 @@
   "content": "Revision content",
   "checkmate": "Checkmate",
   "back": "Back",
+  "forbidden": "Login is required",
 
   "footer_service_intro": "About our Service",
   "footer_team": "About our Team",
