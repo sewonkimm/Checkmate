@@ -58,7 +58,6 @@ const QuestionList: React.FC = () => {
   const handleLoader = () => {
     if (limit * offset <= totalNum) {
       setOffset(offset + 1);
-      console.log(offset);
     } else {
       setHasMore(false); // 더이상 불러올 데이터가 없을 때
       toast.success(t('list_upload_finish'), {
