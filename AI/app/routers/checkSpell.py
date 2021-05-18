@@ -42,6 +42,6 @@ def checkSpell(Sentences: Data):
             errors = errors + 1
 
     return {"original": checked_sent.original, "checked": spaced_checked_sent.checked,
-            "errors": errors, "errorRate": round(errors / total * 100, 2),
+            "errors": errors, "total": total, "errorRate": round(errors / total * 100, 2),
             "wrongSpelling": wrong_spelling, "wrongSpacing": wrong_spacing,
             "ambiguous": ambiguous, "statisticalCorrection": statistical_correction}
