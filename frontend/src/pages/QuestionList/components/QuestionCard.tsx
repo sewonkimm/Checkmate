@@ -2,24 +2,38 @@
 import React, { ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { useTranslation } from 'react-i18next';
 import { ResponseQuestionType } from '../../../entity';
 import BadgeComponent from '../../../components/Badge';
 
 type PropsType = {
+  id: number;
   question: ResponseQuestionType;
 };
 
 const Review = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
   const history = useHistory();
+  const MySwal = withReactContent(Swal);
 
+  const { id } = props;
   const { answerCount, question } = props.question;
   const createdDate = question.questionDate.split('T')[0];
 
   // 해당 질문 상세 조회 페이지로 이동
   const goDetail = () => {
-    history.push(`/question/${question.questionId}`);
+    if (id > 0) {
+      history.push(`/question/${question.questionId}`);
+    } else {
+      // 로그인 하지 않으면 접근 제한
+      MySwal.fire({
+        text: t('forbidden'),
+        icon: 'warning',
+        confirmButtonText: t('cancel'),
+      });
+    }
   };
 
   return (

@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { useTranslation } from 'react-i18next';
 import { MemberType } from '../../../entity/index';
 
@@ -9,12 +11,21 @@ type PropsType = {
 
 const FillupPoint = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
+  const MySwal = withReactContent(Swal);
   const { memberInfo } = props;
 
   // 포인트 3자리수 마다 ' , ' 넣는 함수
-  function numberWithCommas(point: number) {
+  const numberWithCommas = (point: number) => {
     return point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
+  };
+
+  const handleChargeClick = () => {
+    MySwal.fire({
+      text: '준비중인 기능입니다',
+      icon: 'warning',
+      confirmButtonText: t('cancel'),
+    });
+  };
 
   return (
     <PointWrap>
@@ -23,8 +34,8 @@ const FillupPoint = (props: PropsType): ReactElement => {
       </Point>
       <ChargeWrap>
         <ChargeText>{t('charge')}</ChargeText>
-        <ChargeBtn5>+ 5,000</ChargeBtn5>
-        <ChargeBtn10>+ 10,000</ChargeBtn10>
+        <ChargeBtn5 onClick={handleChargeClick}>+ 5,000</ChargeBtn5>
+        <ChargeBtn10 onClick={handleChargeClick}>+ 10,000</ChargeBtn10>
       </ChargeWrap>
     </PointWrap>
   );
@@ -56,23 +67,16 @@ const ChargeText = styled.h3`
 const ChargeBtn5 = styled.button`
   width: 122px;
   height: 50px;
-  border: 3px solid ${({ theme }) => theme.colors.secondary};
-  border-radius: 5px;
   margin-right: 1em;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 18px;
-  font-weight: 700;
-`;
-const ChargeBtn10 = styled.button`
-  width: 122px;
-  height: 50px;
-  border: 3px solid ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
   font-size: 18px;
   font-weight: 700;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.secondary};
+`;
+const ChargeBtn10 = styled(ChargeBtn5)`
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export default FillupPoint;
