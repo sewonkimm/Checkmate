@@ -36,20 +36,25 @@ const Filters = ({ handleMyQuestion, id }: PropsType): ReactElement => {
 const FilterWrap = styled.div`
   width: 80vw;
   max-width: 985px;
-  margin: 86px auto 34px auto;
+  margin: 80px auto 0;
   display: flex;
   justify-content: space-between;
 `;
 
 const WriteBtn = styled(Link)`
-  width: 9rem;
-  hegith: 3rem;
-  font-size: 1rem;
+  hegith: 56px;
   text-decoration: none;
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 10px 35px;
+  border-radius: 10px;
+  font-size: ${({ theme }) => theme.fontSizes.body};
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+    transform: scale(0.95);
+  }
 `;
 
 const Label = styled.label`

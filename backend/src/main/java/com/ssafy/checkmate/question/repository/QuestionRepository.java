@@ -18,17 +18,17 @@ public interface QuestionRepository extends CrudRepository<Question, String> {
 
     public int countQuestionsBymemberId(Long memberId);
 
-    public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(LocalDate currentDate, int questionStatus, Pageable Pageable);
+    public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionDateDesc(LocalDate currentDate, Pageable Pageable);
 
-    public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionEndDate(LocalDate currentDate, int questionStatus, Pageable Pageable);
+    public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionEndDate(LocalDate currentDate, Pageable Pageable);
 
-    public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionPointDesc(LocalDate currentDate, int questionStatus, Pageable Pageable);
+    public List<Question> findQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionPointDesc(LocalDate currentDate, Pageable Pageable);
 
-    public int countQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionDateDesc(LocalDate currentDate, int questionStatus);
+    public int countQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionDateDesc(LocalDate currentDate);
 
-    public int countQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionEndDate(LocalDate currentDate, int questionStatus);
+    public int countQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionEndDate(LocalDate currentDate);
 
-    public int countQuestionsByQuestionEndDateGreaterThanEqualAndQuestionStatusEqualsOrderByQuestionPointDesc(LocalDate currentDate, int questionStatus);
+    public int countQuestionsByQuestionEndDateGreaterThanEqualOrderByQuestionPointDesc(LocalDate currentDate);
 
     public Question findQuestionByQuestionId(Long questionId);
 }

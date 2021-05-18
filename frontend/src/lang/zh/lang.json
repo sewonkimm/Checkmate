@@ -6,6 +6,7 @@
   "language": "选择语言",
   "ai": "AI分析",
   "mate": "外教增删",
+  "community": "社区",
   "yes": "是",
   "no": "否",
   "cancel": "取消",
@@ -17,6 +18,7 @@
   "point": "点",
   "content": "增删内容",
   "checkmate": "Checkmate",
+  "back": "回去",
 
   "footer_service_intro": "介绍服务",
   "footer_team": "介绍组员",
@@ -52,6 +54,8 @@
   "register_password_confirm_placeholder": "确认密码",
   "register_msg_error": "失败注册",
 
+  "login_unvalid_msg": "请检查您的电子邮件或密码😣",
+
   "my_count_review": "个评价",
   "my_count_question": "个问题",
   "my_count_answer": " 个答复",
@@ -73,6 +77,9 @@
   "list_description3": "如果想用自然的韩语表达, 请随时提问！",
   "list_button_write": "制定问题",
   "list_button_filter": "只看到我的问题",
+  "list_msg_empty": "没有提问...!",
+  "list_upload_finish": "🐬 没有更多的问题",
+  "list_request_fail": "🐳 无法请求问题列表",
 
   "detail_button_file": "查看附件",
   "detail_button_pick": "采用",
@@ -80,8 +87,7 @@
   "detail_button_answer": "回复",
   "detail_no_answer": "还没有回复...",
   "detail_msg_answer": " Mate 请回答！",
-  "detail_msg_answer_desc1": "答辩时基本支付10分, 采用时",
-  "detail_msg_answer_desc2": "提供积分",
+  "detail_msg_answer_desc": "答辩时基本支付10分",
   "detail_msg_waiting": "等待提问者的采纳",
   "detail_msg_picked": " 恭喜你! 答复已通过！",
   "detail_msg_warning": " 请在截止期限内通过答复！",

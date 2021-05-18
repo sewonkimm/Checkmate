@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /*
 QuestionDetail/components/Answers.tsx
 : 질문 상세 조회 페이지의 답변들을 담는 컴포넌트
@@ -6,6 +7,8 @@ QuestionDetail/components/Answers.tsx
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import Loader from 'react-loader-spinner';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { AnswerType, ResponseAnswerType } from '../../../entity';
 import { noAnswer } from '../../../assets';
 import Answer from './Answer';
@@ -15,13 +18,16 @@ type PropsType = {
   answer: ResponseAnswerType;
   questionStatus: number;
   questionContents: string;
+  offset: number;
+  hasMore: boolean;
+  fetchAnswer: () => void;
   setIsAnswerd: (value: boolean) => void;
   setIsChecked: (value: boolean) => void;
 };
 
 const Answers = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
-  const { id, answer, questionStatus, questionContents } = props;
+  const { id, answer, questionStatus, questionContents, offset, hasMore } = props;
 
   let answerComponents;
   if (answer.list !== null) {
@@ -48,7 +54,18 @@ const Answers = (props: PropsType): ReactElement => {
           {t('detail_no_answer')}
         </NoAnswer>
       ) : (
-        <>{answerComponents}</>
+        <InfiniteScroll
+          dataLength={offset}
+          next={props.fetchAnswer}
+          hasMore={hasMore}
+          loader={
+            <LoaderWrapper>
+              <Loader type="TailSpin" color="#038EFC" height={50} width={50} />
+            </LoaderWrapper>
+          }
+        >
+          <>{answerComponents}</>
+        </InfiniteScroll>
       )}
     </AnswerContainer>
   );
@@ -56,6 +73,7 @@ const Answers = (props: PropsType): ReactElement => {
 
 // 답변 컴포넌트 style
 const AnswerContainer = styled.div`
+  width: 100%;
   margin: 50px auto;
   padding-bottom: 100px;
 `;
@@ -73,5 +91,13 @@ const NoAnswerImage = styled.img`
   width: 388px;
   height: 388px;
   margin-bottom: 10px;
+`;
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 50px auto;
 `;
 export default Answers;

@@ -127,6 +127,10 @@ const Button = styled.button`
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 200ms ease-in;
+  &: hover {
+    transform: scale(1.03, 1.03);
+  }
 `;
 
 export default Input;

@@ -11,10 +11,15 @@ const FillupPoint = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
   const { memberInfo } = props;
 
+  // 포인트 3자리수 마다 ' , ' 넣는 함수
+  function numberWithCommas(point: number) {
+    return point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   return (
     <PointWrap>
       <Point>
-        {t('point')}: {memberInfo.memberPoint}
+        {t('point')}: {numberWithCommas(memberInfo.memberPoint)}
       </Point>
       <ChargeWrap>
         <ChargeText>{t('charge')}</ChargeText>
@@ -28,14 +33,13 @@ const FillupPoint = (props: PropsType): ReactElement => {
 const PointWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 0.5em;
+  margin-top: 1.5em;
 `;
 
 const Point = styled.div`
   font-weight: 700;
-  font-size: 31px;
-  margin: 15px 0;
-  width: 200px;
+  font-size: 30px;
+  width: 230px;
 `;
 const ChargeWrap = styled.div`
   display: flex;
