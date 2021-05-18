@@ -134,5 +134,6 @@
   "ai_msg_warning_long": "太长的文章很难读",
   "ai_msg_warning_japan": "请不要用日式表达",
   "ai_msg_warning_english": "请改为韩式英文表达方式",
-  "ai_msg_warning_chinese": "尽量少用汉字词"
+  "ai_msg_warning_chinese": "尽量少用汉字词",
+  "ai_msg_perfect": "没有需要修改的部分！"
 }

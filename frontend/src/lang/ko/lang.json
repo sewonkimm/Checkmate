@@ -134,5 +134,6 @@
   "ai_msg_warning_long": "너무 긴 문장은 읽기가 어렵습니다",
   "ai_msg_warning_japan": "일본식 표현은 삼가세요",
   "ai_msg_warning_english": "영문식 표현은 한국식으로 바꿔주세요",
-  "ai_msg_warning_chinese": "되도록이면 한자말 사용을 줄이세요"
+  "ai_msg_warning_chinese": "되도록이면 한자말 사용을 줄이세요",
+  "ai_msg_perfect": "수정할 부분이 없어요!"
 }

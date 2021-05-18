@@ -27,7 +27,7 @@ const Graph = (props: PropsType): ReactElement => {
     labels: [t('ai_wrong_spelling'), t('ai_wrong_spacing'), t('ai_ambiguous'), t('ai_statistic')],
     datasets: [
       {
-        label: '분석 결과',
+        label: t('ai_title_result'),
         data: [data.wrongSpelling, data.wrongSpacing, data.ambiguous, data.statisticalCorrection],
         backgroundColor: ['rgb(226, 82, 41)', 'rgb(120, 224, 78)', 'rgb(246, 222, 77)', 'rgb(77, 140, 244)'],
         hoverOffset: 4,
@@ -77,7 +77,7 @@ const Graph = (props: PropsType): ReactElement => {
           </ResultContainer>
         </GraphContainer>
       ) : (
-        <>수정할 부분이 없어요!</>
+        <>{t('ai_msg_perfect')}</>
       )}
     </Container>
   );

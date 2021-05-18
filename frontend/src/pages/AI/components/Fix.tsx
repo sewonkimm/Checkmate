@@ -137,7 +137,7 @@ const Fix = (props: PropsType): ReactElement => {
           )}
         </FixContainer>
       ) : (
-        <>수정할 부분이 없어요!</>
+        <>{t('ai_msg_perfect')}</>
       )}
     </Container>
   );
