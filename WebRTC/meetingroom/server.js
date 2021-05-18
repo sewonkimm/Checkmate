@@ -1,9 +1,19 @@
 const express = require("express");
 const app = express();
-const server = require("http").Server(app);
+const fs = require('fs');
+const https = require('https');
+const server = https.createServer(
+  {
+    key: fs.readFileSync('/home/ubuntu/sslKey/privkey.pem'),
+    cert: fs.readFileSync('/home/ubuntu/sslKey/cert.pem'),
+    ca: fs.readFileSync('/home/ubuntu/sslKey/chain.pem'),
+    requestCert: false,
+    rejectUnauthorized: false,
+  },
+  app
+);
 const { v4: uuidv4 } = require("uuid");
 const io = require("socket.io")(server);
-// Peer
 
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
