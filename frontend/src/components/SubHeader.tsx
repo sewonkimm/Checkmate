@@ -47,7 +47,7 @@ const SubHeader = (): ReactElement => {
   return (
     <SubHeaderContainer>
       <Select onChange={handleChangeLanguage}>
-        <SelectOption value="" selected disabled>
+        <SelectOption value="DEFAULT" disabled>
           {t('language')}
         </SelectOption>
         <SelectOption value="ko">한국어</SelectOption>
