@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HOME</title>
+    <title>Check Mate - Meetings</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -34,16 +34,33 @@
     <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
-        <!-- <span class="close">&times;</span> -->
-        <p>닉네임 입력해라</p>
+        <div class="modal-header">
+          <img
+            src="assets/미소.png"
+            style="width: 70px; height: auto; margin: 10px"
+          />
+          <p>미팅에서 사용할 닉네임을 입력해 주세요.</p>
+        </div>
+        <br />
         <hr />
-        <input id="nickName" onkeyup="putNickName()" />
-        <button id="input_complete" onclick="modalDown()">확인</button>
+        <br />
+        <div class="modal-body">
+          <input
+            id="nickName"
+            placeholder="닉네임"
+            onkeyup="putNickName()"
+            onKeyDown="if(event.keyCode == 13) modalDown()"
+          />
+          <div id="warn" class="modal-warn"></div>
+        </div>
+        <br />
+        <button id="inputComplete" class="inputBtn" onclick="modalDown()">
+          확인
+        </button>
       </div>
     </div>
     <div class="main">
       <div class="main__left">
-        <div id="result"></div>
         <div class="main__videos">
           <div id="video-grid"></div>
         </div>
@@ -71,13 +88,12 @@
             </div>
           </div>
 
-          <div class="main__controls_block">
+          <div class="main__controls_block" onclick="closeWindow()">
             <div
               class="main__controls_button leaveMeeting"
               id="exitMeeting"
               onmouseover="setOpenedDoorButton()"
               onmouseout="setClosedDoorButton()"
-              onclick="closeWindow()"
             >
               <i class="fas fa-door-closed"></i>
             </div>

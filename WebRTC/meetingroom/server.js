@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
-const fs = require('fs');
-const https = require('https');
+const fs = require("fs");
+const https = require("https");
 const server = https.createServer(
   {
-    key: fs.readFileSync('/home/ubuntu/sslKey/privkey.pem'),
-    cert: fs.readFileSync('/home/ubuntu/sslKey/cert.pem'),
-    ca: fs.readFileSync('/home/ubuntu/sslKey/chain.pem'),
+    key: fs.readFileSync("/home/ubuntu/sslKey/privkey.pem"),
+    cert: fs.readFileSync("/home/ubuntu/sslKey/cert.pem"),
+    ca: fs.readFileSync("/home/ubuntu/sslKey/chain.pem"),
     requestCert: false,
     rejectUnauthorized: false,
   },
@@ -23,6 +23,10 @@ const peerServer = ExpressPeerServer(server, {
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use("/peerjs", peerServer);
+
+const path = require("path");
+var favicon = require("serve-favicon");
+app.use(favicon(path.join(__dirname, "public/assets", "checkmate_logo.ico")));
 
 app.get("/", (req, rsp) => {
   rsp.redirect(`/${uuidv4()}`);
