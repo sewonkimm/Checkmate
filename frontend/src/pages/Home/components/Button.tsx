@@ -32,26 +32,37 @@ const Button = ({ type, text }: ButtonsProps): ReactElement => {
 
 // Button style
 const Btn = styled.div`
-  width: 236px;
-  height: 72px;
+  height: 65px;
+  padding: 0 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 50px;
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 0.005em;
   cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
 `;
 
 const PrimaryBtn = styled(Btn)`
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 const SecondaryBtn = styled(Btn)`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primary};
-  border: 3px solid ${({ theme }) => theme.colors.primary};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const LinkText = styled(Link)`

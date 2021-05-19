@@ -28,12 +28,12 @@ const Footer = (): ReactElement => {
         {
           id: 1,
           name: t('footer_service_intro'),
-          link: '/service',
+          link: '/',
         },
         {
           id: 2,
           name: t('footer_team'),
-          link: '/service/team',
+          link: '/',
         },
       ],
     },
@@ -60,12 +60,12 @@ const Footer = (): ReactElement => {
         {
           id: 5,
           name: t('footer_policy'),
-          link: '/service/policy',
+          link: '/',
         },
         {
           id: 6,
           name: t('footer_terms'),
-          link: '/service/terms',
+          link: '/',
         },
       ],
     },
@@ -108,7 +108,7 @@ const FooterContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 200px;
+  margin-top: 0;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
 `;
