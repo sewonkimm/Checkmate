@@ -38,7 +38,7 @@ const Result = (props: PropsType): ReactElement => {
 
 const ResultContainer = styled.div`
   width: 85%;
-  max-width: 985px;
+  max-width: 1200px;
   margin: auto;
   display: flex;
   flex-direction: column;
