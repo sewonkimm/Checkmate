@@ -121,6 +121,9 @@ const MyImage = styled.img`
 
 const MyContentsWrapper = styled.div`
   padding-top: 0.4em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 const MyContent = styled(Content)`
   background-color: #f8e54d;
