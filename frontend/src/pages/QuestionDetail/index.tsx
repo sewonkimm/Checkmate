@@ -118,7 +118,7 @@ const QuestionDetail: React.FC = () => {
       setOffset(offset + 1);
     } else {
       setHasMore(false); // 더이상 불러올 데이터가 없을 때
-      toast.success(t('list_upload_finish'), {
+      toast.success(t('detail_msg_finish'), {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,

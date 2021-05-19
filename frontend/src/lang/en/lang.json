@@ -93,6 +93,7 @@
   "detail_msg_waiting": "Waiting for being selected.",
   "detail_msg_picked": " Mate, Contratulation! Your revision has been selected!",
   "detail_msg_warning": " Mate, please select answer until due date!",
+  "detail_msg_finish": "There'no more answers",
 
   "write_title": "New Question",
   "write_button_add_file": "Add files",

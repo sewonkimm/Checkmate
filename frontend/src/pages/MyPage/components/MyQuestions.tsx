@@ -1,18 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import { MyQuestionAPI } from '../../../api/question';
-import { RootState } from '../../../modules';
 import { ResponseMyQuestionListType } from '../../../entity/index';
 
 const MyQuestions = (): ReactElement => {
   const { t } = useTranslation();
 
-  const userId: number = useSelector((state: RootState) => state.member).member.memberId;
+  const userId = Number(localStorage.getItem('memberId'));
   const [offset, setOffset] = useState<number>(0);
   const [limit] = useState<number>(3);
   const [totalAsk, setTotalAsk] = useState<number>(0);
@@ -66,8 +64,7 @@ const MyQuestions = (): ReactElement => {
       <HeaderCounts>
         <div>
           {totalAsk}
-          {t('my_count_question')} | {totalReply}
-          {t('my_count_answer')}
+          {t('my_count_question')}
         </div>
       </HeaderCounts>
       <ListHeader>
