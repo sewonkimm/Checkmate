@@ -34,10 +34,7 @@ const Message = ({ id, type, message }: PropsType): ReactElement => {
       {/* 답변자 관점 / 채택 됨 */}
       {type === 2 && (
         <AnswerMessage>
-          <Text>
-            {memberInfo?.memberNickname}
-            {message}
-          </Text>
+          <Text>{message}</Text>
         </AnswerMessage>
       )}
 

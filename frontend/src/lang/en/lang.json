@@ -91,7 +91,7 @@
   "detail_msg_answer": " Mate, please make answer!",
   "detail_msg_answer_desc": "You will be get 10 points when you make answer, and extra points will be rewarded if your correction get selected",
   "detail_msg_waiting": "Waiting for being selected.",
-  "detail_msg_picked": " Mate, Contratulation! Your revision has been selected!",
+  "detail_msg_picked": "Revision has been selected! you can't upload answer no longer",
   "detail_msg_warning": " Mate, please select answer until due date!",
   "detail_msg_finish": "There'no more answers",
 

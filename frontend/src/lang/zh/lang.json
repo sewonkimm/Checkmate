@@ -91,7 +91,7 @@
   "detail_msg_answer": " Mate 请回答！",
   "detail_msg_answer_desc": "答辩时基本支付10分",
   "detail_msg_waiting": "等待提问者的采纳",
-  "detail_msg_picked": " 恭喜你! 答复已通过！",
+  "detail_msg_picked": "这个问题已经回答！没有更多答案",
   "detail_msg_warning": " 请在截止期限内通过答复！",
   "detail_msg_finish": "没有更多答复",
 
