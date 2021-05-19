@@ -80,7 +80,7 @@
   "list_button_write": "制定问题",
   "list_button_filter": "只看到我的问题",
   "list_msg_empty": "没有提问...!",
-  "list_upload_finish": "🐬 没有更多的问题",
+  "list_upload_finish": "🐬 没有更多问题",
   "list_request_fail": "🐳 无法请求问题列表",
 
   "detail_button_file": "查看附件",
@@ -93,6 +93,7 @@
   "detail_msg_waiting": "等待提问者的采纳",
   "detail_msg_picked": " 恭喜你! 答复已通过！",
   "detail_msg_warning": " 请在截止期限内通过答复！",
+  "detail_msg_finish": "没有更多答复",
 
   "write_title": "提问",
   "write_button_add_file": "添加文件",
