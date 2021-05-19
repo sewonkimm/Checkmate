@@ -101,10 +101,8 @@ peer.on("open", (id) => {
 
 const connectToNewUser = (userId, streams) => {
   var call = peer.call(userId, streams);
-  console.log(call);
   var video = document.createElement("video");
   call.on("stream", (userVideoStream) => {
-    console.log(userVideoStream);
     addVideoStream(video, userVideoStream);
   });
 };
@@ -194,12 +192,16 @@ btn.onclick = function () {
   modal.style.display = "block";
 };
 
-let nickName;
+let nickName = null;
 function putNickName() {
   nickName = document.getElementById("nickName").value;
-  document.getElementById("result").innerText = nickName;
 }
 
 function modalDown() {
-  modal.style.display = "none";
+  if (nickName == null || nickName.length < 1) {
+    document.getElementById("warn").innerText =
+      "닉네임 입력 후 입장하실 수 있습니다.";
+  } else {
+    modal.style.display = "none";
+  }
 }
