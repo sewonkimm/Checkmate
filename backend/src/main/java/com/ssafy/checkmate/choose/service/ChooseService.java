@@ -36,7 +36,29 @@ public class ChooseService {
         Question question = questionRepository.findQuestionByQuestionId(questionId);
         question.setQuestionStatus(1);
 
-        member.setMemberPoint(member.getMemberPoint() + question.getQuestionPoint());
+        Member memberTemp = null;
+        Long mId = 0L;
+        //프리미엄 질문 채택시 : 채택된사람 질문에 걸린 포인트 지급 / 나머지 답변작성자 10씩 지급
+        if (question.getQuestionPoint() > 0) {
+            member.setMemberPoint(member.getMemberPoint() + question.getQuestionPoint());
+            List<Answer> answerList = answerRepository.findAllByQuestionId(questionId);
+
+            for (Answer ans : answerList) {
+                mId = ans.getMemberId();
+                if (mId != member.getMemberId()) {
+                    memberTemp = memberRepository.findMemberByMemberId(mId);
+                    memberTemp.setMemberPoint(memberTemp.getMemberPoint() + 10);
+                }
+            }
+        } else {//일반질문 채택시 : 답변 작성한 사용자들 전부 포인트 10씩 지급
+            List<Answer> answerList = answerRepository.findAllByQuestionId(questionId);
+
+            for (Answer ans : answerList) {
+                mId = ans.getMemberId();
+                memberTemp = memberRepository.findMemberByMemberId(mId);
+                memberTemp.setMemberPoint(memberTemp.getMemberPoint() + 10);
+            }
+        }
 
         answerRepository.save(answer);
         reviewService.insertReview(review);
