@@ -93,6 +93,7 @@
   "detail_msg_waiting": "질문자의 채택을 기다리고 있습니다.",
   "detail_msg_picked": " 메이트님, 축하합니다! 답변이 채택되었습니다!",
   "detail_msg_warning": " 님, 마감기한 내에 답변을 채택해주세요!",
+  "detail_msg_finish": "답변들을 모두 불러왔습니다",
 
   "write_title": "질문하기",
   "write_button_add_file": "파일 추가",
