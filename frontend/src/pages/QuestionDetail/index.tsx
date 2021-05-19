@@ -7,21 +7,22 @@ QuestionDetail/index.tsx
 
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
 import styled from 'styled-components';
 import Loader from 'react-loader-spinner';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import { RootState } from '../../modules';
 import { getQuestionDetail } from '../../api/question';
-import { getAnswers } from '../../api/answer';
-import { ResponseAnswerType, AnswerType, QuestionType } from '../../entity';
+import { getAnswers, getAnswersNumber } from '../../api/answer';
+import { QuestionType, AnswerType } from '../../entity';
 import SubHeader from '../../components/SubHeader';
 import Header from '../../components/Header';
 import Question from './components/Question';
-import Answers from './components/Answers';
+import Answer from './components/Answer';
 import WriteAnswer from './components/WriteAnswer';
 import Message from './components/Message';
+import { noAnswer } from '../../assets';
 
 type Params = {
   id: string;
@@ -31,61 +32,102 @@ const QuestionDetail: React.FC = () => {
   const router = useHistory();
   const params: Params = useParams();
 
-  const [myId] = useState<number>(useSelector((state: RootState) => state.member.member.memberId));
+  const myId = Number(localStorage.getItem('memberId'));
   const [limit] = useState<number>(3); // 답변을 몇 개 단위로 볼 것인지
   const [offset, setOffset] = useState<number>(0); // 페이지 넘버, 0부터 시작
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isChecked, setIsChecked] = useState<boolean>(false); // 채택된 답변인지 구분
-  const [isAnswerd, setIsAnswerd] = useState<boolean>(false); // 내가 답변을 작성한 게시글인지 구분
+  const [isAnswered, setIsAnswered] = useState<boolean>(false); // 내가 답변을 작성한 게시글인지 구분
   const [question, setQuestion] = useState<QuestionType>();
-  const [answers, setAnswers] = useState<ResponseAnswerType>({ totalSize: 0, list: [] });
+  const [answers, setAnswers] = useState<AnswerType[]>([]); // 답변 배열
+  const [totalNum, setTotalNum] = useState<number>(0); // 답변 길이
 
-  // 답변들 불러오기
-  const fetchAnswers = async () => {
-    if (hasMore) {
-      const answers = await getAnswers(`answers/list/${params.id}/0/${limit}`);
-      if (answers.totalSize === 0) {
-        setHasMore(false);
-      } else if (limit * offset < answers.totalSize) {
-        setOffset(offset + 1);
-        setHasMore(false);
-      } else {
-        setAnswers(answers);
-      }
+  // 답변 총 갯수 불러오기
+  const fetchNumberAnswers = async () => {
+    const response = await getAnswersNumber(`answers/list/${params.id}/${offset}/${limit}`);
+    setTotalNum(response);
+
+    if (response === 0) {
+      setHasMore(false);
     }
   };
 
-  useEffect(() => {
-    // 질문 내용 불러오기
-    const fetchQuestionDetail = async () => {
-      const questionDetail = await getQuestionDetail(`questions/${params.id}`);
-      if (questionDetail.questionStatus === 1) {
-        setIsChecked(true);
-      }
-      setQuestion(questionDetail);
-    };
+  // 답변 목록 불러오기
+  const fetchAnswers = async () => {
+    const response = await getAnswers(`answers/list/${params.id}/${offset}/${limit}`);
+    setAnswers(response);
 
+    if (response !== []) {
+      checkIsAnswered(response);
+    }
+  };
+
+  // 이미 답변을 작성했으면 isAnswerd를 true로 변경하여 또 작성하지 못하도록 함
+  const checkIsAnswered = (answers: AnswerType[]) => {
+    answers.map((answer: AnswerType) => {
+      if (answer.memberId === myId) {
+        setIsAnswered(true);
+      }
+    });
+  };
+
+  // 질문 내용 불러오기
+  const fetchQuestionDetail = async () => {
+    const questionDetail = await getQuestionDetail(`questions/${params.id}`);
+
+    // 이미 채택된 질문이면 isChecked를 true로 변경하여 답변을 작성하지 못하도록 함
+    if (questionDetail.questionStatus === 1) {
+      setIsChecked(true);
+    }
+    setQuestion(questionDetail);
+  };
+
+  // 답변 더 불러오기
+  const getMoreAnswers = async () => {
+    const response = await getAnswers(`answers/list/${params.id}/${offset}/${limit}`);
+    const newAnswers = [...answers, ...response];
+    setAnswers(newAnswers);
+  };
+
+  useEffect(() => {
     fetchQuestionDetail();
+    fetchNumberAnswers();
     fetchAnswers();
   }, []);
 
+  // offset 변경 감지
   useEffect(() => {
-    fetchAnswers();
+    getMoreAnswers();
+  }, [offset]);
+
+  // answers 배열이 업데이트 될 때마다 화면에 새로 그려주기
+  const answerComponents = answers.map((item: AnswerType) => {
+    if (question !== undefined) {
+      return <Answer key={item.answerId} id={myId} question={question} answer={item} />;
+    }
+    return <></>;
   });
 
-  // 이미 답변을 작성했으면 isAnswerd를 true로 변경하여 또 작성하지 못하도록 함
-  useEffect(() => {
-    if (answers.list !== null) {
-      answers.list.map((answer: AnswerType) => {
-        if (answer.memberId === myId) {
-          setIsAnswerd(true);
-        }
+  const handleBackButton = () => {
+    router.goBack();
+  };
+
+  // infinite handle loader func
+  const handleLoader = () => {
+    if (limit * offset <= totalNum) {
+      setOffset(offset + 1);
+    } else {
+      setHasMore(false); // 더이상 불러올 데이터가 없을 때
+      toast.success(t('list_upload_finish'), {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     }
-  }, [answers, myId]);
-
-  const handleBackButton = () => {
-    router.push('/check/mate');
   };
 
   return (
@@ -102,34 +144,52 @@ const QuestionDetail: React.FC = () => {
           <Question question={{ ...question }} id={myId} />
 
           {/* 질문 작성자가 아니고, 아직 채택되지 않았고, 답변을 작성하지 않았다면 질문 작성 컴포넌트 표시 */}
-          {myId !== question.memberId && !isAnswerd && !isChecked && (
-            <WriteAnswer id={myId} questionContents={question.questionContents} setIsAnswerd={setIsAnswerd} />
+          {myId !== question.memberId && !isAnswered && !isChecked && (
+            <WriteAnswer id={myId} questionContents={question.questionContents} />
           )}
 
           {/* 질문 작성자가 아니고, 답변 달았으나 채택이 안된 상태 */}
-          {myId !== question.memberId && isAnswerd && !isChecked && (
+          {myId !== question.memberId && isAnswered && !isChecked && (
             <Message type={1} id={myId} message={t('detail_msg_waiting')} />
           )}
 
           {/* 질문 작성자, 답변이 달렸으나 채택을 하지 않은 상태 */}
-          {myId === question.memberId && !isChecked && <Message type={3} id={myId} message={t('detail_msg_warning')} />}
+          {myId === question.memberId && !isChecked && totalNum > 0 && (
+            <Message type={3} id={myId} message={t('detail_msg_warning')} />
+          )}
 
           {/* 답변 채택된 상태 */}
           {isChecked && <Message type={2} id={myId} message={t('detail_msg_picked')} />}
-          <Answers
-            answer={answers}
-            questionStatus={question.questionStatus}
-            questionContents={question.questionContents}
-            id={myId}
-            questionMemberId={question.memberId}
-            offset={offset}
-            hasMore={hasMore}
-            fetchAnswer={fetchAnswers}
-            setIsAnswerd={setIsAnswerd}
-            setIsChecked={setIsChecked}
-          />
+
+          {totalNum > 0 ? (
+            <InfiniteScroll
+              dataLength={offset}
+              next={handleLoader}
+              hasMore={hasMore}
+              loader={<Loader type="TailSpin" color="#038EFC" height={50} width={50} />}
+            >
+              {answerComponents}
+            </InfiniteScroll>
+          ) : (
+            <NoAnswer>
+              <NoAnswerImage src={noAnswer} alt="no answer" />
+              {t('detail_no_answer')}
+            </NoAnswer>
+          )}
         </DetailContainer>
       )}
+
+      <StyledToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </QuestionDetailContainer>
   );
 };
@@ -142,7 +202,7 @@ const DetailContainer = styled.div`
   max-width: 985px;
   width: 100%;
   margin: auto;
-  padding: 80px 0 0 0;
+  padding: 80px 0 80px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -154,6 +214,22 @@ const LoaderWrapper = styled.div`
   align-items: center;
   width: 100%;
   margin: 50px auto;
+`;
+
+const NoAnswer = styled.div`
+  width: 100%;
+  margin: 100px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Kirang Haerang', cursive;
+  font-weight: normal;
+  font-size: 72px;
+`;
+const NoAnswerImage = styled.img`
+  width: 388px;
+  height: 388px;
+  margin-bottom: 10px;
 `;
 
 const BackButton = styled.button`
@@ -173,4 +249,8 @@ const BackButton = styled.button`
   }
 `;
 
+const StyledToastContainer = styled(ToastContainer)`
+  font-size: 19px;
+  width: 17em;
+`;
 export default QuestionDetail;

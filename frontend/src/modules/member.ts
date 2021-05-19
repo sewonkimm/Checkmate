@@ -48,6 +48,7 @@ const initialState: MemberState = {
 function memberReducer(state = initialState, action: MemberAction): MemberState {
   switch (action.type) {
     case LOGIN:
+      localStorage.setItem('memberId', action.payload.memberId.toString());
       localStorage.setItem('language', action.payload.memberNativeLang); // 모국어 설정
       return { member: action.payload, isLogin: true };
     case LOGOUT:

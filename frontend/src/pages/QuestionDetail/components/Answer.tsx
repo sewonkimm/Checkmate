@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/destructuring-assignment */
 /*
 QuestionDetail/components/Answer.tsx
@@ -5,11 +6,12 @@ QuestionDetail/components/Answer.tsx
 */
 
 import React, { ReactElement, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { AnswerType, MemberType } from '../../../entity';
+import { QuestionType, AnswerType, MemberType } from '../../../entity';
 import { profileImage } from '../../../assets';
 import { getMemberInfo } from '../../../api/member';
 import { DeleteAPI } from '../../../api/answer';
@@ -19,17 +21,15 @@ import ReviewModal from './ReviewModal';
 
 type PropsType = {
   id: number; // memberID
-  questionMemberId: number; // 질문자ID
+  question: QuestionType;
   answer: AnswerType;
-  questionStatus: number;
-  questionContents: string;
-  setIsAnswerd: (value: boolean) => void;
-  setIsChecked: (value: boolean) => void;
 };
 
 const Answer = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
-  const { id, questionMemberId, answer, questionStatus, questionContents } = props;
+  const router = useHistory();
+  const { id, question, answer } = props;
+  const MySwal = withReactContent(Swal);
   const [memberInfo, setMemberInfo] = useState<MemberType>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -48,11 +48,9 @@ const Answer = (props: PropsType): ReactElement => {
       }
     };
     fetchMemberInfo();
-  }, [answer]);
+  }, []);
 
-  const MySwal = withReactContent(Swal);
-
-  // 답변 수정
+  // 답변 수정(추가 기능)
 
   // 답변 삭제
   const handleDelete = () => {
@@ -67,7 +65,7 @@ const Answer = (props: PropsType): ReactElement => {
         const response = await DeleteAPI(`answers/delete/${answer.answerId}`);
 
         if (response === 200) {
-          props.setIsAnswerd(false);
+          router.go(0);
         }
       }
     });
@@ -90,8 +88,9 @@ const Answer = (props: PropsType): ReactElement => {
   };
 
   return (
-    <AnswerContainer key={answer.answerId}>
+    <AnswerContainer>
       {answer.answerSelect === 1 ? (
+        // 답변 이 채택된 경우
         <Infomation>
           <BadgeContainer>
             <BadgeComponent content="채택됨" date="" color="#F016DE" />
@@ -101,10 +100,13 @@ const Answer = (props: PropsType): ReactElement => {
           </div>
         </Infomation>
       ) : (
+        // 답변이 채택되지 않은 경우
         <WriteDate>
           {t('date')} {createdDate}
         </WriteDate>
       )}
+
+      {/* 답변 작성자 정보 */}
       <ProfileContainer>
         {memberInfo?.memberProfileUrl === '' ? (
           <ProfileImage src={profileImage} alt="profile" />
@@ -114,14 +116,18 @@ const Answer = (props: PropsType): ReactElement => {
 
         <Nickname>{memberInfo?.memberNickname}</Nickname>
       </ProfileContainer>
+
       {answer.answerExplain !== '' && <Explain>{answer.answerExplain}</Explain>}
-      <Diff origin={questionContents} input={answer.answerContents} />
+
+      <Diff origin={question.questionContents} input={answer.answerContents} />
+
       {/* 첨부파일 보기 */}
       {answer.answerUrl !== null && (
         <FileButton href={answer.answerUrl} target="_blank" download>
           {t('detail_button_file')}
         </FileButton>
       )}
+
       {/* 답변 작성자가 보는 경우 삭제 버튼 */}
       {id === answer.memberId && answer.answerSelect === 0 && (
         <ButtonContainer>
@@ -129,20 +135,17 @@ const Answer = (props: PropsType): ReactElement => {
           <Button onClick={handleDelete}>{t('delete')}</Button>
         </ButtonContainer>
       )}
+
       {/* 질문 작성자가 보는 경우 채택 버튼 */}
-      {id === questionMemberId && questionStatus === 0 && (
+      {id === question.memberId && question.questionStatus === 0 && (
         <ButtonContainer>
           <ChooseButton onClick={handleChoose}>{t('detail_button_pick')}</ChooseButton>
         </ButtonContainer>
       )}
+
       {/* 리뷰 Modal */}
       {showModal && answer.answerId !== undefined && (
-        <ReviewModal
-          answerId={answer.answerId}
-          questionId={answer.questionId}
-          setShowModal={setShowModal}
-          setIsChecked={props.setIsChecked}
-        />
+        <ReviewModal answerId={answer.answerId} questionId={answer.questionId} setShowModal={setShowModal} />
       )}
     </AnswerContainer>
   );
@@ -150,7 +153,6 @@ const Answer = (props: PropsType): ReactElement => {
 
 // 답변 컴포넌트 style
 const AnswerContainer = styled.div`
-  max-width: 985px;
   width: 100%;
   margin: 50px auto 0;
   padding: 30px;

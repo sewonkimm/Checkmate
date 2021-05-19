@@ -4,6 +4,7 @@ QuestionDetail/components/Answer.tsx
 */
 
 import React, { ReactElement, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Rating from 'react-rating';
@@ -17,11 +18,11 @@ type PropsType = {
   answerId: number;
   questionId: number;
   setShowModal: (value: boolean) => void;
-  setIsChecked: (value: boolean) => void;
 };
 
 const ReviewModal = (props: PropsType): ReactElement => {
   const { t } = useTranslation();
+  const router = useHistory();
   const { answerId, questionId } = props;
   const [score, setScore] = useState<number>(0);
   const [content, setContent] = useState<string>('');
@@ -52,7 +53,7 @@ const ReviewModal = (props: PropsType): ReactElement => {
   const chooseAnswer = async (data: ReviewType) => {
     const response = await chooseAnswerAPI(`choose/${questionId}/${answerId}`, data);
     if (response === 200) {
-      props.setIsChecked(true);
+      router.go(0);
     }
   };
 
