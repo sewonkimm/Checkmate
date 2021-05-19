@@ -10,11 +10,11 @@ class Data(BaseModel):
 
 @router.post('/checkSpell')
 def checkSpell(Sentences: Data):
-    sentence = Sentences.sentence.replace('\n', '')
+    sentence = Sentences.sentence.replace('\r', '').replace('\n', '')
     checked_sent = spell_checker.check(sentence)
 
     # 띄어쓰기가 없는 문장 임의로 만들기
-    unspaced_sent = sentence.replace(' ', '')
+    unspaced_sent = sentence.replace('\r', '').replace('\n', '').replace(' ', '')
     spaced_checked_sent = spell_checker.check(unspaced_sent)
 
     total = 0
