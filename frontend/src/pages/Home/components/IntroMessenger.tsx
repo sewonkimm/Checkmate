@@ -1,56 +1,50 @@
 import React, { ReactElement } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { blueAngryMan, blueSmileMan, pinkCuriousMan, pinkSmileMan, everyone } from '../../../assets';
 
 const IntroMessenger = (): ReactElement => {
+  const { t } = useTranslation();
+
   return (
     <>
       <MessengerWrapper>
         <FriendsTalk>
           <FriendImage src={blueAngryMan} alt="friends face" />
           <ContentsWrapper>
-            <Name>짜증이</Name>
-            <Content>과제 이해하기도 벅찬데 맨날 한글 때문에 감점당해 ㅠㅠ</Content>
+            <Name>{t('char_name_1')}</Name>
+            <Content>{t('msg_intro_messenger_1')}</Content>
           </ContentsWrapper>
         </FriendsTalk>
 
         <MyTalk>
           <MyImage src={pinkCuriousMan} alt="friends face" />
           <MyContentsWrapper>
-            <Name>궁금이</Name>
-            <MyContent>체크메이트 AI 분석만 있으면 한글은 문제 없지 않아?????</MyContent>
+            <Name>{t('char_name_2')}</Name>
+            <MyContent>{t('msg_intro_messenger_2')}</MyContent>
           </MyContentsWrapper>
         </MyTalk>
 
         <FriendsTalk>
           <FriendImage src={blueSmileMan} alt="friends face" />
           <ContentsWrapper>
-            <Name>듬직이</Name>
-            <Content>
-              <p>나는 AI 분석 말고, 원어민 첨삭이 더 좋더라!</p>
-              <p>자연스럽잖아!</p>
-            </Content>
+            <Name>{t('char_name_3')}</Name>
+            <Content>{t('msg_intro_messenger_3')}</Content>
           </ContentsWrapper>
         </FriendsTalk>
 
         <FriendsTalk>
           <FriendImage src={pinkSmileMan} alt="friends face" />
           <ContentsWrapper>
-            <Name>흡족이</Name>
-            <Content>
-              <p>나는 온라인 커뮤니티에서 서로 얼굴 보면서 과제하는게</p>
-              <p>그렇게 좋더라~~</p>
-            </Content>
+            <Name>{t('char_name_4')}</Name>
+            <Content>{t('msg_intro_messenger_4')}</Content>
           </ContentsWrapper>
         </FriendsTalk>
       </MessengerWrapper>
 
       <ExitWrapper>
         <EveryOneImage src={everyone} alt="everyones' face" />
-        <EndingMsg>
-          체크메이트로 한국어 과제 걱정 끝! <br />
-          우리 체크메이트에서 만나요
-        </EndingMsg>
+        <EndingMsg>{t('msg_intro_messenger_5')}</EndingMsg>
       </ExitWrapper>
     </>
   );

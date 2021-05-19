@@ -40,6 +40,16 @@
   "home_tutorial_ai_desc": "과제, 논문에 최적화된 인공지능 분석기가 맞춤법과 표현을 고쳐줍니다.",
   "home_review_title": "체크메이트로 유학생활을 더 즐겁게!",
 
+  "msg_intro_messenger_1": "과제 이해하기도 벅찬데 맨날 한글 때문에 감점당해 ㅠㅠ",
+  "msg_intro_messenger_2": "체크메이트 AI 분석만 있으면 한글은 문제 없지 않아?????",
+  "msg_intro_messenger_3": "나는 AI 분석 말고, 원어민 첨삭이 더  좋더라!\n자연스럽잖아!",
+  "msg_intro_messenger_4": "나는 온라인 커뮤니티에서 서로 얼굴 보면서 과제하는게\n그렇게 좋더라~~~~",
+  "msg_intro_messenger_5": "체크메이트로 한국어 과제 걱정 끝!\n우리 체크메이트에서 만나요~",
+  "char_name_1": "짜증이",
+  "char_name_2": "궁금이",
+  "char_name_3": "듬직이",
+  "char_name_4": "흡족이",
+
   "regeister_title_language": "모국어를 선택해 주세요",
   "regeister_title_email": "이메일을 입력하세요",
   "register_msg_invalid_email": "유효하지 않은 이메일입니다",
