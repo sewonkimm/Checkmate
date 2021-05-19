@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnswerType, ResponseAnswerType, ReviewType } from '../entity';
+import { AnswerType, ReviewType } from '../entity';
 
 // axois basic config
 const apiBaseURL = process.env.REACT_APP_API_URL;
@@ -13,15 +13,29 @@ const axiosInstance = axios.create({
 
 // API
 // 답변 목록 조회
-const getAnswers = async (url: string): Promise<ResponseAnswerType> => {
+const getAnswers = async (url: string): Promise<AnswerType[]> => {
   const response = await axiosInstance
     .get(url)
     .then((response) => {
-      return response.data;
+      return response.data.list;
     })
     .catch((err) => {
       console.error(err);
-      return { totalSize: 0, list: null };
+      return [];
+    });
+  return response;
+};
+
+// 답변 목록  총 갯수 조회
+const getAnswersNumber = async (url: string): Promise<number> => {
+  const response = await axiosInstance
+    .get(url)
+    .then((response) => {
+      return response.data.totalSize;
+    })
+    .catch((err) => {
+      console.error(err);
+      return -1;
     });
   return response;
 };
@@ -85,4 +99,4 @@ const WriteReviewAPI = async (data: ReviewType): Promise<number> => {
   return response;
 };
 
-export { getAnswers, WriteAPI, DeleteAPI, chooseAnswerAPI, WriteReviewAPI };
+export { getAnswers, WriteAPI, DeleteAPI, chooseAnswerAPI, WriteReviewAPI, getAnswersNumber };

@@ -28,30 +28,36 @@ const QuestionList: React.FC = () => {
   const [questions, setQuestions] = useState<ResponseQuestionType[]>([]);
   const loginUserId: number = useSelector((state: RootState) => state.member).member.memberId;
 
+  // 질문 총 갯수 불러오기
+  const fetchQuestionNumber = async () => {
+    const totalNum = await getTotalSize(`questions/${listType}/${offset}/${limit}`);
+    setTotalNum(totalNum);
+  };
+
+  // 질문 목록 불러오기
+  const fetchQuestions = async () => {
+    if (!isFiltered) {
+      const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
+      const questionList = [...response];
+      setQuestions(questionList);
+    }
+  };
+
+  // 질문 더 불러오기
+  const getMoreQuestions = async () => {
+    const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
+    const newList = [...questions, ...response];
+    setQuestions(newList);
+  };
+
   // 질문 로드
   useEffect(() => {
-    // 질문 불러오기
-    const fetchQuestionNumber = async () => {
-      const totalNum = await getTotalSize(`questions/${listType}/${offset}/${limit}`);
-      setTotalNum(totalNum);
-    };
-    const fetchQuestions = async () => {
-      if (!isFiltered) {
-        const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
-        const questionList = [...response];
-        setQuestions(questionList);
-      }
-    };
     fetchQuestions();
     fetchQuestionNumber();
   }, []);
+
   // offset 변경 감지
   useEffect(() => {
-    const getMoreQuestions = async () => {
-      const response = await getQuestions(`questions/${listType}/${offset}/${limit}`);
-      const newList = [...questions, ...response];
-      setQuestions(newList);
-    };
     getMoreQuestions();
   }, [offset]);
 
