@@ -80,7 +80,7 @@ const FriendImage = styled.img`
   margin-right: 0.5em;
 `;
 const ContentsWrapper = styled.div`
-  padding-top: 0.4em;
+  padding-top: 0.1em;
 `;
 const Name = styled.p`
   font-size: 16px;
@@ -102,6 +102,7 @@ const Content = styled.p`
   }
 `;
 const MyTalk = styled.div`
+  margin-top: 0.5em;
   display: flex;
   flex-direction: row-reverse;
   animation: ${Show} 1s ease-out;
@@ -114,7 +115,7 @@ const MyImage = styled.img`
 `;
 
 const MyContentsWrapper = styled.div`
-  padding-top: 0.4em;
+  padding-top: 0.1em;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
