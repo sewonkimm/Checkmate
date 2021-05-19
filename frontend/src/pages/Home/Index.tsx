@@ -112,7 +112,7 @@ const Home = (): ReactElement => {
 };
 
 const HomeContainer = styled.div`
-  overflow: scroll;
+  overflow: hidden;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};
