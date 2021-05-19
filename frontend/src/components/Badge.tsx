@@ -30,7 +30,7 @@ const BadgeComponent = (props: PropsType): ReactElement => {
 
     // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다.
     const distance = setDate.getTime() - now.getTime();
-    const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const day = Math.floor(distance / (1000 * 60 * 60 * 24)) + 1;
     return day;
   };
 
