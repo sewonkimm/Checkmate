@@ -104,7 +104,7 @@ const Home = (): ReactElement => {
 
       <IntroMessenger />
 
-      <Video url="https://www.youtube.com/embed/G9Bmp6NuHSI?controls=0" />
+      <Video url="https://www.youtube.com/embed/I0TTEREEJYU?controls=0" />
 
       <Footer />
     </HomeContainer>
