@@ -108,7 +108,7 @@ const FooterContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 0;
+  margin-top: -20px;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
 `;
