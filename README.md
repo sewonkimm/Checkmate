@@ -1,174 +1,215 @@
 # ✔Checkmate
 <img src="https://user-images.githubusercontent.com/48380687/115811466-b6f4a480-a42a-11eb-9dff-dfa4057d3fa5.png" width=720 />
 
-# 💙우아한 남매들💙
-<img src="https://user-images.githubusercontent.com/48380687/115811345-7ac14400-a42a-11eb-8315-58dbb0cb50b9.png" width=720 />
+> 외국인 유학생을 위한 과제 첨삭 서비스 체크메이트!      
+> 과제나 논문을 Check ✅ 해주는 당신만의 Mate 💟 
 
-# ❤기획배경
-<br>
+<br />
+개발 기간 2021.04.12 ~ 2021.05.21
+<br />
 
-## 1. 꾸준히 증가하는 외국인 유학생!
-### - 국내 대학으로 유학 온 외국인 학생 수는 2000년 이후로 꾸준히 증가하고 있다.
-<img src="https://user-images.githubusercontent.com/48380687/115805658-5a8c8780-a420-11eb-994f-a447c4219ef2.png" width=720 />
-<br><br>
+<img src="https://img.shields.io/static/v1?label=SSAFY&message=4%EA%B8%B0&color=ff69b4">
+<img src="https://img.shields.io/static/v1?label=서울&message=1반&color=violet">
 
-## 2. 생각보다 어려운 한국어!
-### - 너무나 다양한 어미의 종류와 사용법이 존재한다.
-<img src="https://user-images.githubusercontent.com/48380687/115806144-2cf40e00-a421-11eb-888a-74b7d5303afb.png" width=360 height=240 /> <img src="https://user-images.githubusercontent.com/48380687/115805673-61b39580-a420-11eb-8050-c667c9faf7db.png" width=360 height=240 />
-<br><br>
+&nbsp;
+&nbsp;
+# 목차
 
-# 👦타겟 유저
-### - 한국어 회화는 잘하지만 과제를 위한 작문에 어려움을 겪는 외국인 유학생
-### - 페르소나 : 한국 유학 3년차, 대만출신 유홍빈 님
+
+- [1.기획배경](#기획배경)
+- [2.주요기능](#주요기능)
+- [3.기술스택](#기술스택)
+- [4.프로젝트 세팅 가이드](#프로젝트Setting가이드)
+- [5.만든사람들](#만든사람들)
+
+
+&nbsp;
+&nbsp;
+
+# 기획배경
+
+<img src="https://user-images.githubusercontent.com/30452963/119072133-f9a79d80-ba25-11eb-8764-8f04ce83799b.png" width="720" />
+
+
+1. 꾸준히 증가하는 외국인 유학생! 
+   - 국내 대학으로 유학 온 외국인 학생 수는 2000년 이후로 꾸준히 증가하고 있다.
+
+2. 생각보다 어려운 한국어!
+   - 너무나 다양한 어미의 종류와 사용법이 존재한다.
+  
+3. 코로나 블루로 우울한 유학생들!
+
+
+## 타겟 유저
+
+한국어 회화는 잘하지만 과제를 위한 작문에 어려움을 겪는 외국인 유학생
+### 페르소나 : 한국 유학 3년차, 대만출신 유홍빈 님
 <img src="https://user-images.githubusercontent.com/48380687/115805409-e18d3000-a41f-11eb-88e2-d74bdb9e207b.png" width=720 />
 <br><br>
 
-# 👎문제점
-### - 번역기와 맞춤법 검사기로만으로는 충분하지 않다!
-### - 문맥을 파악하지 못한 잘못된 번역
-### - 문법적으로 문제는 없지만 어딘가 이상한 문장들
-<img src="https://user-images.githubusercontent.com/48380687/115807178-0e8f1200-a423-11eb-9264-8f2f91261aa7.png" width=720 />
-<br><br>
 
-# 👍해결방안
-### - 자주 쓰이는 용어를 분석해 인공지능이 자동 추천
-### - 자연스러운 표현을 위한 한국어 원어민 첨삭 서비스
-<br><br>
+&nbsp;
+&nbsp;
+# 주요기능
 
-# 💜서비스 정의
-### - 1. 과제 / 논문에 최적화 된 AI 첨삭
-### - 2. 한국어 원어민 첨삭
-<img src="https://user-images.githubusercontent.com/48380687/115807704-18fddb80-a424-11eb-9663-8e132def9f41.png" width="360" height="360" />
+### 1. AI 맞춤법 검사기
 
-## 체크메이트(Checkmate) : 당신의 레포트를 체크해주는 친절한 원어민 친구
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/30452963/119074774-966c3a00-ba2a-11eb-9ed3-f0f8bf922ad6.png">
+
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/30452963/119074883-cca9b980-ba2a-11eb-9f33-7a902d42de9e.png">
 
 
+### 2. 원어민 첨삭
 
-# 📕산출물
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/30452963/119074971-f4991d00-ba2a-11eb-85ce-90a2bd3bbb81.png">
 
-## ERD
+### 3. 온라인 커뮤니티
 
-<img src="https://user-images.githubusercontent.com/56106402/115806618-126e6480-a422-11eb-8090-edd910451715.png" width=720 />
-
-## 와이어 프레임
-
-<img src="https://user-images.githubusercontent.com/56106402/115806773-57929680-a422-11eb-8ebe-3a93bf8e6ae4.png" width=360 /> <img src="https://user-images.githubusercontent.com/56106402/115806771-57929680-a422-11eb-88b5-85c36f223ee6.png" width=360 /><br/>
-
-# 💻Installation
-
-```bash
-// 설치
-yarn -i 
-or
-yarn install
-
-// 시작
-yarn start
-```
-
-# 📍 체크 메이트 
-
-- "Check" + "Mate" == 리포트나 에세이를 "체크" 해주는 "주변의 친구" 를 합친 단어
-
-- 2021.04.12 ~
+<img src="https://user-images.githubusercontent.com/30452963/119072497-86eaf200-ba26-11eb-9f7b-fb4051ddb4bd.gif" width="720" />
 
 
 
-## 📌 기획 의도
-
-- 유학생들에게 한국인에게 한국어 첨삭 제공 서비스
-- AI 답변으로 시간이 촉박한 유학생에게 한국어 첨삭 서비스 제공
-
-- Chegg, 네이버 - 지식인, wordvisor, 루펠, 등의 서비스들을 참고
 
 
+&nbsp;
+&nbsp;
 
-## 🧷 차이점 
+# 기술스택
 
-- 기존에 한국에 존재하지 않는 독자적인 플랫폼
-- 답변 채택 시스템과 포인트 획득 시스템
-- 추후 다양한 상품화, 커뮤니티 생성에 기여
+### IDE
+
+- VSCode
+- IntelliJ
+- Pycharm
+### Frontend
+
+| Name             | Version |
+| ---------------- | ------- |
+| React            | 17.0.2  |
+| TypeScript       | 4.1.2   |
+| Styled-component | 5.2.3   |
+| redux            | 4.1.0   |
+| chart.js         | 3.2.1   |
+| i18next          | 20.2.2  |
+| axios            | 0.21.1  |
+
+### Backend
+
+| Name        | Version |
+| ----------- | ------- |
+| Java        | 11      |
+| Springboot  | 2.4.5   |
+| Gradle      | 6.8.3   |
+| MariaDB     | latest  |
+| Nodejs      | 14.15.5 |
+| express     | 4.17.1  |
+| peer        | 0.5.3   |
+| socket.io   | 2.3.0   |
+| fastapi     | 0.63.0  |
+| pip         | 21.1.1  |
+| uvicorn     | 0.13.4  |
+| gensim      | 3.8.3   |
+| konlpy      | 0.5.2   |
+| py-hanspell | 1.1     |
 
 
+### DevOps
 
-## ✨ 기술 스텍
+- Jenkins
+- NginX
+- Docker
 
-- React - 17.0.2
-- Styled - Component - 5.2.3
-- TypeScript - 4.1.2
+### 협업 툴
 
-> 다양한 협업, 에디터 툴을 사용 중
->
-> - Visual Studio Code
-> - GIt Lab
-> - Notion
-> - 비대면 프로젝트 진행
->   - Matter Most
->   - Webex Meetings
-> - Figma - WireFrame
->   - 메인 컬러 지정
->     - 파랑 색(primary) 0F16F8
->     - 분홍색(secondary) F600E1
+- Git Lab
+- Notion
+- Jira
+- Matter Most
+- Webex 
+- Figma
 
+### 컨벤션
 
-
-## 📃 사용된 라이브러리
-
-- React router
-- React transition group
-
-
-
-## 🔧 컨벤션 
-
-- Eslint - 7.24.0
-  - eslint-config-airbnb - 18.2.1
+- Eslint - 7.24.0 (airbnb)
 - Prettier - 2.2.1
 
-
-
-## 크로스 브라우징 플랫폼 설정 🎈
+### 크로스 브라우징 플랫폼 설정
 
 - Last 1 chrome version
 - Last 1 Firefox version
 - Last 1 safari version
 
 
-
 > 추후에 사용 범위를 늘려갈 예정
 >
 > '> 5% in KR' 등이 후보
 
-# 시스템 아키텍쳐
+### 와이어 프레임
 
-![image](https://user-images.githubusercontent.com/43171179/115608617-7a895180-a321-11eb-8315-68a8bf183005.png)
+<img src="https://user-images.githubusercontent.com/30452963/119069844-d8dd4900-ba21-11eb-97d2-fdb993cb8855.png" width="720" />
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/30452963/119068538-64090f80-ba1f-11eb-9df8-902fa39b6c26.png">
+<img src="https://user-images.githubusercontent.com/56106402/115806773-57929680-a422-11eb-8ebe-3a93bf8e6ae4.png" width=360 /> <img src="https://user-images.githubusercontent.com/56106402/115806771-57929680-a422-11eb-88b5-85c36f223ee6.png" width=360 /><br/>
 
-# 개발환경 버전
+### ERD
 
- Name       | Version |
-------------|---------|
- React      | 17.0.2  |
- Yarn       | 1.22.19 |
- TypeScript | 4.1.2   |
- Java       | 11      |
- Springboot | 2.4.5   |
- Gradle     | 6.8.3   |
- MariaDB    | latest  |
+<img src="https://user-images.githubusercontent.com/30452963/119068412-1ab8c000-ba1f-11eb-8127-25117e9291ef.png" width=720 />
 
+
+### 서비스 아키텍쳐
+
+<img src="https://user-images.githubusercontent.com/30452963/119070410-e6df9980-ba22-11eb-9a06-20d9b898f8d0.png" width=720 />
+
+
+&nbsp;
+&nbsp;
+
+# 프로젝트Setting가이드
+## Frontend
 
 ## Yarn 설치
+
+
+```bash
+// 설치
+$ yarn install
+
+// 시작
+$ yarn start
+```
+## Backend
+
+### AI
+
+```bash
+// 설치
+$ pip install -r requirements.txt
+
+// 시작
+$ python main.py
+```
+### webRTC
+
+```bash
+// 설치
+$ npm i install 
+
+// 시작
+$ npm run start
+```
+
+## 서버
+### Yarn 설치
 ```
 $ sudo apt-get update && sudo apt-get upgrade
 $ sudo apt npm install
 $ sudo npm install --global yarn
 ```
-
-## Open JDK 11 설치
+### Open JDK 11 설치
 ```
 $ sudo apt-get install openjdk-11-jdk
 $ sudo apt-get isntall openjdk-11-jre
 ```
-## 환경설정
+### 환경설정
 ```
 $ vim ~/.bashrc
 export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
@@ -176,7 +217,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 $ source ~/.bashrc
 $ echo $JAVA_HOME // /user/lib/jvm/java-11-openjdk-amd64
 ```
-## Gradle 6.8.3 install
+### Gradle 6.8.3 install
 
 ```
 $ sudo apt install whet unzip // 툴 다운로드
@@ -188,7 +229,7 @@ $ export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
 $ gradle -v
 ```
 
-## Docker 설치
+### Docker 설치
 
 ```
 # 필수 패키지 설치
@@ -205,7 +246,7 @@ sudo systemctl enable docker && service docker start
 sudo service docker status
 ```
 
-## MariaDB 도커 설치 및 컨테이너 실행
+### MariaDB 도커 설치 및 컨테이너 실행
 ```
 # mariadb 이미지 불러오기
 sudo docker pull mariadb
@@ -221,7 +262,7 @@ mysql -u root -p
 {비밀번호}
 ```
 
-## 프로젝트 실행
+### 프로젝트 실행
 
 ```
 # frontend(React) 실행
@@ -235,7 +276,7 @@ $ cd backend
 $ gradle build
 ```
 
-## 젠킨스 설치
+### 젠킨스 설치
 
 ```
 # 도커 설치 및 실행
@@ -248,3 +289,13 @@ $ sudo iptables -I OUTPUT 1 -p tcp --dport {port} -j ACCEPT
 # 컨테이너 쉘 접속
 $ docker exec -it {container name} /bin/bash
 ```
+&nbsp;
+&nbsp;
+
+# 만든사람들
+
+### 💙우아한 남매들💙
+<img src="https://user-images.githubusercontent.com/48380687/115811345-7ac14400-a42a-11eb-8315-58dbb0cb50b9.png" width=720 />
+<img src="https://user-images.githubusercontent.com/30452963/119068256-cb728f80-ba1e-11eb-96f4-101c1c99dc6f.png" width=720 />
+
+
